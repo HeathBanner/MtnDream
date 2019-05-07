@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:700|Permanent+Marker" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/slide.css">
+    <title>Home</title>
+</head>
+<body>
+    <div class="container-fluid parallax-window" data-parallax="scroll" data-image-src="imgs/pablo-fierro.png">
+            <div class="row">
+                <div class="col-lg-12 nav-bg">
+                                            
+                    <nav>
+                        <ul>
+                            <div id="nav">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/">The Cabin</a></li>
+                            <li><a href="/">Things To Do</a></li>
+                            <li><a href="/">Contact Us</a></li>
+                            </div>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8 content-bg">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <main>
+
+                            <h1 id="intro-header">A Mountain Dream Cabin</h1>
+
+                            <p id="intro-body">Welcome to our little piece of paradise in the mountains of Boone NC! 
+                            A Mountain Dream Cabin is far enough from civilization to be secluded, 
+                            yet close enough to town & local attractions to be more than convenient. 
+                            Located only 10 quick miles outside of Boone, NC in the exclusive log 
+                            cabin community of Twin Hollows. A Mountain Dream has every amenity to 
+                            make your stay as comfortable, pleasant and stress free as you could 
+                            ever imagine.</p>  
+
+                        </main>
+                        
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div class="slideshow-container">
+
+                        <div class="mySlides fade-slide">
+                        <div class="numbertext">1 / 3</div>
+                        <img src="imgs/mtn-view.png" style="width:100%">
+                        <div class="text">Caption Text</div>
+                        </div>
+                    
+                        <div class="mySlides fade-slide">
+                        <div class="numbertext">2 / 3</div>
+                        <img src="imgs/img2.jpg" style="width:100%">
+                        <div class="text">Caption Two</div>
+                        </div>
+                    
+                        <div class="mySlides fade-slide">
+                        <div class="numbertext">3 / 3</div>
+                        <img src="imgs/img3.jpg" style="width:100%">
+                        <div class="text">Caption Three</div>
+                        </div>
+                    
+                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                        </div>
+                        <br>
+      
+                        <div style="text-align:center">
+                            <span class="dot" onclick="currentSlide(1)"></span> 
+                            <span class="dot" onclick="currentSlide(2)"></span> 
+                            <span class="dot" onclick="currentSlide(3)"></span> 
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    </div>
+    
+    <script src="js/slide.js"></script>
+</body>
+</html>
