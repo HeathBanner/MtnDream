@@ -66,7 +66,7 @@ const ImageList = () => {
 
                         <img 
                             className={classes.imgs} 
-                            src={`http://www.daveallenphotography.com/gallery/l_summer_laurel_blue_ridge_parkway_nc.jpg`} 
+                            src={`https://www.daveallenphotography.com/gallery/l_summer_laurel_blue_ridge_parkway_nc.jpg`} 
                             alt="Dave Allen Photography" 
                         />
 

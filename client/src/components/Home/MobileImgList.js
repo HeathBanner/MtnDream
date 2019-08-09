@@ -65,7 +65,7 @@ const MobileImgList = () => {
             <Grid className={classes.imgContainers} item xs={12}>
 
                 <Parallax 
-                    bgImage={`http://www.daveallenphotography.com/gallery/l_summer_laurel_blue_ridge_parkway_nc.jpg`}
+                    bgImage={`https://www.daveallenphotography.com/gallery/l_summer_laurel_blue_ridge_parkway_nc.jpg`}
                     bgImageAlt="Dave Allen Photography"
                     strength={200}
                     className={classes.parallax}

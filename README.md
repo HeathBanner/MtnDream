@@ -1,68 +1,36 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Mountain Dream
 
-## Available Scripts
+Mountain Dream is an application built to showcase a rental cabin in the mountains of Boone, NC. It uses basic parallax and transform animations. What will stand out is the blog editor for the future implementation of the blog section. The client will be able to maintain their blog without the need of programming. By replicating the basic functions of Google Docs they can create, edit and delete blog articles.
 
-In the project directory, you can run:
+## Motivation
 
-### `npm start`
+Having a client that enjoys the aesthetics of an application you've created is always a happy feeling. What if you also create an application that allows them to have more power than a regular website? The vision is to give them the ability to self-maintain a portion of their own application. Having a blog for any business helps with customer engagement. Giving the client this power helps them not only keep visibility but boost confidence in you as the developer.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Build Status
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+![Build Status](https://travis-ci.org/HeathBanner/FutureScaper.svg?branch=master)
 
-### `npm test`
+## Code Style
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![js-standard-style](https://camo.githubusercontent.com/1c5c800fbdabc79cfaca8c90dd47022a5b5c7486/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f636f64652532307374796c652d616972626e622d627269676874677265656e2e7376673f7374796c653d666c61742d737175617265)
 
-### `npm run build`
+## Tech / Framework
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<b>Front-End built with</b>
+- [React JS](https://reactjs.org/)
+- [Material-UI](https://material-ui.com/)
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+<b>Back-End built with</b>
+- [Node JS](https://nodejs.org)
+- [Express JS](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/) 
+- [Mongoose JS](https://mongoosejs.com/)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## License
+MIT @ [Heath Banner](https://github.com/HeathBanner)
 
-### `npm run eject`
+## Project under construction!
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+This application is currently working but the Editor and Todo page is still being built.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## [Mountain Dream](https://mtndream.herokuapp.com/)
