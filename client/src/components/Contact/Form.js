@@ -115,8 +115,6 @@ const Form = () => {
     const [open, setOpen] = useState(false);
 
     const handleSubmit = () => {
-
-        console.log('Fire')
         fetch('/api/contact/contactMe', {
             method: 'POST',
             body: JSON.stringify(info),

@@ -48,7 +48,6 @@ const Nav = () => {
       fetch('https://api.openweathermap.org/data/2.5/weather?lat=36.2168&lon=81.6746&units=imperial&APPID=4216d1350fe31af9bf5100bb34fa72e2')
       .then(res => res.json())
       .then(result => { 
-        console.log(result);
         setWeather({
           desc: result.weather[0].description,
           image: `https://openweathermap.org/img/w/${result.weather[0].icon}.png`,

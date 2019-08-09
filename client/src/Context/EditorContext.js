@@ -26,20 +26,12 @@ export const EditorProvider = props => {
     const [body, setBody] = useState([ { ...intialPreview } ]);
     
     useEffect(() => {
-
-        console.log(currentBody, body[0]);
-    }, [body, currentBody])
-
-    useEffect(() => {
-
         fetch('/api/editors/getList')
         .then(res => res.json())
-        .then(result => {
-            console.log(...result);
+        .then((result) => {
             setArticleList(result)
         })
-        .catch(error => console.log(error));
-
+        .catch((error) => {});
     }, [] );
 
     const handleMode = () => {
@@ -92,9 +84,6 @@ export const EditorProvider = props => {
     };
 
     const handleSubmit = data => {
-
-        console.log('SUBMIT')
-
         fetch('/api/editors/newSection',{
             method: 'POST',
             body: JSON.stringify(data),
@@ -102,31 +91,22 @@ export const EditorProvider = props => {
         })
         .then(res => res.json())
         .then((result) => {
-            console.log(result);
             setTitle(result.title);
             setJumbotron(result.jumbotron);
             setBody(result.body);
         })
-        .catch(error => {
-            console.log(error);
-        })
+        .catch(error => {})
     };
 
     const handleBody = ( input, index ) => {
-
         let newBody = body;
         newBody[index].text = input;
-        console.log(index, newBody[index]);
-
         setBody([ ...newBody ]);
     };
 
     const handleInput = ( e, section ) => {
-
         let input = e.target.value;
-
         switch (section.El) {
-
             case 'title':
                 setTitle({ ...title, text: input });
                 break;
@@ -142,21 +122,17 @@ export const EditorProvider = props => {
     };
 
     const handleArticle = () => {
-
         let section = {
             sectionMode: sectionMode,
             title: title,
             jumbotron: jumbotron,
             body: body,
-        }
-
+        };
         handleSubmit(section);
     };
 
     const handleFont = ( newFont ) => {
-
         switch (sectionMode.el) {
-        
             case 'title':
                 setTitle({ ...title, font: newFont });
                 break;
@@ -166,14 +142,12 @@ export const EditorProvider = props => {
                 setBody([ ...newBody ]);
                 break;
             default:
-                return
+                break;
         }
     };
 
-    const handleStyling = ( style, color ) => {
-
+    const handleStyling = (style) => {
         switch (sectionMode.el) {
-            
             case 'title':
                 setTitle({ ...title, [style]: !title[style] });
                 break;
@@ -183,14 +157,12 @@ export const EditorProvider = props => {
                 setBody([ ...newBody ]);   
                 break;
             default:
-                return
+                break;
         }
     };
 
     const handleJustify = justification => {
-
         switch (sectionMode.el) {
-
             case 'title':
                 setTitle({ ...title, justify: justification });
                 break;
@@ -200,14 +172,12 @@ export const EditorProvider = props => {
                 setBody([ ...newBody ]);
                 break;
             default:
-                return
+                break;
         }
     };
 
     const handleTextStyle = style => {
-
         switch (sectionMode.el) {
-
             case 'title':
                 setTitle({ ...title, textStyle: style });
                 break;
@@ -217,7 +187,7 @@ export const EditorProvider = props => {
                 setBody([ ...newBody ]);
                 break;
             default:
-                return
+                break;
         }
     };
 
@@ -245,7 +215,9 @@ export const EditorProvider = props => {
                 handleSectionMode
             }}
         >
+
             {props.children}
+
         </EditorContext.Provider>
     );
 };

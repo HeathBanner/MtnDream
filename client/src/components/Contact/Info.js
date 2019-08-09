@@ -13,6 +13,9 @@ const useStyles = makeStyles(theme => ({
             height: '85vh',
             backgroundSize: 'auto 90%',
         },
+        [theme.breakpoints.down('md')]: {
+            height: '100vh',
+        },
         [theme.breakpoints.down('sm')]: {
             height: '95vh'
         },
@@ -187,19 +190,14 @@ const Info =  () => {
         switch (true) {
 
             case media.xs:
-                console.log('xs');
                 return 'h3';
             case media.sm:
-                console.log('sm');
                 return 'h1';
             case media.md:
-                console.log('md');
                 return 'h1';
             case media.lg:
-                console.log('lg');
                 return 'h1';
             default:
-                console.log('xl');
                 return 'h1'; 
         }
     };

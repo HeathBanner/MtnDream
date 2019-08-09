@@ -42,7 +42,7 @@ const Body = () => {
                     :
                 media.lg ? '60%'
                     :
-                '60%',
+                '40%',
                 width: '100%',
                 overflow: 'visible !important'
             },

@@ -80,28 +80,21 @@ const Home = () => {
 
     const classes = useStyles();
 
-    const getVariant = () => {
-        
+    const getVariant = () => {      
         switch (true) {
-
             case media.xs:
-                console.log('xs');
                 return 'h5';
 
             case media.sm:
-                console.log('sm');
                 return 'h3';
 
             case media.md:
-                console.log('md');
                 return 'h3';
 
             case media.lg:
-                console.log('lg');
                 return 'h2';
 
             default:
-                console.log('xl');
                 return 'h1';
         }
     };
