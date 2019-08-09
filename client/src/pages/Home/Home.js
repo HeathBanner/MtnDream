@@ -60,7 +60,6 @@ const Home = () => {
         img: {
             [theme.breakpoints.down('lg')]: {
                 height: '60vh',
-                width: 'auto',
             },
             [theme.breakpoints.down('sm')]: {
                 height: '50vh',

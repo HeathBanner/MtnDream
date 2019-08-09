@@ -40,7 +40,7 @@ const Body = () => {
                     :
                 media.md ? '0%'
                     :
-                media.lg ? '60%'
+                media.lg ? '50%'
                     :
                 '40%',
                 width: '100%',

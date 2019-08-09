@@ -31,11 +31,16 @@ const tutorialSteps = [
 const useStyles = makeStyles(theme => ({
   root: {
     [theme.breakpoints.down('md')]: {
-      width: '70%',
+      width: 530,
     },
-    width: '80%',
+    [theme.breakpoints.down('xs')]: {
+      width: 250,
+      height: 260,
+    },
+    width: 530,
     margin: '20px auto',
     flexGrow: 1,
+    overflow: 'hidden',
     borderRadius: '10px',
     boxShadow: '0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12)'
   },
@@ -52,12 +57,17 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: theme.spacing(4),
     backgroundColor: theme.palette.background.default,
   },
+  imgHolder: {
+    [theme.breakpoints.down('xs')]: {
+      height: 200,
+    },
+    height: 400,
+  },
   img: {
-    height: 'auto',
-    maxWidth: '100%',
+    height: '100%',
+    width: 'auto',
     display: 'block',
     overflow: 'hidden',
-    width: '100%',
     borderRadius: '10px 10px 0px 0px',
   },
   buttons: {
@@ -108,7 +118,7 @@ const SlideShow = () => {
         enableMouseEvents
       >
         {tutorialSteps.map((step, index) => (
-          <div key={step.label}>
+          <div className={classes.imgHolder} key={step.label}>
             {Math.abs(activeStep - index) <= 2 ? (
               <img className={classes.img} src={step.imgPath} alt={step.label} />
             ) : null}
