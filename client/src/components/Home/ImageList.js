@@ -79,8 +79,6 @@ const ImageList = () => {
         top: '45%',
     };
 
-    console.log(media.md);
-
     return (
         <Grid container>
 
