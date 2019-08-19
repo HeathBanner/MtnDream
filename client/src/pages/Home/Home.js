@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 
-import { Parallax, Background }  from 'react-parallax';
+import { Parallax }  from 'react-parallax';
 
 import { MediaContext } from '../../Context/MediaQuery';
 
@@ -11,7 +11,7 @@ import Nav from '../../components/Navigation/Nav';
 import Body from '../../components/Home/Main/Body';
 import Footer from '../../components/Home/Footer';
 
-import SVG from '../../components/Home/imgs/1x/placeholder.png';
+import Boone from '../../components/Home/imgs/Boone.jpg';
 
 const Home = () => {
 
@@ -25,8 +25,7 @@ const Home = () => {
             [theme.breakpoints.down('xs')]: {
                 marginTop: 55
             },
-            marginTop: 60, 
-            height: '80vh', 
+            height: 800, 
             width: '100vw', 
             position: 'relative' 
         },
@@ -35,7 +34,7 @@ const Home = () => {
             top: '0%',
             left: '50%',
             transform: 'translate(-50%, 0%)', 
-            height: '80vh', 
+            height: 800, 
             width: '100vw',
             zIndex: 2,
             '& .react-parallax-background-children': {
@@ -43,11 +42,11 @@ const Home = () => {
                 :
                 media.sm ? '90%'
                     :
-                media.md ? '95%'
+                media.md ? '70%'
                     :
-                media.lg ? '95%'
+                media.lg ? '90%'
                     :
-                '95%'
+                '90%'
             }
         },
         bgContainer: {
@@ -59,20 +58,18 @@ const Home = () => {
         },
         img: {
             [theme.breakpoints.down('lg')]: {
-                height: '60vh',
+                // height: '60vh',
             },
             [theme.breakpoints.down('sm')]: {
-                height: '50vh',
+                // height: '50vh',
             },
             [theme.breakpoints.down('xs')]: {
-                height: '80vh',
+                // height: '80vh',
             },
-            height: '60vh',
+            height: 'auto',
             width: '100vw'
         },
         typo: {
-            zIndex: 3,
-            width:'100%',
             color: 'white',
         },
     })); 
@@ -109,7 +106,7 @@ const Home = () => {
                 return 1000;
 
             case media.md:
-                return 800;
+                return 600;
 
             case media.lg:
                 return 800;
@@ -123,53 +120,29 @@ const Home = () => {
 
         <Grid className={classes.container} container >
 
-            <Grid item xs={12}>
+            <Grid style={{ height: 60 }} item xs={12}>
 
                 <Nav />
 
             </Grid>
-            <Grid style={{height: '80vh'}} item xs={12}>
+            <Grid item xs={12}>
 
+    
                 <Parallax 
-                    strength={getStrength()} 
-                    className={classes.jumboText}
-                    style={{
-                        position: 'absolute',
-                        top: '0%',
-                        left: '50%',
-                        transform: 'translate(-50%, 0%)', 
-                        height: '80vh', 
-                        width: '100vw',
-                        zIndex: 2                
-                    }}
+                    strength={200} 
+                    bgImage={Boone}
                 >
 
-                    <Background className={classes.bgContainer}>
+                    <div style={{ width: '100vw', height: '50vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 
                         <Typography className={classes.typo} variant={getVariant()} align="center">
                             Welcome to our little piece of paradise!
                         </Typography>
 
-                    </Background>
-                        
+                    </div>
+
                 </Parallax>
-                <Parallax 
-                    strength={-800} 
-                    className={classes.jumbotron}
-                    style={{}}
-                    bgStyle={{
-                        top: '40%',
-                        zIndex: 2
-                    }}
-                >
 
-                    <Background className={classes.bgContainer}>
-
-                        <img className={classes.img} src={SVG} alt="Jumbotron" />            
-
-                    </Background>
-                        
-                </Parallax>
 
             </Grid>
 

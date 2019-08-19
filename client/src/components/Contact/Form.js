@@ -13,9 +13,10 @@ const initInfo = {
     message: ''
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     formContainer: {
-        height: '80vh',
+        paddingTop: 300,
+        paddingBottom: 100,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -36,9 +37,6 @@ const useStyles = makeStyles(theme => ({
         flexWrap: 'wrap'
     },
     input: {
-        [theme.breakpoints.up('lg')]: {
-            marginTop: 40,
-        },
         [theme.breakpoints.up('sm')]: {
             marginTop: 30
         },
@@ -46,36 +44,32 @@ const useStyles = makeStyles(theme => ({
         marginTop: 20,
     },
     inputBase: {
-        [theme.breakpoints.up('lg')]: {
-            padding: '25px 20px',
-            fontSize: '2rem',
+        fontSize: '1.5rem',
+        padding: 15,
+        [theme.breakpoints.down('md')]: {
+            fontSize: '1.2rem',
+            padding: '10px 10px',
         },
         [theme.breakpoints.down('xs')]: {
             padding: 10
         },
-        padding: '22px 18px',
-        fontSize: '1.5rem',
     },
     textFieldLabels: {
-        [theme.breakpoints.up('lg')]: {
-            fontSize: '2rem',
-            transform: 'translate(20px, 25px) scale(1)'
-        },
-        [theme.breakpoints.down('xs')]: {
+        [theme.breakpoints.down('md')]: {
             fontSize: '1.2rem',
             transform: 'translate(15px, 15px) scale(1)'
         },
+        fontSize: '1.5rem',
+        transform: 'translate(18px, 18px) scale(1)',
         '&.MuiInputLabel-outlined.MuiInputLabel-shrink': {
-            [theme.breakpoints.up('lg')]: {
-                transform: 'translate(14px, -14px) scale(0.75)'
+            [theme.breakpoints.down('lg')]: {
+                transform: 'translate(14px, -11px) scale(0.75)'
             },
-            [theme.breakpoints.down('xs')]: {
+            [theme.breakpoints.down('md')]: {
                 transform: 'translate(14px, -7.5px) scale(0.75)'
             },
-            transform: 'translate(14px, -9px) scale(0.75)'
+            transform: 'translate(14px, -14px) scale(0.75)'
         },
-        fontSize: '1.5rem',
-        transform: 'translate(18px, 22px) scale(1)'
     },
     button: {
         [theme.breakpoints.up('lg')]: {
@@ -118,28 +112,26 @@ const Form = () => {
         fetch('/api/contact/contactMe', {
             method: 'POST',
             body: JSON.stringify(info),
-            headers: {'Content-Type': 'application/json'}
+            headers: { 'Content-Type': 'application/json' }
         })
-        .then(res => res.json())
-        .then(result => {
-            if(!result) { setStatus('Something went wrong!')}
-            setOpen(true);
-            setInfo({ ...initInfo });
-        });
+            .then(res => res.json())
+            .then(result => {
+                if (!result) { setStatus('Something went wrong!'); }
+                setOpen(true);
+                setInfo({ ...initInfo });
+            });
     };
 
     const handleClose = () => {
         setOpen(false);
     };
 
-    const slideTransition = props => {
+    const slideTransition = (props) => {
         return <Slide {...props} direction="right" />
     };
 
     const getHeaderVariant = () => {
-
         switch (true) {
-
             case media.xs:
                 return 'h4';
             case media.sm:
@@ -150,9 +142,7 @@ const Form = () => {
     };
 
     const getButtonVariant = () => {
-         
         switch (true) {
-
             case media.md:
                 return 'h5';
             case media.lg:
@@ -163,12 +153,16 @@ const Form = () => {
     };
 
     return (
-
         <Grid className={classes.formContainer} item xs={12}>
 
             <Paper className={classes.formPaper}>
 
-                <Typography className={classes.formHeader} variant={getHeaderVariant()} color="primary" align="center">
+                <Typography
+                    className={classes.formHeader}
+                    variant={getHeaderVariant()}
+                    color="primary"
+                    align="center"
+                >
                     Contact Us!
                 </Typography>
 
@@ -222,9 +216,7 @@ const Form = () => {
                     open={open}
                     onClose={handleClose}
                     TransitionComponent={ slideTransition }
-                    ContentProps={{
-                        'aria-describedby': 'message-id'
-                    }}
+                    ContentProps={{ 'aria-describedby': 'message-id' }}
                     autoHideDuration={6000}
                 >
 
@@ -240,7 +232,6 @@ const Form = () => {
                                 <Icon>close</Icon>
                             </IconButton>
                         }
-    
                     />
 
                 </Snackbar>

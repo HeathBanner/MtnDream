@@ -1,22 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { MediaContext } from '../../Context/MediaQuery';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Button } from '@material-ui/core';
 
 import { Parallax, Background } from 'react-parallax';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     containers: {
+        [theme.breakpoints.down('md')]: {
+            height: 1000,
+        },
         width: '100vw', 
-        height: '75vh',
+        height: 1000,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        overflow: 'visible',
+        background: 'none',
     },
     elContainers: {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        overflow: 'visible',
     },
     imgs: {
         width: '80%', 
@@ -43,30 +51,52 @@ const useStyles = makeStyles(theme => ({
 const ImageList = () => {
 
     const classes = useStyles();
+    const media = useContext(MediaContext);
+
+    const textStyle = {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    };
+
+    const textBgStyle = {
+        width: '100%',
+        top: '50%',
+    };
+
+    const imgStyle = {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    };
+
+    const imgBgStyle = {
+        width: '100%',
+        top: '45%',
+    };
+
+    console.log(media.md);
 
     return (
-
         <Grid container>
 
             <Grid className={classes.containers} item xs={6}>
 
                 <Parallax 
                     strength={-200}
-                    style={{
-                        width: '100%',
-                        height: '100%'
-                    }}
-                    bgStyle={{
-                        width: '100%',
-                        top: '50%'
-                    }}
+                    style={imgStyle}
+                    bgStyle={imgBgStyle}
                 >
 
                     <Background className={classes.elContainers} style={{ width: '100%', height: '100%' }}>
 
                         <img 
                             className={classes.imgs} 
-                            src={`https://www.daveallenphotography.com/gallery/l_summer_laurel_blue_ridge_parkway_nc.jpg`} 
+                            src={`http://67adb0ae45c3c86e2ed9-8d955638d6ccc0c65b563c0cc679e8f0.r60.cf1.rackcdn.com/1392157777_blowing-rock-wallpaper-1.jpg`} 
                             alt="Dave Allen Photography" 
                         />
 
@@ -79,14 +109,8 @@ const ImageList = () => {
 
                 <Parallax 
                     strength={400}
-                    style={{
-                        width: '100%',
-                        height: '100%'
-                    }}
-                    bgStyle={{
-                        width: '100%',
-                        top: '70%'
-                    }}
+                    style={textStyle}
+                    bgStyle={textBgStyle}
                 >
 
                     <Background style={{ width: '100%', height: '100%' }}>
@@ -106,14 +130,8 @@ const ImageList = () => {
 
                 <Parallax 
                     strength={400}
-                    style={{
-                        width: '100%',
-                        height: '100%'
-                    }}
-                    bgStyle={{
-                        width: '100%',
-                        top: '70%'
-                    }}
+                    style={textStyle}
+                    bgStyle={textBgStyle}
                 >
 
                     <Background className={classes.elContainers}>
@@ -134,14 +152,8 @@ const ImageList = () => {
 
                 <Parallax 
                     strength={-200}
-                    style={{
-                        width: '100%',
-                        height: '100%'
-                    }}
-                    bgStyle={{
-                        width: '100%',
-                        top: '50%'
-                    }}
+                    style={imgStyle}
+                    bgStyle={imgBgStyle}
                 >
 
                     <Background className={classes.elContainers} style={{ width: '100%', height: '100%' }}>
@@ -161,14 +173,8 @@ const ImageList = () => {
 
                 <Parallax 
                     strength={-200}
-                    style={{
-                        width: '100%',
-                        height: '100%'
-                    }}
-                    bgStyle={{
-                        width: '100%',
-                        top: '50%'
-                    }}
+                    style={imgStyle}
+                    bgStyle={imgBgStyle}
                 >
 
                     <Background className={classes.elContainers} style={{ width: '100%', height: '100%' }}>
@@ -184,18 +190,12 @@ const ImageList = () => {
                 </Parallax>
 
             </Grid>
-            <Grid style={{ width: '100vw', height: '80vh' }} item xs={6}>
+            <Grid className={classes.containers} item xs={6}>
 
                 <Parallax 
                     strength={400}
-                    style={{
-                        width: '100%',
-                        height: '100%'
-                    }}
-                    bgStyle={{
-                        width: '100%',
-                        top: '70%'
-                    }}
+                    style={textStyle}
+                    bgStyle={textBgStyle}
                 >
 
                     <Background className={classes.elContainers}>
@@ -211,35 +211,17 @@ const ImageList = () => {
 
             </Grid>
 
-            <Grid style={{ height: '20vh' }} item xs={12}>
-
-            <Parallax 
-                    strength={-400}
-                    style={{
-                        width: '100%',
-                        height: '100%'
-                    }}
-                    bgStyle={{
-                        width: '100%',
-                        top: '70%'
-                    }}
-                >
-
-                    <Background className={classes.elContainers}>
+            <Grid style={{ height: '20vh', display: 'flex', justifyContent: 'center' }} item xs={12}>
                         
-                        <a style={{textDecoration: 'none'}} href={`https://www.blueridgeparkway.org/`} target="_blank" rel="noopener noreferrer">
-                            <Button className={classes.button}>
-                                
-                                <Typography variant="h4" align="center">
-                                    Visit the official Blue Ridge Parkway website!
-                                </Typography>
+                <a style={{textDecoration: 'none'}} href={`https://www.blueridgeparkway.org/`} target="_blank" rel="noopener noreferrer">
+                    <Button className={classes.button}>
+                        
+                        <Typography variant="h4" align="center">
+                            Visit the official Blue Ridge Parkway website!
+                        </Typography>
 
-                            </Button>
-                        </a>
-
-                    </Background>
-
-                </Parallax>
+                    </Button>
+                </a>
 
             </Grid>
 

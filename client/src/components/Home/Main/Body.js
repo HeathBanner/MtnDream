@@ -13,18 +13,18 @@ const Body = () => {
     
     const media = useContext(MediaContext);
 
-    const useStyles = makeStyles(theme => ({
+    const useStyles = makeStyles((theme) => ({
         container: {
             [theme.breakpoints.down('md')]: {
-                height:'170vh',
+                height: 1600,
             },
             [theme.breakpoints.down('sm')]: {
-                height: '130vh'
+                height: 1600
             },
             [theme.breakpoints.down('xs')]: {
-                height: '170vh',
+                height: 1600,
             },
-            height: '140vh',
+            height: 2000,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'flex-end',
@@ -40,7 +40,7 @@ const Body = () => {
                     :
                 media.md ? '0%'
                     :
-                media.lg ? '50%'
+                media.lg ? '40%'
                     :
                 '40%',
                 width: '100%',
@@ -58,11 +58,11 @@ const Body = () => {
                 :
                 media.sm ? '100%'
                     :
-                media.md ? '125%'
+                media.md ? '115%'
                     :
-                media.lg ? '65%'
+                media.lg ? '45%'
                     :
-                '70%',
+                '50%',
                 width: '100%', 
             },
         },
@@ -107,9 +107,7 @@ const Body = () => {
     const classes = useStyles();
 
     const getTextSpeed = () => {
-
         switch (true) {
-
             case media.xs:
                 return 200;
             case media.md:
@@ -120,9 +118,7 @@ const Body = () => {
     };
 
     const getSlideSpeed = () => {
-
         switch (true) {
-
             case media.xs:
                 return -150;
             case media.md:
@@ -133,9 +129,7 @@ const Body = () => {
     };
 
     const getVariant = () => {
-
         switch (true) {
-
             case media.xs:
                 return 'body1';
             case media.sm:
@@ -150,7 +144,6 @@ const Body = () => {
     };
 
     return (
-
         <Grid className={classes.container} container>
 
             <Grid className={classes.textContainer} item lg={6} md={12}>     
@@ -194,6 +187,6 @@ const Body = () => {
 
         </Grid>
     );
-}
+};
 
 export default Body;

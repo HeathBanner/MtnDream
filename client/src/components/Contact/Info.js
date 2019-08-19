@@ -7,22 +7,21 @@ import { MediaContext } from '../../Context/MediaQuery';
 
 import Background from './imgs/1x/jumbo.png';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     container: {
-        [theme.breakpoints.down('lg')]:{
-            height: '85vh',
-            backgroundSize: 'auto 90%',
+        [theme.breakpoints.up('lg')]:{
+            paddingTop: 220,
+            paddingBottom: 280
         },
         [theme.breakpoints.down('md')]: {
-            height: '100vh',
         },
         [theme.breakpoints.down('sm')]: {
-            height: '95vh'
         },
         backgroundImage: `url(${Background})`,
-        backgroundSize: '100% auto',
+        backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
-        height: '85vh',
+        paddingTop: 100,
+        paddingBottom: 240,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'flex-start',
@@ -43,12 +42,12 @@ const useStyles = makeStyles(theme => ({
             padding: '0px 30px',
         },
         [theme.breakpoints.down('md')]: {
-            height: '40%',
+            // height: '40%',
         },
         [theme.breakpoints.down('sm')]: {
-            height: '35%',
+            // height: '35%',
         },
-        height: '80%',
+        // height: '80%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -75,7 +74,7 @@ const useStyles = makeStyles(theme => ({
             padding: 0,
         },
         perspective: 1500,
-        height: '80%',
+        // height: '80%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -180,15 +179,13 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Info =  () => {
+const Info = () => {
 
     const classes = useStyles();
     const media = useContext(MediaContext);
 
     const getNameVariant = () => {
-
         switch (true) {
-
             case media.xs:
                 return 'h3';
             case media.sm:
@@ -202,10 +199,7 @@ const Info =  () => {
         }
     };
 
-    getNameVariant();
-
     return (
-
         <Grid className={classes.container} container>
 
             <Grid className={classes.nameContainer} item lg={6} md={12}>
