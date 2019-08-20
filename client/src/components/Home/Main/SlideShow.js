@@ -31,11 +31,8 @@ const tutorialSteps = [
 const useStyles = makeStyles(theme => ({
   root: {
     [theme.breakpoints.down('md')]: {
-      width: 530,
-    },
-    [theme.breakpoints.down('xs')]: {
-      width: 250,
-      height: 260,
+      width: '70%',
+      flexGrow: 0,
     },
     width: 530,
     margin: '20px auto',
@@ -64,6 +61,10 @@ const useStyles = makeStyles(theme => ({
     height: 400,
   },
   img: {
+    [theme.breakpoints.down('md')]: {
+        height: 'auto',
+        width: '100%',
+    },
     height: '100%',
     width: 'auto',
     display: 'block',

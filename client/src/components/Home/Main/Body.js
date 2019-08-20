@@ -16,13 +16,12 @@ const Body = () => {
     const useStyles = makeStyles((theme) => ({
         container: {
             [theme.breakpoints.down('md')]: {
-                height: 1600,
-            },
-            [theme.breakpoints.down('sm')]: {
-                height: 1600
+                height: 'auto',
+                marginTop: 50,
+                marginBottom: 200,
             },
             [theme.breakpoints.down('xs')]: {
-                height: 1600,
+                marginBottom: 50,
             },
             height: 2000,
             display: 'flex',
@@ -31,6 +30,9 @@ const Body = () => {
             flexWrap: 'wrap',
         },
         parallaxSlideshow: {
+            [theme.breakpoints.down('md')]: {
+                height: '100%',
+            },
             width: '100%', 
             height: '50%',
             '& .react-parallax-background-children': {
@@ -49,7 +51,7 @@ const Body = () => {
         },
         parallaxText: {
             [theme.breakpoints.down('md')]: {
-                overflow: 'visible !important',
+                height: '100%',
             },
             width: '100%', 
             height: '50%',
@@ -146,42 +148,63 @@ const Body = () => {
     return (
         <Grid className={classes.container} container>
 
-            <Grid className={classes.textContainer} item lg={6} md={12}>     
+            <Grid className={classes.textContainer} item lg={6} md={12}>
 
-                <Parallax className={classes.parallaxText} strength={getTextSpeed()}>
+                {
+                    media.md
+                        ?
+                    <Typography variant={getVariant()} align="center">
+                        {`A Mountain Dream Cabin is far enough from 
+                        civilization to be secluded, yet close enough to town & 
+                        local attractions to be more than convenient. Located only 
+                        10 quick miles outside of Boone, NC in the exclusive log 
+                        cabin community of Twin Hollows. A Mountain Dream has every 
+                        amenity to make your stay as comfortable, pleasant and stress 
+                        free as you could ever imagine.`}
+                    </Typography>
+                        :
+                    <Parallax className={classes.parallaxText} strength={getTextSpeed()}>
 
-                    <Background>
+                        <Background>
 
-                        <Typography variant={getVariant()} align="center">
-                            {`A Mountain Dream Cabin is far enough from 
-                            civilization to be secluded, yet close enough to town & 
-                            local attractions to be more than convenient. Located only 
-                            10 quick miles outside of Boone, NC in the exclusive log 
-                            cabin community of Twin Hollows. A Mountain Dream has every 
-                            amenity to make your stay as comfortable, pleasant and stress 
-                            free as you could ever imagine.`}
-                        </Typography>
+                            <Typography variant={getVariant()} align="center">
+                                {`A Mountain Dream Cabin is far enough from 
+                                civilization to be secluded, yet close enough to town & 
+                                local attractions to be more than convenient. Located only 
+                                10 quick miles outside of Boone, NC in the exclusive log 
+                                cabin community of Twin Hollows. A Mountain Dream has every 
+                                amenity to make your stay as comfortable, pleasant and stress 
+                                free as you could ever imagine.`}
+                            </Typography>
 
-                    </Background>
+                        </Background>
 
-                </Parallax>
+                    </Parallax>
+                }   
+
 
             </Grid>
             <Grid className={classes.slideContainer} item lg={6} md={12}>
 
-                <Parallax 
-                    className={classes.parallaxSlideshow}
-                    strength={getSlideSpeed()}
-                    style={{ overflow: 'visible' }}
-                >
+                {
+                    media.md
+                        ?
+                    <SlideShow />
+                        :
+                    <Parallax 
+                        className={classes.parallaxSlideshow}
+                        strength={getSlideSpeed()}
+                        style={{ overflow: 'visible' }}
+                    >
 
-                    <Background>
+                        <Background>
 
-                        <SlideShow />
+                            <SlideShow />
 
-                    </Background>
+                        </Background>
 
-                </Parallax>
+                    </Parallax>
+                }
 
             </Grid>
 

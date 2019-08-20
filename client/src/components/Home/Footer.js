@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Button } from '@material-ui/core';
 
 import { MediaContext } from '../../Context/MediaQuery';
 
-import ImageList from './ImageList.js';
-import MobileImgList from './MobileImgList';
+import BlueRidge from './BlueRidge';
 
 const useStyles = makeStyles(theme => ({
     mainContainer: {
@@ -53,6 +52,28 @@ const useStyles = makeStyles(theme => ({
         color: 'white',
         marginTop: 20
     },
+    link: {
+        [theme.breakpoints.down('xs')]: {
+            width: '100%',
+            marginTop: 50,
+        },
+        marginTop: 100,
+        textDecoration: 'none',
+        display: 'flex',
+        justifyContent: 'center',
+    },
+    button: {
+        width: '80%',
+        color: 'white',
+        padding: 20,
+        transition: 'all 0.4s ease',
+        background: 'linear-gradient(56deg, rgba(254, 254, 254, 0.05) 0%, rgba(254, 254, 254, 0.05) 69%,rgba(160, 160, 160, 0.05) 69%, rgba(160, 160, 160, 0.05) 100%),linear-gradient(194deg, rgba(102, 102, 102, 0.02) 0%, rgba(102, 102, 102, 0.02) 60%,rgba(67, 67, 67, 0.02) 60%, rgba(67, 67, 67, 0.02) 100%),linear-gradient(76deg, rgba(169, 169, 169, 0.06) 0%, rgba(169, 169, 169, 0.06) 89%,rgba(189, 189, 189, 0.06) 89%, rgba(189, 189, 189, 0.06) 100%),linear-gradient(326deg, rgba(213, 213, 213, 0.04) 0%, rgba(213, 213, 213, 0.04) 45%,rgba(66, 66, 66, 0.04) 45%, rgba(66, 66, 66, 0.04) 100%),linear-gradient(183deg, rgba(223, 223, 223, 0.01) 0%, rgba(223, 223, 223, 0.01) 82%,rgba(28, 28, 28, 0.01) 82%, rgba(28, 28, 28, 0.01) 100%),linear-gradient(3deg, rgba(20, 20, 20, 0.06) 0%, rgba(20, 20, 20, 0.06) 62%,rgba(136, 136, 136, 0.06) 62%, rgba(136, 136, 136, 0.06) 100%),linear-gradient(200deg, rgba(206, 206, 206, 0.09) 0%, rgba(206, 206, 206, 0.09) 58%,rgba(6, 6, 6, 0.09) 58%, rgba(6, 6, 6, 0.09) 100%),linear-gradient(304deg, rgba(162, 162, 162, 0.07) 0%, rgba(162, 162, 162, 0.07) 27%,rgba(24, 24, 24, 0.07) 27%, rgba(24, 24, 24, 0.07) 100%),linear-gradient(186deg, rgba(166, 166, 166, 0.04) 0%, rgba(166, 166, 166, 0.04) 5%,rgba(210, 210, 210, 0.04) 5%, rgba(210, 210, 210, 0.04) 100%),linear-gradient(90deg, rgb(26, 118, 64),rgb(32, 207, 121),rgb(78, 196, 128))',
+        boxShadow: '0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12)',
+        '&:hover': {
+            transform: 'scale(1.03)',
+            backgroundPosition: '0px -50px',
+        },
+    },
 }));
 
 const Footer = () => {
@@ -79,7 +100,25 @@ const Footer = () => {
                     We're right by the Blue Ridge Parkway
                 </Typography>
 
-                { media.sm ? <MobileImgList /> : <ImageList /> }
+                <a className={classes.link} href={`https://www.blueridgeparkway.org/`} target="_blank" rel="noopener noreferrer">
+                    <Button className={classes.button}>
+                        
+                        <Typography variant={media.xs ? 'h6' : 'h4'} align="center">
+
+                            {
+                                media.xs
+                                    ?
+                                'Official Website'
+                                    :
+                                'Visit the official Blue Ridge Parkway website!'
+                            }
+
+                        </Typography>
+
+                    </Button>
+                </a>
+
+                <BlueRidge />
 
             </Grid>
 

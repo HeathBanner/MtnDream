@@ -48,7 +48,7 @@ editorController.post('/newSection', (req, res) => {
     case 'currentBody':
 
         db.findOneAndUpdate({ 'title.text': title.text }, { body }, { useFindAndModify: false, new: true }, (err, newSection) => {
-            res.json(newSection);
+            res.status(200).json(newSection);
         });
         break;
 
