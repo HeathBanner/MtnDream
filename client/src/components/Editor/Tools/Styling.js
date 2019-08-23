@@ -5,6 +5,8 @@ import { Button, Icon } from '@material-ui/core';
 
 import { EditorContext } from '../../../Context/EditorContext';
 
+import ColorPicker from './ColorPicker';
+
 const useStyles = makeStyles(theme => ({
     container: {
         width: 100,
@@ -17,26 +19,76 @@ const useStyles = makeStyles(theme => ({
 const Styling = () => {
 
     const classes = useStyles();
-
     const holder = useContext(EditorContext);
 
-    return (
+    const checkDisabled = (style) => {
+        switch (holder.sectionMode.el) {
+            case 'jumbotron':
+                return true;
+            case 'image':
+                return true;
+            case 'description':
+                return true;
+            case 'readLength':
+                return true;
+            default:
+                return holder[holder.sectionMode.el][style];
+        }
+    };
 
+    const disablePicker = () => {
+        switch (holder.sectionMode.el) {
+            case 'title':
+                return true;
+            case 'description':
+                return true;
+            case 'readLength':
+                return true;
+            case 'body':
+                return true;
+            default:
+                return false;
+        }
+    };
+
+    return (
         <Fragment>
 
-            <Button disabled={holder[holder.sectionMode.el].bold} onClick={() => holder.handleStyling('bold')}>
+            <Button
+                disabled={checkDisabled('bold')}
+                onClick={() => holder.handleStyling('bold')}
+            >
                 <Icon>format_bold</Icon>
             </Button>
-            <Button disabled={holder[holder.sectionMode.el].italic} onClick={() => holder.handleStyling('italic')}>
+
+            <Button
+                disabled={checkDisabled('italic')}
+                onClick={() => holder.handleStyling('italic')}
+            >
                 <Icon>format_italic</Icon>
             </Button>
-            <Button disabled={holder[holder.sectionMode.el].underline} onClick={() => holder.handleStyling('underline')}>
+
+            <Button
+                disabled={checkDisabled('underline')}
+                onClick={() => holder.handleStyling('underline')}
+            >
                 <Icon>format_underline</Icon>
             </Button>
-            <Button onClick={() => holder.handleStyling('color')}>
-                <Icon>format_color_text</Icon>
-            </Button>
-            <Button disabled={holder[holder.sectionMode.el].highlight} onClick={() => holder.handleStyling('highlight')}>
+
+            {
+                disablePicker()
+                    ?
+                <ColorPicker />
+                    :
+                <Button disabled={true}>
+                    <Icon>format_color_text</Icon>
+                </Button>
+            }
+
+            <Button
+                disabled={checkDisabled('highlight')}
+                onClick={() => holder.handleStyling('highlight')}
+            >
                 <Icon>highlight</Icon>
             </Button>
 

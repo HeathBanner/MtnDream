@@ -21,6 +21,7 @@ const Jumbotron = () => {
 
     const handleClick = e => {
         setAnchorEl(e.currentTarget);
+        holder.handleSectionMode({ el: 'jumbotron' });
     };
 
     const handleClose = () => {
@@ -30,23 +31,26 @@ const Jumbotron = () => {
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
-    if(holder.jumbotron) {
+    if (holder.jumbotron.src) {
         return (
-
             <Fragment>
 
-                <Button onClick={handleClick}>
+                <Button style={{ width: '50%' }} onClick={handleClick}>
 
                     <img 
-                        style={{ width: '100%', height: 'auto' }} 
-                        src={holder.jumbotron} 
-                        alt={holder.title} 
+                        style={{
+                            width: '100%',
+                            height: 'auto',
+                            margin: '20px 0px',
+                        }} 
+                        src={holder.jumbotron.src} 
+                        alt={holder.title.text} 
                     />
 
                 </Button>
 
                 <Popover
-                    paperProps={{className: classes.paper}}
+                    PaperProps={{ className: classes.paper }}
                     modalClasses={classes.paper}
                     id={id}
                     open={open}
@@ -54,57 +58,54 @@ const Jumbotron = () => {
                     onClose={handleClose}
                     anchorOrigin={{
                         vertical: 'center',
-                        horizontal: 'center'
+                        horizontal: 'center',
                     }}
                     transformOrigin={{
                         vertical: 'center',
-                        horizontal: 'center'
+                        horizontal: 'center',
                     }}
                 > 
 
                     <TextField 
                         label="Paste Url"
                         variant="outlined"
-                        value={holder.jumbotron}
-                        onChange={(e) => holder.handleInput(e, { el: 'jumbotron' })}
+                        value={holder.jumbotron.src}
+                        onChange={(e) => holder.handleInput(e, { El: 'jumbotron' })}
                     />
 
                 </Popover> 
 
             </Fragment>
         );
-    }
-    else {
-
+    } else {
         return (
-
             <Fragment>
 
-                <Button variant="contained" onClick={handleClick}>
+                <Button style={{ margin: '40px auto 0px auto' }} variant="contained" onClick={handleClick}>
                     Add Jumbotron
                 </Button>
 
                 <Popover
-                    paperProps={{className: classes.paper}}
+                    PaperProps={{ className: classes.paper }}
                     id={id}
                     open={open}
                     anchorEl={anchorEl}
                     onClose={handleClose}
                     anchorOrigin={{
                         vertical: 'center',
-                        horizontal: 'center'
+                        horizontal: 'center',
                     }}
                     transformOrigin={{
                         vertical: 'center',
-                        horizontal: 'center'
+                        horizontal: 'center',
                     }}
                 > 
 
                     <TextField 
                         label="Paste Url"
                         variant="outlined"
-                        value={holder.jumbotron}
-                        onChange={(e) => holder.handleInput(e, { el: 'jumbotron' })}
+                        value={holder.jumbotron.src}
+                        onChange={(e) => holder.handleInput(e, { El: 'jumbotron' })}
                     />
 
                 </Popover>

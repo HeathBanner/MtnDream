@@ -12,95 +12,152 @@ const intialPreview = {
     font: 'Roboto',
     justify: 'left',
     textStyle: 'body1',
-}
+    marginTop: 40,
+    marginBottom: 0,
+    isText: true,
+    isImage: false,
+};
 
-export const EditorProvider = props => {
+const initialInfo = {
+    text: '',
+    font: 'Roboto',
+    justify: 'center',
+    color: '',
+};
+
+const initialImg = {
+    isImage: true,
+    src: '',
+    alt: '',
+    height: '',
+    width: '',
+    justify: 'center',
+    marginTop: 40,
+    marginBottom: 0,
+};
+
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+export const EditorProvider = (props) => {
 
     const [editMode, setEditMode] = useState(false);
-    const [articleList, setArticleList] = useState([]);
+    const [articleList, setArticleList] = useState('');
 
-    const [sectionMode, setSectionMode] = useState({ el:'title' });
-    const [title, setTitle] = useState({ ...intialPreview });
-    const [jumbotron, setJumbotron] = useState('');
-    const [currentBody, setCurrentBody] = useState(0);
+    const [sectionMode, setSectionMode] = useState({ el: 'title' });
+    const [title, setTitle] = useState({ ...intialPreview, isPublished: false });
+    const [description, setDescription] = useState({ ...initialInfo, textStyle: 'h5' });
+    const [readLength, setReadLength] = useState({ ...initialInfo });
+    const [jumbotron, setJumbotron] = useState({ ...initialImg });
     const [body, setBody] = useState([ { ...intialPreview } ]);
     
     useEffect(() => {
         fetch('/api/editors/getList')
-        .then(res => res.json())
-        .then((result) => {
-            setArticleList(result)
-        })
-        .catch((error) => {});
-    }, [] );
+            .then(res => res.json())
+            .then((result) => { setArticleList([ ...result ]) })
+            .catch((error) => { console.log(error); });
+    }, []);
 
     const handleMode = () => {
         setEditMode(!editMode);
     };
 
-    const editArticle = index => {
-
+    const editArticle = (index) => {
         setTitle(articleList[index].title);
+        setDescription(articleList[index].description);
+        setReadLength(articleList[index].readLength);
         setJumbotron(articleList[index].jumbotron);
         setBody(articleList[index].body);
         setEditMode(!editMode);
     };
 
-    const editBodyEl = index => {
-
-        setCurrentBody(index);
-    };
-
-    const newBodyEl = () => {
-
-        const newBody = body;
-        newBody.push({ ...intialPreview });
-
-        setCurrentBody( newBody.length - 1 );
-        setBody([ ...newBody ]);
-    };
-
-    const handleSectionMode = newSection => {
-
+    const handleSectionMode = (newSection) => {
         switch (newSection.el) {
-
             case 'title':
-            case newSection.el !== sectionMode.el:
+                setSectionMode(newSection);
+                break;
+            case 'description':
+                setSectionMode(newSection);
+                break;
+            case 'readLength':
                 setSectionMode({ ...newSection });
                 break;
-
-            case 'jumbotron' && newSection.el !== sectionMode.el:
-                setSectionMode({ ...newSection });
+            case 'jumbotron':
+                setSectionMode(newSection);
                 break;
-
-            case 'body' && newSection.el !== sectionMode.el:
-                editBodyEl(newSection.index);
-                setSectionMode({ ...newSection });
+            case 'body':
+                setSectionMode(newSection);
                 break;
-
+            case 'image':
+                setSectionMode(newSection);
+                break;
             default:
-                return
+                return;
         }
     };
 
-    const handleSubmit = data => {
-        fetch('/api/editors/newSection',{
+    const handleSubmit = () => {
+        const now = new Date();
+        const date = {
+            parsedDate: `${months[now.getMonth()]} ${now.getDate()}`,
+            epoch: now.getTime(),
+        };
+        const data = {
+            title,
+            description,
+            readLength,
+            jumbotron,
+            body,
+            date,
+        };
+        fetch('/api/editors/newArticle',{
             method: 'POST',
             body: JSON.stringify(data),
-            headers: {'Content-Type': 'application/json'}
+            headers: { 'Content-Type': 'application/json' },
         })
-        .then(res => res.json())
-        .then((result) => {
-            setTitle(result.title);
-            setJumbotron(result.jumbotron);
-            setBody(result.body);
+            .then(res => res.json())
+            .then((result) => { console.log(result); })
+            .catch((error) => { console.log(error); });
+    };
+
+    const handleChanges = () => {
+        const data = {
+            title,
+            description,
+            readLength,
+            jumbotron,
+            body,
+        };
+        fetch('/api/editors/saveChanges', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' },
         })
-        .catch(error => {})
+            .then(res => res.json())
+            .then((result) => { console.log(result); })
+            .catch((error) => { console.log(error); });
     };
 
     const handleBody = ( input, index ) => {
         let newBody = body;
         newBody[index].text = input;
+        setBody([ ...newBody ]);
+    };
+
+    const newBody = () => {
+        let newBody = body;
+        newBody.push({ ...intialPreview });
+        setBody([ ...newBody ]);
+    };
+
+    const handleImage = (input, index) => {
+        let newBody = body;
+        newBody[index].src = input;
+        setBody([ ...newBody ]);
+    };
+
+    const newImgEl = () => {
+        const newBody = body;
+        newBody.push({ ...initialImg });
         setBody([ ...newBody ]);
     };
 
@@ -110,11 +167,20 @@ export const EditorProvider = props => {
             case 'title':
                 setTitle({ ...title, text: input });
                 break;
+            case 'description':
+                setDescription({ ...description, text: input });
+                break;
+            case 'readLength':
+                setReadLength({ ...readLength, text: input });
+                break;
             case 'jumbotron':
-                setJumbotron(input);
+                setJumbotron({ ...jumbotron, src: input });
                 break;
             case 'body':
                 handleBody(input, section.index);
+                break;
+            case 'image':
+                handleImage(input, section.index);
                 break;
             default:
                 return
@@ -135,6 +201,12 @@ export const EditorProvider = props => {
         switch (sectionMode.el) {
             case 'title':
                 setTitle({ ...title, font: newFont });
+                break;
+            case 'description':
+                setDescription({ ...description, font: newFont });
+                break;
+            case 'readLength':
+                setReadLength({ ...readLength, font: newFont });
                 break;
             case 'body':
                 let newBody = body;
@@ -161,22 +233,100 @@ export const EditorProvider = props => {
         }
     };
 
-    const handleJustify = justification => {
+    const handleInfoJustify = (justification) => {
+        if (sectionMode.el === 'description') {
+            switch (justification) {
+                case 'left':
+                    setDescription({ ...description, justify: 'left' });
+                    break;
+                case 'center':
+                    setDescription({ ...description, justify: 'center' });
+                    break;
+                case 'right':
+                    setDescription({ ...description, justify: 'right' });
+                    break;
+                default:
+                    setDescription({ ...description, justify: 'justify' });
+                    break;
+    
+            }
+        } else {
+            switch (justification) {
+                case 'left':
+                    setReadLength({ ...readLength, justify: 'flex-start' });
+                    break;
+                case 'center':
+                    setReadLength({ ...readLength, justify: 'center' });
+                    break;
+                case 'right':
+                    setReadLength({ ...readLength, justify: 'flex-end' });
+                    break;
+                default:
+                    return;
+            }
+        }
+    };
+
+    const handleJumboJustify = (justification) => {
+        switch (justification) {
+            case 'left':
+                setJumbotron({ ...jumbotron, justify: 'flex-start' });
+                break;
+            case 'center':
+                setJumbotron({ ...jumbotron, justify: 'center' });
+                break;
+            default:
+                setJumbotron({ ...jumbotron, justify: 'flex-end' });
+                break;
+        }
+    };
+
+    const handleImageJustify = (justification) => {
+        let newBody = body;
+        switch (justification) {
+            case 'left':
+                newBody[sectionMode.index].justify = 'flex-start';
+                setBody([ ...newBody ]);
+                break;
+            case 'center' || 'justify':
+                newBody[sectionMode.index].justify = 'center';
+                setBody([ ...newBody ]);
+                break;
+            default:
+                newBody[sectionMode.index].justify = 'flex-end';
+                setBody([ ...newBody ]);
+                break;
+        }
+    };
+
+    const handleJustify = (justification) => {
         switch (sectionMode.el) {
             case 'title':
                 setTitle({ ...title, justify: justification });
+                break;
+            case 'description':
+                handleInfoJustify(justification);
+                break;
+            case 'readLength':
+                handleInfoJustify(justification);
+                break;    
+            case 'jumbotron':
+                handleJumboJustify(justification);
                 break;
             case 'body':
                 let newBody = body;
                 newBody[sectionMode.index].justify = justification;    
                 setBody([ ...newBody ]);
                 break;
+            case 'image':
+                handleImageJustify(justification);
+                break;
             default:
                 break;
         }
     };
 
-    const handleTextStyle = style => {
+    const handleTextStyle = (style) => {
         switch (sectionMode.el) {
             case 'title':
                 setTitle({ ...title, textStyle: style });
@@ -191,28 +341,71 @@ export const EditorProvider = props => {
         }
     };
 
-    return (
+    const handleTextColor = (color) => {
+        switch (sectionMode.el) {
+            case 'title':
+                setTitle({ ...title, color: color });
+                break;
+            case 'description':
+                setDescription({ ...description, color: color });
+                break;
+            case 'body':
+                let newBody = body;
+                newBody[sectionMode.index].color = color;
+                setBody([ ...newBody ]);
+                break;
+            default:
+                break;
+        }
+    };
 
+    const handleMarginTop = (e) => {
+        if (sectionMode.el === 'title') {
+            return setTitle({ ...title, marginTop: e.target.value });
+        } else if ( (sectionMode.el === 'body') || (sectionMode.el === 'image') ) {
+            let newBody = body;
+            newBody[sectionMode.index].marginTop = e.target.value;
+            return setBody([ ...newBody ]);
+        }
+    };
+
+    const handleMarginBottom = (e) => {
+        if (sectionMode.el === 'title') {
+            return setTitle({ ...title, marginBottom: e.target.value });
+        } else if ( (sectionMode.el === 'body') || (sectionMode.el === 'image') ) {
+            let newBody = body;
+            newBody[sectionMode.index].marginBottom = e.target.value;
+            return setBody([ ...newBody ]);
+        }
+    };
+
+    return (
         <EditorContext.Provider
             value={{
                 handleInput,
-                title,
-                jumbotron,
-                currentBody,
-                body,
+                handleSubmit,
+                handleChanges,
                 handleStyling,
                 handleFont,
                 handleJustify,
                 handleTextStyle,
+                handleTextColor,
+                handleMarginTop,
+                handleMarginBottom,
                 handleArticle,
+                handleMode,
+                handleSectionMode,
+                sectionMode,
+                articleList,
                 editMode,
                 editArticle,
-                editBodyEl,
-                newBodyEl,
-                handleMode,
-                articleList,
-                sectionMode,
-                handleSectionMode
+                newBody,
+                newImgEl,
+                title,
+                description,
+                readLength,
+                jumbotron,
+                body,
             }}
         >
 

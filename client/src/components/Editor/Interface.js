@@ -61,85 +61,30 @@ const Interface = () => {
     return (
         <Fragment>
 
-                    <CssBaseline />
                 {
                     holder.editMode
             
                         ?
                     <Fragment>
 
-                    <Grid className={classes.root} item xs={4}>
-
-                        <Drawer
-                            className={classes.drawer}
-                            variant="permanent"
-                            classes={{
-                                paper: classes.drawerPaper,
-                            }}
-                        >
-
-                            <div className={classes.toolbar} />
-
-                            <List>
-
-                                {
-                                    editorSidebar.map((item, index) => (
-
-                                        <ListItem 
-                                            onClick={() => holder.handleSectionMode(item.param)} 
-                                            button
-                                            disabled={!(index === 0 || holder.title.text)}
-                                            key={item.text}
-                                        >
-
-                                            <ListItemIcon>
-
-                                                <Icon>{item.icon}</Icon>
-
-                                            </ListItemIcon>
-
-                                            <ListItemText primary={item.text} />
-
-                                        </ListItem>
-                                    ))
-                                }
-
-                            </List>
-
-                        </Drawer>
-
-
+                        <Grid item xs={12}>
+    
+                            <Toolbar />
+                            <Preview />
+    
                         </Grid>
-                        <Grid item xs={8}>
-
-                            {/* <main className={classes.content}> */}
-    
-    
-    
-    
-                                        <Toolbar />
-                                        <Preview />
-    
-    
-                            {/* </main> */}
-                        </Grid>
-
 
                     </Fragment>
-
-
                             :
                         
                     <Grid className={classes.root} item xs={12}>
                             
-                            <ArticleSelection />
+                        <ArticleSelection />
                         
                     </Grid>        
-
                 }
+
         </Fragment>
-
-
     );
 };
 

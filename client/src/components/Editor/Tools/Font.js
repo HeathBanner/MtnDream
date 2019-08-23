@@ -1,7 +1,6 @@
 import React, { Fragment, useState, useContext } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Menu, MenuItem, Button } from '@material-ui/core';
+import { Menu, MenuItem, Button, Icon } from '@material-ui/core';
 
 import { EditorContext } from '../../../Context/EditorContext';
 
@@ -53,13 +52,7 @@ const fontOptions = [
     }
 ];
 
-const useStyles = makeStyles(theme => ({
-
-}));
-
 const Font = () => {
-
-    const classes = useStyles();
 
     const holder = useContext(EditorContext);
 
@@ -78,43 +71,55 @@ const Font = () => {
         handleClose();
     };
 
-    return (
+    const fontSwitch = () => {
+        switch (holder.sectionMode.el) {
+            case 'body':
+                return <Button onClick={handleOpen}>
+                            {holder.body[holder.sectionMode.index].font}
+                        </Button>;
+            case 'title':
+                return <Button onClick={handleOpen}>
+                            {holder[holder.sectionMode.el].font}
+                        </Button>;
+            case 'description':
+                return <Button onClick={handleOpen}>
+                            {holder[holder.sectionMode.el].font}
+                        </Button>;
+            case 'readLength':
+                return <Button onClick={handleOpen}>
+                        {holder[holder.sectionMode.el].font}
+                    </Button>;
+            default:
+                return <Button disabled={true}>
+                            <Icon>lock</Icon>
+                        </Button>;
+        }
+    };
 
+    return (
         <Fragment>
             
-        <Button onClick={handleOpen}>
-            {
-                holder.sectionMode.el !== 'body'
-                    ?
-                holder[holder.sectionMode.el].font
-                    :
-                holder[holder.sectionMode.el][holder.sectionMode.index].font
-            }
-        </Button>
+            {fontSwitch()}
 
-        <Menu
-            id="textSize"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-        >
-            {
-                fontOptions.map(item => {
-                    return (
+            <Menu
+                id="textSize"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+            >
+                {
+                    fontOptions.map((item) => {
+                        return (
+                            <MenuItem key={item.font} onClick={() => wrapper(item.font)}>
+                                {item.font}
+                            </MenuItem>
+                        );
+                    })
+                }
+            </Menu>
 
-                        <MenuItem onClick={() => wrapper(item.font)}>
-                            {item.font}
-                        </MenuItem>
-                    )
-                })
-            }
-
-        </Menu>
-
-    </Fragment>
-
-
+        </Fragment>
     );
 };
 

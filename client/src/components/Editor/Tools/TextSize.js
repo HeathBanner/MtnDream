@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useContext } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Menu, MenuItem, Button } from '@material-ui/core';
+import { Menu, MenuItem, Button, Icon } from '@material-ui/core';
 
 import { EditorContext } from '../../../Context/EditorContext';
 
@@ -79,19 +79,35 @@ const TextSize = () => {
         handleClose();
     };
 
+    const sizeSwitch = () => {
+        switch (holder.sectionMode.el) {
+            case 'body':
+                return <Button onClick={handleOpen}>
+                            {holder[holder.sectionMode.el][holder.sectionMode.index].textStyle}
+                        </Button>;
+            case 'jumbotron':
+                return <Button disabled={true}>
+                            <Icon>lock</Icon>
+                        </Button>;
+            case 'image':
+                return <Button disabled={true}>
+                            <Icon>lock</Icon>
+                        </Button>;
+            case 'readLength':
+                return <Button disabled={true}>
+                            <Icon>lock</Icon>
+                        </Button>;
+            default:
+                return <Button onClick={handleOpen}>
+                            {holder[holder.sectionMode.el].textStyle}
+                        </Button>;
+        }
+    };
+
     return (
-        
         <Fragment>
             
-            <Button onClick={handleOpen}>
-                {
-                    holder.sectionMode.el === 'title'
-                        ?
-                    holder[holder.sectionMode.el].textStyle
-                        :
-                    holder[holder.sectionMode.el][holder.sectionMode.index].textStyle
-                }
-            </Button>
+            {sizeSwitch()}
 
             <Menu
                 id="textSize"
@@ -103,18 +119,15 @@ const TextSize = () => {
                 {
                     textOptions.map(item => {
                         return (
-
-                            <MenuItem onClick={() => wrapper(item.cb)}>
+                            <MenuItem key={item.cb} onClick={() => wrapper(item.cb)}>
                                 {item.cb}
                             </MenuItem>
-                        )
+                        );
                     })
-                }
-                
+                }    
             </Menu>
 
         </Fragment>
-        
     );
 };
 
