@@ -1,7 +1,7 @@
 import React, { useContext, useState, Fragment } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Popover, Typography, Button, TextField } from '@material-ui/core';
+import { Popover, Button, TextField } from '@material-ui/core';
 
 import { EditorContext } from '../../../Context/EditorContext';
 
@@ -51,7 +51,7 @@ const Jumbotron = () => {
 
                 <Popover
                     PaperProps={{ className: classes.paper }}
-                    modalClasses={classes.paper}
+                    ModalClasses={{ className: classes.paper }}
                     id={id}
                     open={open}
                     anchorEl={anchorEl}
@@ -66,7 +66,8 @@ const Jumbotron = () => {
                     }}
                 > 
 
-                    <TextField 
+                    <TextField
+                        style={{ width: '100%' }}
                         label="Paste Url"
                         variant="outlined"
                         value={holder.jumbotron.src}
@@ -101,7 +102,8 @@ const Jumbotron = () => {
                     }}
                 > 
 
-                    <TextField 
+                    <TextField
+                        style={{ width: '100%' }}
                         label="Paste Url"
                         variant="outlined"
                         value={holder.jumbotron.src}

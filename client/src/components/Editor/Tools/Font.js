@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useContext } from 'react';
 
-import { Menu, MenuItem, Button, Icon } from '@material-ui/core';
+import { Menu, MenuItem, Button, Icon, Fab } from '@material-ui/core';
 
 import { EditorContext } from '../../../Context/EditorContext';
 
@@ -74,23 +74,55 @@ const Font = () => {
     const fontSwitch = () => {
         switch (holder.sectionMode.el) {
             case 'body':
-                return <Button onClick={handleOpen}>
+                return <Button
+                            style={{
+                                marginRight: 10,
+                                textTransform: 'capitalize',
+                                fontFamily: `${holder.body[holder.sectionMode.index].font}, Helvetica, Arial, sans-serif`,
+                            }}
+                            onClick={handleOpen}
+                            variant="contained"
+                        >
                             {holder.body[holder.sectionMode.index].font}
                         </Button>;
             case 'title':
-                return <Button onClick={handleOpen}>
+                return <Button
+                            style={{
+                                marginRight: 10,
+                                textTransform: 'capitalize',
+                                fontFamily: `${holder[holder.sectionMode.el].font}, Helvetica, Arial, sans-serif`,
+                            }}
+                            onClick={handleOpen}
+                            variant="contained"
+                        >
                             {holder[holder.sectionMode.el].font}
                         </Button>;
             case 'description':
-                return <Button onClick={handleOpen}>
+                return <Button
+                            style={{
+                                marginRight: 10,
+                                textTransform: 'capitalize',
+                                fontFamily: `${holder[holder.sectionMode.el].font}, Helvetica, Arial, sans-serif`,
+                            }}
+                            onClick={handleOpen}
+                            variant="contained"
+                        >
                             {holder[holder.sectionMode.el].font}
                         </Button>;
             case 'readLength':
-                return <Button onClick={handleOpen}>
+                return <Button
+                            style={{
+                                marginRight: 10,
+                                textTransform: 'capitalize',
+                                fontFamily: `${holder[holder.sectionMode.el].font}, Helvetica, Arial, sans-serif`,
+                            }}
+                            onClick={handleOpen}
+                            variant="contained"
+                        >
                         {holder[holder.sectionMode.el].font}
                     </Button>;
             default:
-                return <Button disabled={true}>
+                return <Button style={{ marginRight: 10 }} disabled={true} variant="contained">
                             <Icon>lock</Icon>
                         </Button>;
         }
@@ -111,7 +143,14 @@ const Font = () => {
                 {
                     fontOptions.map((item) => {
                         return (
-                            <MenuItem key={item.font} onClick={() => wrapper(item.font)}>
+                            <MenuItem
+                                style={{
+                                    textTransform: 'capitalize',
+                                    fontFamily: `${item.font}, Helvetica, Arial, sans-serif`,
+                                }}
+                                onClick={() => wrapper(item.font)}
+                                key={item.font}
+                            >
                                 {item.font}
                             </MenuItem>
                         );

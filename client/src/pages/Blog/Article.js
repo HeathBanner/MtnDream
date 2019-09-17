@@ -64,7 +64,6 @@ const Article = ({ match }) => {
         })
             .then(res => res.json())
             .then((result) => {
-                console.log(result);
                 setArticle(result);
             })
             .catch((error) => { console.log(error); });
@@ -157,27 +156,24 @@ const Article = ({ match }) => {
                     article.body.map((section, index) => {
                         if (section.isText) {
                             return (
-                                <Fragment>
-
-                                    <Typography
-                                        style={{
-                                            width: '100%',
-                                            fontSize: fontSizes[section.textStyle],
-                                            fontFamily: `${section.font}, Helvetica, Arial, sans-serif`,
-                                            fontWeight: section.bold ? 'bold' : 'normal',
-                                            fontStyle: section.italic ? 'italic' : 'normal',
-                                            textDecoration: section.underline ? 'underline' : 'none',
-                                            textAlign: section.justify,
-                                            color: section.color,
-                                            backgroundColor: section.highlight ? '#ffff00' : 'none',
-                                            marginTop: parseInt(section.marginTop),
-                                            marginBottom: parseInt(section.marginBottom),    
-                                        }}
-                                    >
-                                        {section.text}
-                                    </Typography>
-
-                                </Fragment>
+                                <Typography
+                                    style={{
+                                        width: '100%',
+                                        fontSize: fontSizes[section.textStyle],
+                                        fontFamily: `${section.font}, Helvetica, Arial, sans-serif`,
+                                        fontWeight: section.bold ? 'bold' : 'normal',
+                                        fontStyle: section.italic ? 'italic' : 'normal',
+                                        textDecoration: section.underline ? 'underline' : 'none',
+                                        textAlign: section.justify,
+                                        color: section.color,
+                                        backgroundColor: section.highlight ? '#ffff00' : 'none',
+                                        marginTop: parseInt(section.marginTop),
+                                        marginBottom: parseInt(section.marginBottom),    
+                                    }}
+                                    key={index}
+                                >
+                                    {section.text}
+                                </Typography>
                             );
                         }
                         return (

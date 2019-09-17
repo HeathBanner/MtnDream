@@ -61,7 +61,7 @@ const Latest = () => {
                 
                             <Typography style={{ marginTop: 15, marginBottom: 15 }} variant="h6" color="textSecondary">
                                 <Link style={{ textDecoration: 'none', color: 'inherit' }} to={`/blog/${article.title.text}`}>
-                                    Description will go here
+                                    {article.description.text}
                                 </Link>
                             </Typography>
                                     
@@ -70,7 +70,7 @@ const Latest = () => {
                             </Typography>
                 
                             <Typography style={{ width: '100%' }} variant="body1" color="textSecondary">
-                                Aug 21 * 2 min read
+                                {`${article.date.parsedDate}`} &#8226; {`${article.readLength.text} min read`}
                             </Typography>
                                 
                         </div>

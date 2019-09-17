@@ -2,6 +2,13 @@ const express = require('express');
 
 const app = express();
 
+const session = require('express-session');
+
+const passport = require('passport');
+
+// Passport Config
+require('./config/passport')(passport);
+
 const mongoose = require('mongoose');
 
 const MONGOD_URI = 'mongodb://localhost/mtnDream';
@@ -9,6 +16,16 @@ mongoose.connect(MONGOD_URI, { useNewUrlParser: true });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(session({
+    secret: 'keyboard_cat',
+    resave: true,
+    saveUninitialized: true,
+}));
+
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 const path = require('path');
 

@@ -51,7 +51,7 @@ const Image = (props) => {
 
                 <Popover
                     PaperProps={{ className: classes.paper }}
-                    modalClasses={classes.paper}
+                    ModalClasses={{ className: classes.paper}}
                     id={id}
                     open={open}
                     anchorEl={anchorEl}
@@ -67,6 +67,7 @@ const Image = (props) => {
                 > 
 
                     <TextField 
+                        style={{ width: '100%' }}
                         label="Paste Url"
                         variant="outlined"
                         value={props.src}
@@ -102,6 +103,7 @@ const Image = (props) => {
                 > 
 
                     <TextField
+                        style={{ width: '100%' }}
                         label="Paste Url"
                         variant="outlined"
                         value={props.src}

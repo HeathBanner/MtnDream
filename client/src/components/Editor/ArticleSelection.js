@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Button, Divider, Typography, Paper, Avatar } from '@material-ui/core';
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'wrap',
     },
     button: {
-        width: '80%',
+        width: '100%',
         padding: 10,
         background: 'linear-gradient(135deg, rgb(26, 118, 30) 0%, rgb(26, 118, 30) 23%,rgb(72, 215, 80) 23%, rgb(72, 215, 80) 28%,rgb(34, 176, 39) 28%, rgb(34, 176, 39) 35%,rgb(42, 126, 41) 35%, rgb(42, 126, 41) 100%)',
         color: 'white'
@@ -60,13 +61,21 @@ const ArticleSelection = () => {
 
             <Grid className={classes.container} item xs={12}>
 
-                <Button onClick={holder.handleMode} className={classes.button}>
-
-                    <Typography>
-                        Make New Article
-                    </Typography>
-
-                </Button>
+                <Link 
+                    style={{
+                        textDecoration: 'none',
+                        color: 'inherit',
+                        width: '80%',
+                        marginTop: 30,
+                    }}
+                    to={`/editor/new`}
+                >
+                    <Button className={classes.button}>
+                        <Typography>
+                            Make New Article
+                        </Typography>
+                    </Button>
+                </Link>
 
             </Grid>
             
@@ -81,16 +90,19 @@ const ArticleSelection = () => {
                         return (
                             <Paper
                                 className={classes.paper}
-                                onClick={() => holder.editArticle(index)}
                                 key={article.title.text}
                             >
 
                                 <Typography style={{ width: '100%', marginBottom: 20 }} align="center" variant="h2">
-                                    {article.title.text}
+                                    <Link style={{ textDecoration: 'none', color: 'inherit' }} to={`/editor/${article.title.text}`}>
+                                        {article.title.text}
+                                    </Link>
                                 </Typography>
 
                                 <Typography style={{ width: '100%'}} align="center" variant="h5" color="textSecondary">
-                                    {article.description.text}
+                                    <Link style={{ textDecoration: 'none', color: 'inherit' }} to={`/editor/${article.title.text}`}>
+                                        {article.description.text}
+                                    </Link>
                                 </Typography>
 
                                 <div className={classes.infoContainer} style={{ width: 'auto' }}>
@@ -113,23 +125,25 @@ const ArticleSelection = () => {
 
                                 </div>
 
-                                <div
-                                    style={{
-                                        width: '100%',
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                    }}
-                                >
-                                    <img
+                                <Link style={{ textDecoration: 'none', color: 'inherit' }} to={`/editor/${article.title.text}`}>
+                                    <div
                                         style={{
-                                            marginTop: 10,
-                                            marginBottom: 10,
-                                            width: '50%',
+                                            width: '100%',
+                                            display: 'flex',
+                                            justifyContent: 'center',
                                         }}
-                                        src={article.jumbotron.src}
-                                        alt={article.title.text}
-                                    />
-                                </div>
+                                    >
+                                        <img
+                                            style={{
+                                                marginTop: 10,
+                                                marginBottom: 10,
+                                                width: '50%',
+                                            }}
+                                            src={article.jumbotron.src}
+                                            alt={article.title.text}
+                                        />
+                                    </div>
+                                </Link>
                                 
                             </Paper>
                         )

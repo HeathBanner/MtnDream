@@ -13,7 +13,12 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
+    disabled: {
+        color: 'rgba(0, 0, 0, 0.26)',
+        boxShadow: 'none',
+        backgroundColor: 'rgba(0, 0, 0, 0.12)',
+    },
 }));
 
 const Styling = () => {
@@ -21,18 +26,13 @@ const Styling = () => {
     const classes = useStyles();
     const holder = useContext(EditorContext);
 
+    const disableList = ['jumbotron', 'image', 'description', 'readLength'];
+
     const checkDisabled = (style) => {
-        switch (holder.sectionMode.el) {
-            case 'jumbotron':
-                return true;
-            case 'image':
-                return true;
-            case 'description':
-                return true;
-            case 'readLength':
-                return true;
-            default:
-                return holder[holder.sectionMode.el][style];
+        if (holder.sectionMode.el === 'body') {
+            return holder.body[holder.sectionMode.index][style];
+        } else {
+            return holder[holder.sectionMode.el][style];
         }
     };
 
@@ -51,49 +51,111 @@ const Styling = () => {
         }
     };
 
-    return (
-        <Fragment>
+    if (disableList.includes(holder.sectionMode.el)) {
+        return (
+            <Fragment>
 
-            <Button
-                disabled={checkDisabled('bold')}
-                onClick={() => holder.handleStyling('bold')}
-            >
-                <Icon>format_bold</Icon>
-            </Button>
-
-            <Button
-                disabled={checkDisabled('italic')}
-                onClick={() => holder.handleStyling('italic')}
-            >
-                <Icon>format_italic</Icon>
-            </Button>
-
-            <Button
-                disabled={checkDisabled('underline')}
-                onClick={() => holder.handleStyling('underline')}
-            >
-                <Icon>format_underline</Icon>
-            </Button>
-
-            {
-                disablePicker()
-                    ?
-                <ColorPicker />
-                    :
-                <Button disabled={true}>
-                    <Icon>format_color_text</Icon>
+                <Button
+                    disabled={true}
+                    onClick={() => holder.handleStyling('bold')}
+                    variant="contained"
+                    style={{ marginRight: 10 }}
+                >
+                    <Icon>format_bold</Icon>
                 </Button>
-            }
 
-            <Button
-                disabled={checkDisabled('highlight')}
-                onClick={() => holder.handleStyling('highlight')}
-            >
-                <Icon>highlight</Icon>
-            </Button>
+                <Button
+                    disabled={true}
+                    onClick={() => holder.handleStyling('italic')}
+                    variant="contained"
+                    style={{ marginRight: 10 }}
+                >
+                    <Icon>format_italic</Icon>
+                </Button>
 
-        </Fragment>
-    );
+                <Button
+                    disabled={true}
+                    onClick={() => holder.handleStyling('underline')}
+                    variant="contained"
+                    style={{ marginRight: 10 }}
+                >
+                    <Icon>format_underline</Icon>
+                </Button>
+
+                {
+                    disablePicker()
+                        ?
+                    <ColorPicker />
+                        :
+                    <Button style={{ marginRight: 10 }} disabled={true} variant="contained">
+                        <Icon>format_color_text</Icon>
+                    </Button>
+                }
+
+                <Button
+                    disabled={true}
+                    onClick={() => holder.handleStyling('highlight')}
+                    variant="contained"
+                    style={{ marginRight: 10 }}
+                >
+                    <Icon>highlight</Icon>
+                </Button>
+
+            </Fragment>
+        );
+    } else {
+        return (
+            <Fragment>
+    
+                <Button
+                    className={checkDisabled('bold') ? classes.disabled : classes.active}
+                    onClick={() => holder.handleStyling('bold')}
+                    variant="contained"
+                    style={{ marginRight: 10 }}
+                >
+                    <Icon>format_bold</Icon>
+                </Button>
+    
+                <Button
+                    className={checkDisabled('italic') ? classes.disabled : classes.active}
+                    onClick={() => holder.handleStyling('italic')}
+                    variant="contained"
+                    style={{ marginRight: 10 }}
+                >
+                    <Icon>format_italic</Icon>
+                </Button>
+    
+                <Button
+                    className={checkDisabled('underline') ? classes.disabled : classes.active}
+                    onClick={() => holder.handleStyling('underline')}
+                    variant="contained"
+                    style={{ marginRight: 10 }}
+                >
+                    <Icon>format_underline</Icon>
+                </Button>
+    
+                {
+                    disablePicker()
+                        ?
+                    <ColorPicker />
+                        :
+                    <Button style={{ marginRight: 10 }} disabled={true} variant="contained">
+                        <Icon>format_color_text</Icon>
+                    </Button>
+                }
+    
+                <Button
+                    className={checkDisabled('highlight') ? classes.disabled : classes.active}
+                    onClick={() => holder.handleStyling('highlight')}
+                    variant="contained"
+                    style={{ marginRight: 10 }}
+                >
+                    <Icon>highlight</Icon>
+                </Button>
+    
+            </Fragment>
+        );
+    }
 };
 
 export default Styling;

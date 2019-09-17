@@ -82,23 +82,23 @@ const TextSize = () => {
     const sizeSwitch = () => {
         switch (holder.sectionMode.el) {
             case 'body':
-                return <Button onClick={handleOpen}>
+                return <Button style={{ marginRight: 10 }} onClick={handleOpen} variant="contained">
                             {holder[holder.sectionMode.el][holder.sectionMode.index].textStyle}
                         </Button>;
             case 'jumbotron':
-                return <Button disabled={true}>
+                return <Button style={{ marginRight: 10 }} disabled={true} variant="contained">
                             <Icon>lock</Icon>
                         </Button>;
             case 'image':
-                return <Button disabled={true}>
+                return <Button style={{ marginRight: 10 }} disabled={true} variant="contained">
                             <Icon>lock</Icon>
                         </Button>;
             case 'readLength':
-                return <Button disabled={true}>
+                return <Button style={{ marginRight: 10 }} disabled={true} variant="contained">
                             <Icon>lock</Icon>
                         </Button>;
             default:
-                return <Button onClick={handleOpen}>
+                return <Button style={{ marginRight: 10 }} onClick={handleOpen} variant="contained">
                             {holder[holder.sectionMode.el].textStyle}
                         </Button>;
         }

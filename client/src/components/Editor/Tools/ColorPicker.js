@@ -229,7 +229,7 @@ const ColorPicker = () => {
   return (
     <Fragment>
 
-      <Button aria-describedby={id} variant="contained" onClick={handleClick}>
+      <Button style={{ marginRight: 10 }} aria-describedby={id} variant="contained" onClick={handleClick}>
 
         <Icon style={{ color: colorSwitch() }}>
             format_color_text

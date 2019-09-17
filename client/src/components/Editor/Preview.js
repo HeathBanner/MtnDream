@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, Fragment } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, TextField, Button, Avatar } from '@material-ui/core';
+import { Grid, Typography, TextField, Button, Avatar, CircularProgress } from '@material-ui/core';
 
 import Jumbotron from './Tools/Jumbotron';
 import Image from './Tools/Image';
@@ -17,9 +17,13 @@ const fontSizes = {
     h6: '1.25rem',
 };
 
-const Preview = () => {
+const Preview = (props) => {
 
     const holder = useContext(EditorContext);
+
+    useEffect(() => {
+        holder.editArticle(props.title);
+    }, []);
 
     const useStyles = makeStyles((theme) => ({
         container: {
@@ -38,7 +42,7 @@ const Preview = () => {
             textDecoration: holder.title.underline ? 'underline' : 'none',
             textAlign: holder.title.justify,
             color: holder.title.color,
-            backgroundColor: holder.title.highlight ? '#ffff00' : 'none',
+            backgroundColor: holder.title.highlight ? '#ffff00' : 'inherit',
             padding: 0,
             width: '100%',
             lineHeight: 1.17,
@@ -50,6 +54,7 @@ const Preview = () => {
             textAlign: holder.description.justify,
             marginTop: 20,
             padding: 0,
+            lineHeight: 1.17,
         },
         jumboContainer: {
             width: '100%',
@@ -105,8 +110,15 @@ const Preview = () => {
         return `${months[now.getMonth()]} ${now.getDate()}`;
     };
 
+    if ( (props.title) && (props.title !== 'new') && (!holder.title.text) ) {
+        return (
+            <Grid className={classes.container} item xs={12}>
+                <CircularProgress />
+            </Grid>
+        );
+    }
     return (
-        <Grid container>
+        <Fragment>
 
             <Grid className={classes.container} item xs={12}>
 
@@ -130,6 +142,7 @@ const Preview = () => {
                     value={holder.description.text}
                     onClick={() => holder.handleSectionMode({ el: 'description' })}
                     onChange={(e) => holder.handleInput(e, { El: 'description' })}
+                    multiline={true}
                 />
 
                 <div
@@ -199,7 +212,7 @@ const Preview = () => {
                                             textDecoration: holder.body[index].underline ? 'underline' : 'none',
                                             textAlign: holder.body[index].justify,
                                             color: holder.body[index].color,
-                                            backgroundColor: holder.body[index].highlight ? '#ffff00' : 'none',
+                                            backgroundColor: holder.body[index].highlight ? '#ffff00' : 'inherit',
                                             lineHeight: 1.17,
                                         } 
                                     }}
@@ -254,7 +267,7 @@ const Preview = () => {
 
             </Grid>
 
-        </Grid>
+        </Fragment>
     );
 };
 

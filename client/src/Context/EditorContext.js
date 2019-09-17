@@ -36,8 +36,6 @@ const initialImg = {
     marginBottom: 0,
 };
 
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
 export const EditorProvider = (props) => {
 
     const [editMode, setEditMode] = useState(false);
@@ -61,13 +59,22 @@ export const EditorProvider = (props) => {
         setEditMode(!editMode);
     };
 
-    const editArticle = (index) => {
-        setTitle(articleList[index].title);
-        setDescription(articleList[index].description);
-        setReadLength(articleList[index].readLength);
-        setJumbotron(articleList[index].jumbotron);
-        setBody(articleList[index].body);
-        setEditMode(!editMode);
+    const editArticle = (title) => {
+        if (title === 'new') { return }
+        fetch('/api/editors/getArticle', {
+            method: 'POST',
+            body: JSON.stringify({ title }),
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(res => res.json())
+            .then((result) => {
+                setTitle(result.title);
+                setDescription(result.description);
+                setReadLength(result.readLength);
+                setJumbotron(result.jumbotron);
+                setBody(result.body);
+            })
+            .catch((error) => { console.log(error); });
     };
 
     const handleSectionMode = (newSection) => {
@@ -95,46 +102,8 @@ export const EditorProvider = (props) => {
         }
     };
 
-    const handleSubmit = () => {
-        const now = new Date();
-        const date = {
-            parsedDate: `${months[now.getMonth()]} ${now.getDate()}`,
-            epoch: now.getTime(),
-        };
-        const data = {
-            title,
-            description,
-            readLength,
-            jumbotron,
-            body,
-            date,
-        };
-        fetch('/api/editors/newArticle',{
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json' },
-        })
-            .then(res => res.json())
-            .then((result) => { console.log(result); })
-            .catch((error) => { console.log(error); });
-    };
-
-    const handleChanges = () => {
-        const data = {
-            title,
-            description,
-            readLength,
-            jumbotron,
-            body,
-        };
-        fetch('/api/editors/saveChanges', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json' },
-        })
-            .then(res => res.json())
-            .then((result) => { console.log(result); })
-            .catch((error) => { console.log(error); });
+    const setPublished = () => {
+        setTitle({ ...title, isPublished: true });
     };
 
     const handleBody = ( input, index ) => {
@@ -185,16 +154,6 @@ export const EditorProvider = (props) => {
             default:
                 return
         }
-    };
-
-    const handleArticle = () => {
-        let section = {
-            sectionMode: sectionMode,
-            title: title,
-            jumbotron: jumbotron,
-            body: body,
-        };
-        handleSubmit(section);
     };
 
     const handleFont = ( newFont ) => {
@@ -309,7 +268,7 @@ export const EditorProvider = (props) => {
                 break;
             case 'readLength':
                 handleInfoJustify(justification);
-                break;    
+                break;
             case 'jumbotron':
                 handleJumboJustify(justification);
                 break;
@@ -383,8 +342,6 @@ export const EditorProvider = (props) => {
         <EditorContext.Provider
             value={{
                 handleInput,
-                handleSubmit,
-                handleChanges,
                 handleStyling,
                 handleFont,
                 handleJustify,
@@ -392,10 +349,10 @@ export const EditorProvider = (props) => {
                 handleTextColor,
                 handleMarginTop,
                 handleMarginBottom,
-                handleArticle,
                 handleMode,
                 handleSectionMode,
                 sectionMode,
+                setPublished,
                 articleList,
                 editMode,
                 editArticle,

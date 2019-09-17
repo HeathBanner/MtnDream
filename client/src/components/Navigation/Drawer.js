@@ -31,10 +31,8 @@ const useStyles = makeStyles(theme => ({
       transform: 'translate(20px, 0px)'
     },
     transition: 'transform .4s ease',
-    marginBottom: 20,
     padding: '12px 22px',
     color: 'white',
-    background: 'rgb(0, 0, 0, 0.2)'
   },
   iconButtons: {
     [theme.breakpoints.down('xs')]: {
@@ -55,21 +53,16 @@ const drawerList = [
     icon: 'home',
     link: '/'
   },
-  // {
-  //   text: 'Explore',
-  //   icon: 'explore',
-  //   link: '/explore'
-  // },
   {
     text: 'Contact',
     icon: 'contact_phone',
     link: '/contact'
   },
-  // {
-  //   text: 'Blog',
-  //   icon: 'vertical_split',
-  //   link: '/blog'
-  // }
+  {
+    text: 'Blog',
+    icon: 'vertical_split',
+    link: '/blog'
+  }
 ]
 
 const TemporaryDrawer = props => {
@@ -119,19 +112,33 @@ const TemporaryDrawer = props => {
         {
           drawerList.map((item) => (
 
-            <Link key={item.text} style={{textDecoration: 'none', color: 'black'}} to={item.link}>
+            <Link
+              key={item.text}
+              style={{
+                textDecoration: 'none',
+                color: 'black',
+              }}
+              to={item.link}
+            >
               
-              <ListItem className={classes.listItems} button key={item.text}>
+              <ListItem
+                className={classes.listItems}
+                button
+                key={item.text}
+              >
               
                 <ListItemIcon className={classes.iconButtons}>
-                  <Icon style={{ color: 'white' }} fontSize={!media.sm ? 'large' : 'small'}>{item.icon}</Icon>
+                  <Icon
+                    style={{ color: 'white' }}
+                    fontSize={!media.sm ? 'large' : 'small'}
+                  >
+                    {item.icon}
+                  </Icon>
                 </ListItemIcon>
                 
                 <ListItemText 
                   primary={item.text} 
-                  primaryTypographyProps={{
-                    variant: getVariant(),
-                  }}
+                  primaryTypographyProps={{ variant: getVariant() }}
                 />
               
               </ListItem>
@@ -149,9 +156,15 @@ const TemporaryDrawer = props => {
 
     <div>
 
-      <IconButton onClick={toggleDrawer('left', true)}>
+      <IconButton
+        style={{ padding: 0 }}
+        onClick={toggleDrawer('left', true)}
+      >
 
-        <Icon className={classes.menuIcon} fontSize={props.query ? 'small' : 'large'}>
+        <Icon
+          className={classes.menuIcon}
+          fontSize={props.query ? 'small' : 'large'}
+        >
           menu
         </Icon>
 
@@ -160,7 +173,7 @@ const TemporaryDrawer = props => {
       <Drawer 
         PaperProps={{ 
           style: {
-            background: 'linear-gradient(336deg, rgba(161, 161, 161, 0.07) 0%, rgba(161, 161, 161, 0.07) 50%,rgba(36, 36, 36, 0.07) 50%, rgba(36, 36, 36, 0.07) 100%),linear-gradient(69deg, rgba(68, 68, 68, 0.04) 0%, rgba(68, 68, 68, 0.04) 50%,rgba(203, 203, 203, 0.04) 50%, rgba(203, 203, 203, 0.04) 100%),linear-gradient(291deg, rgba(193, 193, 193, 0.03) 0%, rgba(193, 193, 193, 0.03) 50%,rgba(165, 165, 165, 0.03) 50%, rgba(165, 165, 165, 0.03) 100%),linear-gradient(151deg, rgba(202, 202, 202, 0.02) 0%, rgba(202, 202, 202, 0.02) 50%,rgba(158, 158, 158, 0.02) 50%, rgba(158, 158, 158, 0.02) 100%),linear-gradient(260deg, rgba(87, 87, 87, 0.03) 0%, rgba(87, 87, 87, 0.03) 50%,rgba(45, 45, 45, 0.03) 50%, rgba(45, 45, 45, 0.03) 100%),linear-gradient(323deg, rgba(160, 160, 160, 0.01) 0%, rgba(160, 160, 160, 0.01) 50%,rgba(57, 57, 57, 0.01) 50%, rgba(57, 57, 57, 0.01) 100%),linear-gradient(253deg, rgba(122, 122, 122, 0.02) 0%, rgba(122, 122, 122, 0.02) 50%,rgba(222, 222, 222, 0.02) 50%, rgba(222, 222, 222, 0.02) 100%),linear-gradient(159deg, rgba(213, 213, 213, 0.01) 0%, rgba(213, 213, 213, 0.01) 50%,rgba(149, 149, 149, 0.01) 50%, rgba(149, 149, 149, 0.01) 100%),linear-gradient(138deg, rgba(10, 10, 10, 0.05) 0%, rgba(10, 10, 10, 0.05) 50%,rgba(111, 111, 111, 0.05) 50%, rgba(111, 111, 111, 0.05) 100%),linear-gradient(135deg, #319366,#24f04b)',
+            backgroundColor: '#984843',
           }
         }}
         open={state.left} 

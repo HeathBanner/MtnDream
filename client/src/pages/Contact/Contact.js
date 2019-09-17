@@ -21,7 +21,7 @@ const Contact = () => {
 
         <Grid className={classes.container} container>
 
-            <Grid style={{height: 60}} item xs={12}>
+            <Grid item xs={12}>
 
                 <Nav />
 

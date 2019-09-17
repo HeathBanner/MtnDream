@@ -31,7 +31,7 @@ const Blog = () => {
 
                 <Grid style={{ height: 60 }} item xs={12}>
 
-                    <Nav />
+                    <Nav isBlog={true} />
 
                 </Grid>
                 <Grid className={classes.articlesContainer} item xs={9}>

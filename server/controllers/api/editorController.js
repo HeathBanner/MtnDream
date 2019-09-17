@@ -37,7 +37,7 @@ editorController.post('/newArticle', (req, res) => {
                     error: 'An article is already using this title!',
                 });
             }
-            db.updateOne({ 'title.text': title.text }, {
+            return db.updateOne({ 'title.text': title.text }, {
                 title,
                 description,
                 readLength,
@@ -58,7 +58,6 @@ editorController.post('/saveChanges', (req, res) => {
         readLength,
         jumbotron,
         body,
-        date,
     } = req.body;
     db.findOneAndUpdate({ 'title.text': title.text }, {
         title,
@@ -66,7 +65,6 @@ editorController.post('/saveChanges', (req, res) => {
         readLength,
         jumbotron,
         body,
-        date,
     })
         .then((result) => { res.status(201).json(result); })
         .catch((error) => { res.status(500).json(error); });
