@@ -11,7 +11,7 @@ import SlideShow from './SlideShow';
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        height: '100vh',
+        height: '120vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

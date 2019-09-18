@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
         alignContent: 'center',
     },
     headerContainer: {
-        height: '100vh',
+        height: '120vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -77,8 +77,7 @@ const Footer = () => {
                     className={classes.header} 
                     align="center"
                     variant={
-                        media.xs ? 'h4' : 
-                        media.sm ? 'h2' : 'h1'
+                        media.xs ? 'h4' : 'h2'
                     } 
                 >
                     We're right by the Blue Ridge Parkway
