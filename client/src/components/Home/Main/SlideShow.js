@@ -42,6 +42,9 @@ const tutorialSteps = [
 
 const useStyles = makeStyles(theme => ({
   root: {
+    [theme.breakpoints.down('xs')]: {
+      width: '70%',
+    },
     width: '40%',
     margin: '20px auto',
     overflow: 'hidden',

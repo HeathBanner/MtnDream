@@ -10,13 +10,15 @@ import NewArticle from '../../components/Blog/NewArticle';
 import Latest from '../../components/Blog/Latest';
 
 const useStyles = makeStyles((theme) => ({
-    container: {
-        marginTop: 120,
-        marginBottom: 80,
-    },
     articlesContainer: {
-        paddingLeft: '20%',
-        paddingRight: 40,
+        [theme.breakpoints.down('md')]: {
+            paddingLeft: 40,
+            paddingRight: 40,
+        },
+        marginBottom: 80,
+        marginTop: 100,
+        paddingLeft: '15%',
+        paddingRight: '15%',
     },
 }));
 
@@ -29,20 +31,17 @@ const Blog = () => {
 
             <EditorProvider>
 
-                <Grid style={{ height: 60 }} item xs={12}>
+                <Grid item xs={12}>
 
                     <Nav isBlog={true} />
 
                 </Grid>
-                <Grid className={classes.articlesContainer} item xs={9}>
+                <Grid className={classes.articlesContainer} item xs={12}>
 
                     <NewArticle />
 
                     <Latest />
                 
-                </Grid>
-                <Grid item xs={3}>
-
                 </Grid>
 
             </EditorProvider>

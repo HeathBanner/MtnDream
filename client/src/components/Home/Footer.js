@@ -5,6 +5,8 @@ import { Grid, Typography, Button } from '@material-ui/core';
 
 import { MediaContext } from '../../Context/MediaQuery';
 
+import BlowingRock from './imgs/blowingRock.jpg';
+
 const useStyles = makeStyles(theme => ({
     mainContainer: {
         display: 'flex',
@@ -13,7 +15,7 @@ const useStyles = makeStyles(theme => ({
         alignContent: 'center',
     },
     headerContainer: {
-        height: '120vh',
+        padding: '120px 0px',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -85,7 +87,7 @@ const Footer = () => {
 
                 <img
                     className={classes.img}
-                    src={`http://67adb0ae45c3c86e2ed9-8d955638d6ccc0c65b563c0cc679e8f0.r60.cf1.rackcdn.com/1392157777_blowing-rock-wallpaper-1.jpg`}
+                    src={BlowingRock}
                     alt="Grandfather Mountain view from summit"
                 />
 

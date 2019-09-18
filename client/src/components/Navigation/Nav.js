@@ -1,7 +1,18 @@
-import React, { useEffect, useState, useContext, Fragment } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useContext,
+} from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Typography, CircularProgress, Modal, Button, Paper }from '@material-ui/core';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  CircularProgress,
+  Modal,
+  Button,
+} from '@material-ui/core';
 
 import { MediaContext } from '../../Context/MediaQuery';
 
@@ -33,8 +44,16 @@ const useStyles = makeStyles((theme) => ({
     transform: 'translate(0%, -50%)',
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',    
+  },
+  loginContainer: {
+    position: 'absolute',
+    top: '50%',
+    right: 10,
+    transform: 'translate(0%, -50%)',
+    display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
-    
   },
   imgLg: {
     height: 70,
@@ -70,7 +89,8 @@ const Nav = (props) => {
             desc: result.weather[0].description,
             image: `https://openweathermap.org/img/w/${result.weather[0].icon}.png`,
           });
-        });
+        })
+        .catch(() => { return; });
     }, []);
 
     if (props.isBlog) {
@@ -96,7 +116,7 @@ const Nav = (props) => {
                   ?
                 ''
                   :
-                <Fragment>
+                <div className={classes.loginContainer}>
 
                   <Button onClick={handleOpen}>
                     <Typography style={{ color: 'white' }} variant={media.xs ? 'subtitle2' : 'h5'}>
@@ -111,7 +131,7 @@ const Nav = (props) => {
                     <Login close={handleClose} />
                   </Modal>
 
-                </Fragment>
+                </div>
               }
 
             </Toolbar>

@@ -58,14 +58,9 @@ const drawerList = [
     icon: 'contact_phone',
     link: '/contact'
   },
-  {
-    text: 'Blog',
-    icon: 'vertical_split',
-    link: '/blog'
-  }
-]
+];
 
-const TemporaryDrawer = props => {
+const NavDrawer = (props) => {
 
   const classes = useStyles();
   const media = useContext(MediaContext);
@@ -124,7 +119,6 @@ const TemporaryDrawer = props => {
               <ListItem
                 className={classes.listItems}
                 button
-                key={item.text}
               >
               
                 <ListItemIcon className={classes.iconButtons}>
@@ -145,6 +139,44 @@ const TemporaryDrawer = props => {
 
             </Link>
           ))
+        }
+
+        {
+          media.xs
+            ?
+          ''
+            :
+        
+          <Link
+            style={{
+              textDecoration: 'none',
+              color: 'black',
+            }}
+            to={'/blog'}
+          >
+            
+            <ListItem
+              className={classes.listItems}
+              button
+            >
+            
+              <ListItemIcon className={classes.iconButtons}>
+                <Icon
+                  style={{ color: 'white' }}
+                  fontSize={!media.sm ? 'large' : 'small'}
+                >
+                  vertical_split
+                </Icon>
+              </ListItemIcon>
+              
+              <ListItemText 
+                primary={'Blog'} 
+                primaryTypographyProps={{ variant: getVariant() }}
+              />
+            
+            </ListItem>
+
+          </Link>
         }
 
       </List>
@@ -188,4 +220,4 @@ const TemporaryDrawer = props => {
   );
 };
 
-export default TemporaryDrawer;
+export default NavDrawer;

@@ -3,15 +3,13 @@ import React, { useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 
-import { Parallax, Background } from 'react-parallax';
-
 import { MediaContext } from '../../../Context/MediaQuery';
 
 import SlideShow from './SlideShow';
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        height: '120vh',
+        padding: '100px 20px',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -34,9 +32,9 @@ const useStyles = makeStyles((theme) => ({
     },
     textContainer: {
         [theme.breakpoints.down('xs')]: {
-            padding: 20,
+            padding: '0px 20px 20px 20px',
         },
-        padding: '5% 10%',
+        padding: '0% 10% 5% 10%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -45,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     slideContainer: {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 }));
 
