@@ -1,18 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography } from '@material-ui/core';
-
-import { Parallax }  from 'react-parallax';
-
-import { MediaContext } from '../../Context/MediaQuery';
+import { Grid } from '@material-ui/core';
 
 import Nav from '../../components/Navigation/Nav';
 import Landing from '../../components/Home/Landing';
-import Body from '../../components/Home/Main/Body';
+import Body from '../../components/Home/Body';
 import Footer from '../../components/Home/Footer';
-
-import Boone from '../../components/Home/imgs/Boone.jpg';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -54,24 +48,7 @@ const useStyles = makeStyles(theme => ({
 
 const Home = () => {
 
-    const media = useContext(MediaContext);
-
     const classes = useStyles();
-
-    const getVariant = () => {      
-        switch (true) {
-            case media.xs:
-                return 'h5';
-            case media.sm:
-                return 'h3';
-            case media.md:
-                return 'h3';
-            case media.lg:
-                return 'h2';
-            default:
-                return 'h1';
-        }
-    };
 
     return (
 

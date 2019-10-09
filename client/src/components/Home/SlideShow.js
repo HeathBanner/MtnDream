@@ -17,11 +17,11 @@ import {
 import { autoPlay } from 'react-swipeable-views-utils';
 import SwipeableViews from 'react-swipeable-views';
 
-import { MediaContext } from '../../../Context/MediaQuery';
+import { MediaContext } from '../../Context/MediaQuery';
 
-import firePit from '../imgs/cabinFire.jpg';
-import Autumn from '../imgs/autumn.jpg';
-import Couch from '../imgs/couch.jpg';
+import firePit from './imgs/cabinFire.jpg';
+import Autumn from './imgs/autumn.jpg';
+import Couch from './imgs/couch.jpg';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 

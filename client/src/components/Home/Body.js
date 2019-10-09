@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 
-import { MediaContext } from '../../../Context/MediaQuery';
+import { MediaContext } from '../../Context/MediaQuery';
 
 import SlideShow from './SlideShow';
 
