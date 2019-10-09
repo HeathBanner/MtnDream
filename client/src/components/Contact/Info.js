@@ -31,10 +31,7 @@ const useStyles = makeStyles((theme) => ({
         color: 'white',
     },
     divider: {
-        [theme.breakpoints.down('xs')]: {
-            width: '95%'
-        },
-        width: '70%', 
+        width: '60%', 
         marginBottom: 20,
         backgroundColor: 'rgb(255, 255, 255, 0.1)'
     },

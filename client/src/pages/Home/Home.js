@@ -8,6 +8,7 @@ import { Parallax }  from 'react-parallax';
 import { MediaContext } from '../../Context/MediaQuery';
 
 import Nav from '../../components/Navigation/Nav';
+import Landing from '../../components/Home/Landing';
 import Body from '../../components/Home/Main/Body';
 import Footer from '../../components/Home/Footer';
 
@@ -81,26 +82,8 @@ const Home = () => {
                 <Nav />
 
             </Grid>
-            <Grid item xs={12}>
 
-                <Parallax 
-                    strength={200} 
-                    bgImage={Boone}
-                >
-                    <div className={classes.ParallaxContent}>
-
-                        <Typography
-                            className={classes.typo}
-                            variant={getVariant()}
-                            align="center"
-                        >
-                            Welcome to our little piece of paradise!
-                        </Typography>
-
-                    </div>
-                </Parallax>
-
-            </Grid>
+            <Landing />
 
             <Body />
 

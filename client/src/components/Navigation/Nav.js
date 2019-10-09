@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 5,
   },
   appBar: {
-    position: 'relative',
+    position: 'fixed',
     background: 'linear-gradient(45deg, #986243 30%, #984843 90%)',
   },
   menuButton: {
