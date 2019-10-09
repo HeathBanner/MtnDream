@@ -19,7 +19,7 @@ import SwipeableViews from 'react-swipeable-views';
 
 import { MediaContext } from '../../../Context/MediaQuery';
 
-import firePit from '../imgs/slide/cabinFire.jpg';
+import firePit from '../imgs/cabinFire.jpg';
 import Autumn from '../imgs/autumn.jpg';
 import Couch from '../imgs/couch.jpg';
 
