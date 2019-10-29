@@ -2,7 +2,14 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Button, Divider, Typography, Paper, Avatar } from '@material-ui/core';
+import {
+    Grid,
+    Button,
+    Divider,
+    Typography,
+    Paper,
+    Avatar,
+} from '@material-ui/core';
 
 import { EditorContext } from '../../Context/EditorContext';
 
@@ -53,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ArticleSelection = () => {
 
-    const holder = useContext(EditorContext);
+    const edit = useContext(EditorContext);
     const classes = useStyles();
     
     return (
@@ -79,14 +86,16 @@ const ArticleSelection = () => {
 
             </Grid>
             
-            <Divider style={{width: '100%', marginTop: 40}} />
+            <Divider style={{ width: '100%', marginTop: 40 }} />
 
             <Grid className={classes.container} item xs={12}>
 
+                {/* Once the context has updated with the article list, it will
+                then loop through and render each article */}
                 {
-                    holder.articleList
+                    edit.articleList
                         ?
-                    holder.articleList.map((article, index) => {
+                    edit.articleList.map((article) => {
                         return (
                             <Paper
                                 className={classes.paper}

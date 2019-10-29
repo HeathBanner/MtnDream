@@ -33,6 +33,8 @@ const Blog = () => {
 
                 <Grid item xs={12}>
 
+                    {/* This will tell the navigation bar whether to load the weather
+                    or the login panel */}
                     <Nav isBlog={true} />
 
                 </Grid>

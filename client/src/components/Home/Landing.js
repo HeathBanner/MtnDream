@@ -49,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
         },
         position: 'absolute',
         bottom: -130,
-        left: 0,
         width: 0,
         height: 0,
         borderStyle: 'solid',

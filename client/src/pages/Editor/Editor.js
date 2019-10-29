@@ -1,32 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { MediaContext } from '../../Context/MediaQuery';
 
 import { Grid } from '@material-ui/core';
 
-import { EditorProvider } from '../../Context/EditorContext';
-
-import Nav from '../../components/Navigation/Nav';
-import Toolbar from '../../components/Editor/Toolbar';
+import MDToolbar from '../../components/Editor/MDToolbar';
+import LGToolbar from '../../components/Editor/LGToolbar';
 import Preview from '../../components/Editor/Preview';
 
 const Editor = ({ match }) => {
 
+    const media = useContext(MediaContext);
+
     return (
         <Grid container>
 
-            <Grid style={{ height: 70 }} item xs={12}>
-                <Nav />
-            </Grid>
-
             <Grid item xs={12}>
 
-                <EditorProvider>
+                {
+                    media.md
+                        ?
+                    <MDToolbar xs={media.xs} md={media.md} />
+                        :
+                    <LGToolbar />
+                }
 
-                    <Toolbar />
-
-                    <Preview title={match.params.title} />
+                <Preview xs={media.xs} md={media.md} title={match.params.title} />
                
-                </EditorProvider>
-
             </Grid>
 
         </Grid>

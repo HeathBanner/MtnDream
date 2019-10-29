@@ -23,9 +23,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     zIndex: 5,
+    overflow: 'hidden',
   },
   appBar: {
-    position: 'fixed',
     background: 'linear-gradient(45deg, #986243 30%, #984843 90%)',
   },
   menuButton: {
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     transform: 'translate(0%, -50%)',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',    
+    alignItems: 'center',
   },
   loginContainer: {
     position: 'absolute',
@@ -56,13 +56,13 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   imgLg: {
-    height: 70,
-    width: 70,
+    height: '100%',
+    width: 'auto',
     marginTop: 5
   },
   imgSm: {
-    height: 30,
-    width: 30,
+    height: '100%',
+    width: 'auto',
     marginTop: 5
   }
 }));
@@ -97,7 +97,11 @@ const Nav = (props) => {
       return (
         <div className={classes.root}>
 
-          <AppBar className={classes.appBar} position="fixed">
+          <AppBar
+            className={classes.appBar}
+            style={{ position: props.edit ? 'relative' : 'fixed' }}
+            position="fixed"
+          >
 
             <Toolbar>
 

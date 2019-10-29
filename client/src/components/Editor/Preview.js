@@ -1,7 +1,18 @@
-import React, { useContext, useEffect, Fragment } from 'react';
+import React, {
+    useContext,
+    useEffect,
+    Fragment,
+} from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, TextField, Button, Avatar, CircularProgress } from '@material-ui/core';
+import {
+    Grid,
+    Typography,
+    TextField,
+    Button,
+    Avatar,
+    CircularProgress,
+} from '@material-ui/core';
 
 import Jumbotron from './Tools/Jumbotron';
 import Image from './Tools/Image';
@@ -16,15 +27,41 @@ const fontSizes = {
     h5: '1.5rem',
     h6: '1.25rem',
 };
+const mobileFontSizes = {
+    h1: '2.125rem',
+    h2: '2.125em',
+    h3: '1.5rem',
+    h4: '1.5rem',
+    h5: '1.25rem',
+    h6: '1rem',
+};
+const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+];
 
 const Preview = (props) => {
 
     const holder = useContext(EditorContext);
 
+    // Once the component mounts, it will send the url parameter to the context
+    // to have it update with the currently selected article
     useEffect(() => {
         holder.editArticle(props.title);
     }, []);
 
+    // The makeStyles hook was added within the component due to the reliance of
+    // the context information
     const useStyles = makeStyles((theme) => ({
         container: {
             marginTop: 120 + parseInt(holder.title.marginTop),
@@ -35,7 +72,7 @@ const Preview = (props) => {
             flexWrap: 'wrap',
         },
         typo: {
-            fontSize: fontSizes[holder.title.textStyle],
+            fontSize: props.xs ? mobileFontSizes[holder.title.textStyle] : fontSizes[holder.title.textStyle],
             fontFamily: `${holder.title.font}, Helvetica, Arial, sans-serif`,
             fontWeight: holder.title.bold ? 'bold' : 'normal',
             fontStyle: holder.title.italic ? 'italic' : 'normal',
@@ -48,7 +85,7 @@ const Preview = (props) => {
             lineHeight: 1.17,
         },
         description: {
-            fontSize: fontSizes[holder.description.textStyle],
+            fontSize: props.xs ? mobileFontSizes[holder.description.textStyle] : fontSizes[holder.description.textStyle],
             fontFamily: `${holder.description.font}, Helvetica, Arial, sans-serif`,
             color: holder.description.color,
             textAlign: holder.description.justify,
@@ -104,8 +141,9 @@ const Preview = (props) => {
     
     const classes = useStyles();
 
+    // This function generate the current date and parses it to be applied to the
+    // elements below
     const generateDate = () => {
-        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         let now = new Date();
         return `${months[now.getMonth()]} ${now.getDate()}`;
     };
@@ -190,6 +228,8 @@ const Preview = (props) => {
                 
                 </div>
                 
+                {/* Since the body object contains both image and text elements,
+                a conditional was required to render both */}
                 { 
                     holder.body.map((section, index) => {
                         
@@ -205,7 +245,7 @@ const Preview = (props) => {
                                     inputProps={{
                                         style: {
                                             width: '100%',
-                                            fontSize: fontSizes[holder.body[index].textStyle],
+                                            fontSize: props.xs ? mobileFontSizes[holder.body.textStyle] : fontSizes[holder.body[index].textStyle],
                                             fontFamily: `${holder.body[index].font}, Helvetica, Arial, sans-serif`,
                                             fontWeight: holder.body[index].bold ? 'bold' : 'normal',
                                             fontStyle: holder.body[index].italic ? 'italic' : 'normal',
@@ -249,9 +289,9 @@ const Preview = (props) => {
                 <Button
                     className={classes.newSection}
                     onClick={holder.newBody}
-                    style={{ marginRight: 20 }}
+                    style={{ marginRight: props.xs ? 0 : 20 }}
                 >
-                    <Typography variant="h6">
+                    <Typography variant={props.xs ? 'body1' : 'h6'}>
                         Add Body Section
                     </Typography>
                 </Button>
@@ -260,7 +300,7 @@ const Preview = (props) => {
                     className={classes.newSection}
                     onClick={holder.newImgEl}
                 >
-                    <Typography variant="h6">
+                    <Typography variant={props.xs ? 'body1' : 'h6'}>
                         Add Photo
                     </Typography>
                 </Button>

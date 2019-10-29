@@ -1,9 +1,17 @@
-import React, { useState, useContext, Fragment } from 'react';
+import React, {
+    useState,
+    useContext,
+    Fragment,
+} from 'react';
 
 import { EditorContext } from '../../../Context/EditorContext';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Popover, Avatar, Button, Icon } from '@material-ui/core';
+import { Popover,
+    Avatar,
+    Button,
+    Icon,
+} from '@material-ui/core';
 
 const colorPalette = [
     {
@@ -188,7 +196,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ColorPicker = () => {
+const ColorPicker = (props) => {
 
   const classes = useStyles();
   const holder = useContext(EditorContext);
@@ -229,46 +237,51 @@ const ColorPicker = () => {
   return (
     <Fragment>
 
-      <Button style={{ marginRight: 10 }} aria-describedby={id} variant="contained" onClick={handleClick}>
+        <Button
+            style={{ marginRight: props.margin }}
+            aria-describedby={id}
+            variant="contained"
+            onClick={handleClick}
+        >
 
-        <Icon style={{ color: colorSwitch() }}>
-            format_color_text
-        </Icon>
+            <Icon style={{ color: colorSwitch() }}>
+                format_color_text
+            </Icon>
 
-      </Button>
+        </Button>
 
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-      >
-          <div className={classes.colorsContainer}>
-              
-            {
-                colorPalette.map((color) => {
-                    return (
-                        <Avatar
-                            onClick={() => wrapper(color.code)}
-                            style={{ backgroundColor: color.code }}
-                            className={classes.avatars}
-                            key={color.name}
-                        />
-                    );
-                })
-            }
- 
-          </div>
+        <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+            }}
+            transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+            }}
+        >
+            <div className={classes.colorsContainer}>
+                
+                {
+                    colorPalette.map((color) => {
+                        return (
+                            <Avatar
+                                onClick={() => wrapper(color.code)}
+                                style={{ backgroundColor: color.code }}
+                                className={classes.avatars}
+                                key={color.name}
+                            />
+                        );
+                    })
+                }
+    
+            </div>
 
-      </Popover>
+        </Popover>
 
     </Fragment>
   );
