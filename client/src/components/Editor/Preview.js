@@ -1,8 +1,4 @@
-import React, {
-    useContext,
-    useEffect,
-    Fragment,
-} from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -50,19 +46,19 @@ const months = [
     'December',
 ];
 
-const Preview = (props) => {
+export default ({ title, xs, md}) => {
 
     const holder = useContext(EditorContext);
 
     // Once the component mounts, it will send the url parameter to the context
     // to have it update with the currently selected article
     useEffect(() => {
-        holder.editArticle(props.title);
+        holder.editArticle(title);
     }, []);
 
     // The makeStyles hook was added within the component due to the reliance of
     // the context information
-    const useStyles = makeStyles((theme) => ({
+    const useStyles = makeStyles(() => ({
         container: {
             marginTop: 120 + parseInt(holder.title.marginTop),
             padding: 40,
@@ -72,7 +68,7 @@ const Preview = (props) => {
             flexWrap: 'wrap',
         },
         typo: {
-            fontSize: props.xs ? mobileFontSizes[holder.title.textStyle] : fontSizes[holder.title.textStyle],
+            fontSize: xs ? mobileFontSizes[holder.title.textStyle] : fontSizes[holder.title.textStyle],
             fontFamily: `${holder.title.font}, Helvetica, Arial, sans-serif`,
             fontWeight: holder.title.bold ? 'bold' : 'normal',
             fontStyle: holder.title.italic ? 'italic' : 'normal',
@@ -85,7 +81,7 @@ const Preview = (props) => {
             lineHeight: 1.17,
         },
         description: {
-            fontSize: props.xs ? mobileFontSizes[holder.description.textStyle] : fontSizes[holder.description.textStyle],
+            fontSize: xs ? mobileFontSizes[holder.description.textStyle] : fontSizes[holder.description.textStyle],
             fontFamily: `${holder.description.font}, Helvetica, Arial, sans-serif`,
             color: holder.description.color,
             textAlign: holder.description.justify,
@@ -144,11 +140,11 @@ const Preview = (props) => {
     // This function generate the current date and parses it to be applied to the
     // elements below
     const generateDate = () => {
-        let now = new Date();
+        const now = new Date();
         return `${months[now.getMonth()]} ${now.getDate()}`;
     };
 
-    if ( (props.title) && (props.title !== 'new') && (!holder.title.text) ) {
+    if ( (title) && (title !== 'new') && (!holder.title.text) ) {
         return (
             <Grid className={classes.container} item xs={12}>
                 <CircularProgress />
@@ -156,8 +152,7 @@ const Preview = (props) => {
         );
     }
     return (
-        <Fragment>
-
+        <>
             <Grid className={classes.container} item xs={12}>
 
                 <TextField
@@ -245,7 +240,7 @@ const Preview = (props) => {
                                     inputProps={{
                                         style: {
                                             width: '100%',
-                                            fontSize: props.xs ? mobileFontSizes[holder.body.textStyle] : fontSizes[holder.body[index].textStyle],
+                                            fontSize: xs ? mobileFontSizes[holder.body.textStyle] : fontSizes[holder.body[index].textStyle],
                                             fontFamily: `${holder.body[index].font}, Helvetica, Arial, sans-serif`,
                                             fontWeight: holder.body[index].bold ? 'bold' : 'normal',
                                             fontStyle: holder.body[index].italic ? 'italic' : 'normal',
@@ -289,9 +284,9 @@ const Preview = (props) => {
                 <Button
                     className={classes.newSection}
                     onClick={holder.newBody}
-                    style={{ marginRight: props.xs ? 0 : 20 }}
+                    style={{ marginRight: xs ? 0 : 20 }}
                 >
-                    <Typography variant={props.xs ? 'body1' : 'h6'}>
+                    <Typography variant={xs ? 'body1' : 'h6'}>
                         Add Body Section
                     </Typography>
                 </Button>
@@ -300,15 +295,12 @@ const Preview = (props) => {
                     className={classes.newSection}
                     onClick={holder.newImgEl}
                 >
-                    <Typography variant={props.xs ? 'body1' : 'h6'}>
+                    <Typography variant={xs ? 'body1' : 'h6'}>
                         Add Photo
                     </Typography>
                 </Button>
 
             </Grid>
-
-        </Fragment>
+        </>
     );
 };
-
-export default Preview;

@@ -8,7 +8,7 @@ import MDToolbar from '../../components/Editor/MDToolbar';
 import LGToolbar from '../../components/Editor/LGToolbar';
 import Preview from '../../components/Editor/Preview';
 
-const Editor = ({ match }) => {
+export default ({ match }) => {
 
     const media = useContext(MediaContext);
 
@@ -16,7 +16,6 @@ const Editor = ({ match }) => {
         <Grid container>
 
             <Grid item xs={12}>
-
                 {
                     media.md
                         ?
@@ -26,11 +25,8 @@ const Editor = ({ match }) => {
                 }
 
                 <Preview xs={media.xs} md={media.md} title={match.params.title} />
-               
             </Grid>
 
         </Grid>
     );
 };
-
-export default Editor;
