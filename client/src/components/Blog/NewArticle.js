@@ -33,7 +33,7 @@ export default () => {
     const holder = useContext(EditorContext);
     const classes = useStyles();
 
-    if (holder.articleList.length < 1) { return ""; }
+    if (holder.articleList.length < 1)  return "";
     return (
         <>
             <Link

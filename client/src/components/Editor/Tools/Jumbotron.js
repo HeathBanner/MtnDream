@@ -1,26 +1,17 @@
-import React, {
-    useContext,
-    useState,
-    Fragment,
-} from 'react';
-
-import { makeStyles } from '@material-ui/core/styles';
-import {
-    Popover,
-    Button,
-    TextField,
-} from '@material-ui/core';
-
+import React, { useContext, useState } from 'react';
 import { EditorContext } from '../../../Context/EditorContext';
 
-const useStyles = makeStyles(theme => ({
+import { makeStyles } from '@material-ui/core/styles';
+import { Popover, Button, TextField } from '@material-ui/core';
+
+const useStyles = makeStyles(() => ({
     paper: {
         padding: 20,
         width: 350,
-    },
+    }
 }));
 
-const Jumbotron = () => {
+export default () => {
 
     const classes = useStyles();
     const holder = useContext(EditorContext);
@@ -41,10 +32,8 @@ const Jumbotron = () => {
 
     if (holder.jumbotron.src) {
         return (
-            <Fragment>
-
+            <>
                 <Button style={{ width: '50%' }} onClick={handleClick}>
-
                     <img 
                         style={{
                             width: '100%',
@@ -54,7 +43,6 @@ const Jumbotron = () => {
                         src={holder.jumbotron.src} 
                         alt={holder.title.text} 
                     />
-
                 </Button>
 
                 <Popover
@@ -73,7 +61,6 @@ const Jumbotron = () => {
                         horizontal: 'center',
                     }}
                 > 
-
                     <TextField
                         style={{ width: '100%' }}
                         label="Paste Url"
@@ -81,15 +68,12 @@ const Jumbotron = () => {
                         value={holder.jumbotron.src}
                         onChange={(e) => holder.handleInput(e, { El: 'jumbotron' })}
                     />
-
                 </Popover> 
-
-            </Fragment>
+            </>
         );
     } else {
         return (
-            <Fragment>
-
+            <>
                 <Button style={{ margin: '40px auto 0px auto' }} variant="contained" onClick={handleClick}>
                     Add Jumbotron
                 </Button>
@@ -109,7 +93,6 @@ const Jumbotron = () => {
                         horizontal: 'center',
                     }}
                 > 
-
                     <TextField
                         style={{ width: '100%' }}
                         label="Paste Url"
@@ -117,12 +100,8 @@ const Jumbotron = () => {
                         value={holder.jumbotron.src}
                         onChange={(e) => holder.handleInput(e, { El: 'jumbotron' })}
                     />
-
                 </Popover>
-
-            </Fragment>
+            </>
         );
     }
 };
-
-export default Jumbotron;

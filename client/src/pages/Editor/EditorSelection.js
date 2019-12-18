@@ -1,14 +1,12 @@
 import React from 'react';
-
-import { Grid } from '@material-ui/core';
-
 import { EditorProvider } from '../../Context/EditorContext';
 
 import Nav from '../../components/Navigation/Nav';
 import ArticleSelection from '../../components/Editor/ArticleSelection';
 
-const EditorSelection = () => {
+import { Grid } from '@material-ui/core';
 
+export default () => {
     return (
         <Grid container>
 
@@ -27,5 +25,3 @@ const EditorSelection = () => {
         </Grid>
     );
 };
-
-export default EditorSelection;

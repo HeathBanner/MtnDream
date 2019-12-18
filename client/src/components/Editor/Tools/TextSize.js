@@ -1,15 +1,11 @@
-import React, {
-    Fragment,
-    useState,
-    useContext
-} from 'react';
+import React, { useState, useContext } from 'react';
 
 import {
     Menu,
     MenuItem,
     Button,
     Icon,
-    Typography,
+    Typography
 } from '@material-ui/core';
 
 import { EditorContext } from '../../../Context/EditorContext';
@@ -62,7 +58,7 @@ const textOptions = [
     }
 ];
 
-const TextSize = (props) => {
+export default ({ margin, xs }) => {
     
     const holder = useContext(EditorContext);
 
@@ -85,19 +81,19 @@ const TextSize = (props) => {
         switch (holder.sectionMode.el) {
             case 'body':
                 return <Button
-                            style={{ marginRight: props.margin }}
+                            style={{ marginRight: margin }}
                             onClick={handleOpen}
                             variant="contained"
                         >
                             <Typography
-                                variant={props.xs ? 'body1' : 'h6'}
+                                variant={xs ? 'body1' : 'h6'}
                             >
                                 {holder[holder.sectionMode.el][holder.sectionMode.index].textStyle}
                             </Typography>
                         </Button>;
             case 'jumbotron':
                 return <Button
-                            style={{ marginRight: props.margin }}
+                            style={{ marginRight: margin }}
                             disabled={true}
                             variant="contained"
                         >
@@ -105,7 +101,7 @@ const TextSize = (props) => {
                         </Button>;
             case 'image':
                 return <Button 
-                            style={{ marginRight: props.margin }}
+                            style={{ marginRight: margin }}
                             disabled={true}
                             variant="contained"
                         >
@@ -113,7 +109,7 @@ const TextSize = (props) => {
                         </Button>;
             case 'readLength':
                 return <Button
-                            style={{ marginRight: props.margin }}
+                            style={{ marginRight: margin }}
                             disabled={true}
                             variant="contained"
                         >
@@ -121,12 +117,12 @@ const TextSize = (props) => {
                         </Button>;
             default:
                 return <Button
-                            style={{ marginRight: props.margin }}
+                            style={{ marginRight: margin }}
                             onClick={handleOpen}
                             variant="contained"
                         >
                             <Typography
-                                variant={props.xs ? 'body1' : 'h6'}
+                                variant={xs ? 'body1' : 'h6'}
                             >
                                 {holder[holder.sectionMode.el].textStyle}
                             </Typography>
@@ -135,8 +131,7 @@ const TextSize = (props) => {
     };
 
     return (
-        <Fragment>
-            
+        <>
             {sizeSwitch()}
 
             <Menu
@@ -147,7 +142,7 @@ const TextSize = (props) => {
                 onClose={handleClose}
             >
                 {
-                    textOptions.map(item => {
+                    textOptions.map((item) => {
                         return (
                             <MenuItem key={item.cb} onClick={() => wrapper(item.cb)}>
                                 {item.cb}
@@ -156,9 +151,6 @@ const TextSize = (props) => {
                     })
                 }    
             </Menu>
-
-        </Fragment>
+        </>
     );
 };
-
-export default TextSize;

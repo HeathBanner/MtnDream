@@ -1,8 +1,12 @@
 import React, {
   useEffect,
   useState,
-  useContext,
+  useContext
 } from 'react';
+import { MediaContext } from '../../Context/MediaQuery';
+
+import Drawer from './Drawer';
+import Login from '../Login/Login';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -13,11 +17,6 @@ import {
   Modal,
   Button,
 } from '@material-ui/core';
-
-import { MediaContext } from '../../Context/MediaQuery';
-
-import Drawer from './Drawer';
-import Login from '../Login/Login';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,42 +66,37 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Nav = (props) => {
+export default ({ edit, isBlog }) => {
 
     const classes = useStyles();
     const media = useContext(MediaContext);
 
-    const [weather, setWeather] = useState({
-      desc: '',
-      image: '',
-    });
+    const [weather, setWeather] = useState({ desc: '', image: '' });
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => {setOpen(true); };
     const handleClose = () => { setOpen(false); };
 
-    useEffect(() => {
-      fetch('https://api.openweathermap.org/data/2.5/weather?lat=36.2168&lon=81.6746&units=imperial&APPID=4216d1350fe31af9bf5100bb34fa72e2')
-        .then(res => res.json())
-        .then((result) => { 
-          setWeather({
-            desc: result.weather[0].description,
-            image: `https://openweathermap.org/img/w/${result.weather[0].icon}.png`,
-          });
-        })
-        .catch(() => { return; });
-    }, []);
+    useEffect(() => { fetchWeather() }, []);
 
-    if (props.isBlog) {
+    const fetchWeather = async () => {
+      const res = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=36.2168&lon=81.6746&units=imperial&APPID=4216d1350fe31af9bf5100bb34fa72e2');
+      const json = await res.json();
+
+      setWeather({
+          desc: json.weather[0].description,
+          image: `https://openweathermap.org/img/w/${json.weather[0].icon}.png`,
+        });
+    };
+
+    if (isBlog) {
       return (
         <div className={classes.root}>
-
           <AppBar
             className={classes.appBar}
-            style={{ position: props.edit ? 'relative' : 'fixed' }}
+            style={{ position: edit ? 'relative' : 'fixed' }}
             position="fixed"
           >
-
             <Toolbar>
 
               <Drawer query={media.xs} />
@@ -139,17 +133,13 @@ const Nav = (props) => {
               }
 
             </Toolbar>
-
           </AppBar>
-
         </div>
       );
     }
     return (
         <div className={classes.root}>
-
           <AppBar className={classes.appBar} position="fixed">
-
             <Toolbar>
 
               <Drawer query={media.xs} />
@@ -197,11 +187,7 @@ const Nav = (props) => {
               }
 
             </Toolbar>
-
           </AppBar>
-
         </div>
     );
 };
-
-export default Nav;

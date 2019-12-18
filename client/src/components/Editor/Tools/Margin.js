@@ -1,18 +1,9 @@
-import React, {
-    Fragment,
-    useContext,
-} from 'react';
-
-import {
-    Typography,
-    TextField,
-    Icon,
-} from '@material-ui/core';
-
+import React, { useContext } from 'react';
 import { EditorContext } from '../../../Context/EditorContext';
 
-const Margin = (props) => {
+import { Typography, TextField, Icon } from '@material-ui/core';
 
+export default ({ margin, md, xs }) => {
     const holder = useContext(EditorContext);
 
     const marginSwitch = () => {
@@ -31,14 +22,13 @@ const Margin = (props) => {
     };
 
     return (
-        <Fragment>
-
+        <>
             <Typography
                 style={{
                     margin: '0 auto',
-                    marginRight: props.margin,    
+                    marginRight: margin,    
                 }}
-                variant={props.xs ? 'body1' : 'h6'}
+                variant={xs ? 'body1' : 'h6'}
             >
                 Margin Top:
             </Typography>
@@ -49,7 +39,7 @@ const Margin = (props) => {
                 <TextField
                     style={{
                         width: 40,
-                        margin: props.md ? '0 auto' : 0,
+                        margin: md ? '0 auto' : 0,
                     }}
                     value={
                         holder.sectionMode.el === 'body' || holder.sectionMode.el === 'image'
@@ -63,7 +53,7 @@ const Margin = (props) => {
                     :
                 <Icon
                     style={{ width: 40 }}
-                    fontSize={props.xs ? 'small' : 'large'}
+                    fontSize={xs ? 'small' : 'large'}
                 >
                     lock
                 </Icon>
@@ -72,9 +62,9 @@ const Margin = (props) => {
             <Typography
                 style={{
                     margin: '0 auto',
-                    marginRight: props.margin,    
+                    marginRight: margin,    
                 }}
-                variant={props.xs ? 'body1' : 'h6'}
+                variant={xs ? 'body1' : 'h6'}
             >
                 Margin Bottom:
             </Typography>
@@ -85,7 +75,7 @@ const Margin = (props) => {
                 <TextField
                     style={{
                         width: 40,
-                        margin: props.md ? '0 auto' : 0,
+                        margin: md ? '0 auto' : 0,
                     }}
                     value={
                         holder.sectionMode.el === 'body' || holder.sectionMode.el === 'image'
@@ -99,14 +89,11 @@ const Margin = (props) => {
                     :
                 <Icon
                     style={{ width: 40 }}
-                    fontSize={props.xs ? 'small' : 'large'}
+                    fontSize={xs ? 'small' : 'large'}
                 >
                     lock
                 </Icon>
             }
-
-        </Fragment>
+        </>
     );
 };
-
-export default Margin;

@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-
 import { MediaContext } from '../../Context/MediaQuery';
 
 import { Grid } from '@material-ui/core';
@@ -16,15 +15,15 @@ export default ({ match }) => {
         <Grid container>
 
             <Grid item xs={12}>
-                {
-                    media.md
-                        ?
-                    <MDToolbar xs={media.xs} md={media.md} />
-                        :
-                    <LGToolbar />
-                }
+
+                {media.md
+                    ?
+                <MDToolbar xs={media.xs} md={media.md} />
+                    :
+                <LGToolbar />}
 
                 <Preview xs={media.xs} md={media.md} title={match.params.title} />
+
             </Grid>
 
         </Grid>

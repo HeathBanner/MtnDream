@@ -1,17 +1,12 @@
-import React, {
-    useContext,
-    useState,
-    Fragment,
-} from 'react';
+import React, { useContext, useState } from 'react';
+import { EditorContext } from '../../../Context/EditorContext';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
     Popover,
     Button,
-    TextField,
+    TextField
 } from '@material-ui/core';
-
-import { EditorContext } from '../../../Context/EditorContext';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -22,10 +17,10 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         padding: 20,
         width: 350,
-    },
+    }
 }));
 
-const Image = (props) => {
+export default ({ src, alt, index }) => {
     
     const classes = useStyles();
     const holder = useContext(EditorContext);
@@ -34,7 +29,7 @@ const Image = (props) => {
 
     const handleClick = e => {
         setAnchorEl(e.currentTarget);
-        holder.handleSectionMode({ el: 'image', index: props.index });
+        holder.handleSectionMode({ el: 'image', index: index });
     };
 
     const handleClose = () => {
@@ -44,18 +39,15 @@ const Image = (props) => {
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
-    if (props.src) {
+    if (src) {
         return (
-            <Fragment>
-
+            <>
                 <Button onClick={handleClick}>
-
                     <img 
                         style={{ width: '100%', height: 'auto' }} 
-                        src={props.src} 
-                        alt={props.alt} 
+                        src={src} 
+                        alt={alt} 
                     />
-
                 </Button>
 
                 <Popover
@@ -74,23 +66,19 @@ const Image = (props) => {
                         horizontal: 'center',
                     }}
                 > 
-
                     <TextField 
                         style={{ width: '100%' }}
                         label="Paste Url"
                         variant="outlined"
-                        value={props.src}
-                        onChange={(e) => holder.handleInput(e, { El: 'image', index: props.index })}
+                        value={src}
+                        onChange={(e) => holder.handleInput(e, { El: 'image', index: index })}
                     />
-
                 </Popover>
-
-            </Fragment>
+            </>
         );
     } else {
         return (
-            <Fragment>
-
+            <>
                 <Button variant="contained" onClick={handleClick}>
                     Add Image
                 </Button>
@@ -110,20 +98,15 @@ const Image = (props) => {
                         horizontal: 'center',
                     }}
                 > 
-
                     <TextField
                         style={{ width: '100%' }}
                         label="Paste Url"
                         variant="outlined"
-                        value={props.src}
-                        onChange={(e) => holder.handleInput(e, { El: 'image', index: props.index })}
+                        value={src}
+                        onChange={(e) => holder.handleInput(e, { El: 'image', index: index })}
                     />
-
                 </Popover>
-
-            </Fragment>
+            </>
         );
     };
 };
-
-export default Image;
