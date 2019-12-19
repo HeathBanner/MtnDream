@@ -1,16 +1,10 @@
-import React, {
-    useContext,
-} from 'react';
-
+import React, { useContext } from 'react';
 import { MediaContext } from '../../Context/MediaQuery';
 
-import { makeStyles } from '@material-ui/core/styles';
-import {
-    Grid,
-    Typography,
-} from '@material-ui/core';
-
 import Boone from './imgs/alyssa-graham.jpg';
+
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -58,14 +52,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Landing = () => {
+export default () => {
 
     const classes = useStyles();
     const media = useContext(MediaContext);
 
     return (
         <Grid className={classes.container} item xs={12}>
-
             <Typography
                 className={classes.landingHeader}
                 align="center"
@@ -75,9 +68,6 @@ const Landing = () => {
             </Typography>
 
             <div className={classes.topDiv}></div>
-
         </Grid>
     );
 };
-
-export default Landing;

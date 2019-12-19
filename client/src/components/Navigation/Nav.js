@@ -6,16 +6,13 @@ import React, {
 import { MediaContext } from '../../Context/MediaQuery';
 
 import Drawer from './Drawer';
-import Login from '../Login/Login';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
   AppBar,
   Toolbar,
   Typography,
-  CircularProgress,
-  Modal,
-  Button,
+  CircularProgress
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -66,16 +63,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default ({ edit, isBlog }) => {
+export default () => {
 
     const classes = useStyles();
     const media = useContext(MediaContext);
 
     const [weather, setWeather] = useState({ desc: '', image: '' });
-    const [open, setOpen] = useState(false);
-
-    const handleOpen = () => {setOpen(true); };
-    const handleClose = () => { setOpen(false); };
 
     useEffect(() => { fetchWeather() }, []);
 
@@ -89,54 +82,6 @@ export default ({ edit, isBlog }) => {
         });
     };
 
-    if (isBlog) {
-      return (
-        <div className={classes.root}>
-          <AppBar
-            className={classes.appBar}
-            style={{ position: edit ? 'relative' : 'fixed' }}
-            position="fixed"
-          >
-            <Toolbar>
-
-              <Drawer query={media.xs} />
-
-              <Typography
-                className={classes.title}
-                variant={media.xs ? 'body1' : 'h5'}
-                align="center"
-              >
-                A Mountain Dream
-              </Typography>
-
-              {
-                media.xs
-                  ?
-                ''
-                  :
-                <div className={classes.loginContainer}>
-
-                  <Button onClick={handleOpen}>
-                    <Typography style={{ color: 'white' }} variant={media.xs ? 'subtitle2' : 'h5'}>
-                      Login
-                    </Typography>
-                  </Button>
-
-                  <Modal
-                    open={open}
-                    onClose={handleClose}
-                  >
-                    <Login close={handleClose} />
-                  </Modal>
-
-                </div>
-              }
-
-            </Toolbar>
-          </AppBar>
-        </div>
-      );
-    }
     return (
         <div className={classes.root}>
           <AppBar className={classes.appBar} position="fixed">
@@ -152,8 +97,7 @@ export default ({ edit, isBlog }) => {
                 A Mountain Dream
               </Typography>
 
-              {
-                media.xs
+              {media.xs
                   ?
                 ''
                   :
@@ -183,8 +127,7 @@ export default ({ edit, isBlog }) => {
                       alt={weather.desc ? weather.desc : 'Fetching...'}
                     />
 
-                </div>
-              }
+                </div>}
 
             </Toolbar>
           </AppBar>

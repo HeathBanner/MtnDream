@@ -1,12 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-
-import { makeStyles } from '@material-ui/core/styles';
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, Icon, IconButton } from '@material-ui/core';
-
 import { MediaContext } from '../../Context/MediaQuery';
 
-const useStyles = makeStyles(theme => ({
+import { makeStyles } from '@material-ui/core/styles';
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Icon,
+  IconButton
+} from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
   menuIcon: {
     color: 'white',
     transition: 'transform .4s ease',
@@ -60,19 +67,15 @@ const drawerList = [
   },
 ];
 
-const NavDrawer = (props) => {
+export default ({ query }) => {
 
   const classes = useStyles();
   const media = useContext(MediaContext);
 
-  const [state, setState] = React.useState({
-    left: false,
-  });
+  const [open, setOpen] = useState(false);
 
   const getVariant = () => {
-
     switch (true) {
-
       case media.xs:
         return 'h6';
       case media.sm:
@@ -84,18 +87,15 @@ const NavDrawer = (props) => {
     }
   };
 
-  const toggleDrawer = (side, open) => event => {
-
+  const toggleDrawer = (open) => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-    else {
-      setState({ ...state, left: open });
-    }
+    
+    setOpen(open);
   };
 
   const sideList = () => (
-
     <div
       className={classes.list}
       role="presentation"
@@ -104,23 +104,16 @@ const NavDrawer = (props) => {
     >
       <List className={classes.menuList}>
 
-        {
-          drawerList.map((item) => (
-
+        {drawerList.map((item) => (
             <Link
               key={item.text}
-              style={{
-                textDecoration: 'none',
-                color: 'black',
-              }}
+              style={{ textDecoration: 'none', color: 'black' }}
               to={item.link}
-            >
-              
+            >  
               <ListItem
                 className={classes.listItems}
                 button
               >
-              
                 <ListItemIcon className={classes.iconButtons}>
                   <Icon
                     style={{ color: 'white' }}
@@ -134,15 +127,11 @@ const NavDrawer = (props) => {
                   primary={item.text} 
                   primaryTypographyProps={{ variant: getVariant() }}
                 />
-              
               </ListItem>
-
             </Link>
-          ))
-        }
+          ))}
 
-        {
-          media.xs
+        {media.xs
             ?
           ''
             :
@@ -154,12 +143,10 @@ const NavDrawer = (props) => {
             }}
             to={'/blog'}
           >
-            
             <ListItem
               className={classes.listItems}
               button
             >
-            
               <ListItemIcon className={classes.iconButtons}>
                 <Icon
                   style={{ color: 'white' }}
@@ -168,56 +155,43 @@ const NavDrawer = (props) => {
                   vertical_split
                 </Icon>
               </ListItemIcon>
-              
+
               <ListItemText 
                 primary={'Blog'} 
                 primaryTypographyProps={{ variant: getVariant() }}
               />
-            
             </ListItem>
-
-          </Link>
-        }
+          </Link>}
 
       </List>
-
     </div>
   );
 
   return (
-
     <div>
-
       <IconButton
         style={{ padding: 0 }}
-        onClick={toggleDrawer('left', true)}
+        onClick={toggleDrawer(true)}
       >
-
         <Icon
           className={classes.menuIcon}
-          fontSize={props.query ? 'small' : 'large'}
+          fontSize={query ? 'small' : 'large'}
         >
           menu
         </Icon>
-
       </IconButton>
       
       <Drawer 
         PaperProps={{ 
-          style: {
-            backgroundColor: '#984843',
-          }
+          style: { backgroundColor: '#984843' }
         }}
-        open={state.left} 
-        onClose={toggleDrawer('left', false)}
+        open={open} 
+        onClose={toggleDrawer(false)}
       >
         
-        {sideList('left')}
+        {sideList()}
       
       </Drawer>
-
     </div>
   );
 };
-
-export default NavDrawer;

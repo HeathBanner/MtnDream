@@ -3,8 +3,9 @@ import React, {
     useState,
     useContext,
 } from 'react';
-
 import { MediaContext } from '../../Context/MediaQuery';
+
+import Nav from '../../components/Navigation/Nav';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -12,8 +13,6 @@ import {
     Typography,
     Avatar,
 } from '@material-ui/core';
-
-import Nav from '../../components/Navigation/Nav';
 
 const fontSizes = {
     h1: '6rem',
@@ -69,38 +68,36 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Article = ({ match }) => {
+export default ({ match }) => {
 
     const media = useContext(MediaContext);
+    const classes = useStyles();
 
     const [article, setArticle] = useState('');
 
     // Once the component mounts, this function will grab the article that matches
     // the url parameter value and update the state with the matched article's elements
-    useEffect(() => {
+    useEffect(() => fetchArticle(), []);
+
+    const fetchArticle = async () => {
         const title = match.params.title;
-        fetch('/api/editors/getArticle', {
+        const options = {
             method: 'POST',
             body: JSON.stringify({ title }),
             headers: { 'Content-Type': 'application/json' },
-        })
-            .then(res => res.json())
-            .then((result) => {
-                setArticle(result);
-            })
-            .catch((error) => { console.log(error); });
-    }, []);
-
-    const classes = useStyles();
+        };
+        const res = await fetch('/api/editors/getArticle', options);
+        const json = await res.json();
+        
+        setArticle(json);
+    };
 
     if (!article) { return '' }
     return (
         <Grid container>
-            
             <Grid style={{ height: 60 }} item xs={12}>
 
                 <Nav />
-
             </Grid>
             <Grid className={classes.container} item xs={12}>
 
@@ -140,13 +137,11 @@ const Article = ({ match }) => {
                     className={classes.infoContainer}
                     style={{ width: article.readLength.justify === 'flex-start' ? '100%' : 'auto' }}
                 >
-
                     <Avatar
                         className={classes.avatar}
                         src={`https://media.licdn.com/dms/image/C4E03AQESXvxigX8NfQ/profile-displayphoto-shrink_800_800/0?e=1571875200&v=beta&t=jVs0jK8YKBHrOOcmnghTMtN9bhPfu7rH9MHADyTboBY`}
                         alt="Terri Banner Profile Photo"
                     />
-
                     <div style={{ width: '100%' }}>
                         <Typography>
                             Terri Banner
@@ -156,7 +151,6 @@ const Article = ({ match }) => {
                     <Typography className={classes.readLength}>
                         {`Aug 21 `} &#8226; {` ${article.readLength.text} min read`}
                     </Typography>
-
                 </div>
 
                 <div
@@ -179,48 +173,43 @@ const Article = ({ match }) => {
 
                 {/* Since the body element can contain either text or image elements,
                 I had to write a conditional to appropriately apply elements and their styles */}
-                {
-                    article.body.map((section, index) => {
-                        if (section.isText) {
-                            return (
-                                <Typography
-                                    style={{
-                                        width: '100%',
-                                        fontSize: media.md ? mobileFontSizes[section.textStyle] : fontSizes[section.textStyle],
-                                        fontFamily: `${section.font}, Helvetica, Arial, sans-serif`,
-                                        fontWeight: section.bold ? 'bold' : 'normal',
-                                        fontStyle: section.italic ? 'italic' : 'normal',
-                                        textDecoration: section.underline ? 'underline' : 'none',
-                                        textAlign: section.justify,
-                                        color: section.color,
-                                        backgroundColor: section.highlight ? '#ffff00' : 'none',
-                                        marginTop: parseInt(section.marginTop),
-                                        marginBottom: parseInt(section.marginBottom),    
-                                    }}
-                                    key={index}
-                                >
-                                    {section.text}
-                                </Typography>
-                            );
-                        }
+                {article.body.map((section, index) => {
+                    if (section.isText) {
                         return (
-                            <div
+                            <Typography
                                 style={{
                                     width: '100%',
-                                    display: 'flex',
-                                    justifyContent: section.justify,
+                                    fontSize: media.md ? mobileFontSizes[section.textStyle] : fontSizes[section.textStyle],
+                                    fontFamily: `${section.font}, Helvetica, Arial, sans-serif`,
+                                    fontWeight: section.bold ? 'bold' : 'normal',
+                                    fontStyle: section.italic ? 'italic' : 'normal',
+                                    textDecoration: section.underline ? 'underline' : 'none',
+                                    textAlign: section.justify,
+                                    color: section.color,
+                                    backgroundColor: section.highlight ? '#ffff00' : 'none',
+                                    marginTop: parseInt(section.marginTop),
+                                    marginBottom: parseInt(section.marginBottom),    
                                 }}
+                                key={index}
                             >
-                                <img src={section.src} alt={section.alt} />
-                            </div>
+                                {section.text}
+                            </Typography>
                         );
-                    })
-                }
+                    }
+                    return (
+                        <div
+                            style={{
+                                width: '100%',
+                                display: 'flex',
+                                justifyContent: section.justify,
+                            }}
+                        >
+                            <img src={section.src} alt={section.alt} />
+                        </div>
+                    );
+                })}
 
             </Grid>
-
         </Grid>
     );
 };
-
-export default Article;

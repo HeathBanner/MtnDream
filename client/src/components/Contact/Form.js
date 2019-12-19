@@ -1,7 +1,5 @@
-import React, {
-    useState,
-    useContext
-} from 'react';
+import React, { useState, useContext } from 'react';
+import { MediaContext } from '../../Context/MediaQuery';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
@@ -18,15 +16,6 @@ import {
     Icon,
     IconButton
 } from '@material-ui/core';
-
-import { MediaContext } from '../../Context/MediaQuery';
-
-const initInfo = {
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
-};
 
 const useStyles = makeStyles((theme) => ({
     formContainer: {
@@ -70,35 +59,41 @@ const useStyles = makeStyles((theme) => ({
     },
     snackbar: {
         backgroundColor: green[600]
-    },
+    }
 }));
 
-const Form = () => {
+const initInfo = {
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+};
+
+export default() => {
 
     const classes = useStyles();
     const media = useContext(MediaContext);
 
-    const [info, setInfo] = useState({ initInfo });
+    const [info, setInfo] = useState({ ...initInfo });
     const [status, setStatus] = useState('Your contact information has been sent!');
-
     const [open, setOpen] = useState(false);
 
-    const handleSubmit = () => {
-        fetch('/api/contact/contactMe', {
+    const handleSubmit = async () => {
+        const options = {
             method: 'POST',
             body: JSON.stringify(info),
             headers: { 'Content-Type': 'application/json' }
-        })
-            .then(res => res.json())
-            .then(result => {
-                if (!result) { return setStatus('Something went wrong!'); }
-                setOpen(true);
-                setInfo({ ...initInfo });
-            })
-            .catch(() => { return; })
+        };
+        const res = await fetch('/api/contact/contactMe', options);
+        const json = await res.json();
+
+        if (!json) return setStatus('Something went wrong!');
+
+        setOpen(true);
+        setInfo({ ...initInfo });
     };
 
-    const handleClose = () => { setOpen(false); };
+    const handleClose = () => setOpen(false);
 
     const slideTransition = (props) => {
         return <Slide {...props} direction="right" />;
@@ -106,9 +101,7 @@ const Form = () => {
 
     return (
         <Grid className={classes.formContainer} item xs={12}>
-
             <Paper className={classes.formPaper}>
-
                 <Typography
                     className={classes.formHeader}
                     variant={media.xs ? 'h4' : 'h2'}
@@ -165,7 +158,6 @@ const Form = () => {
                     </Typography>
                 </Button>
 
-
                 <Snackbar 
                     open={open}
                     onClose={handleClose}
@@ -173,7 +165,6 @@ const Form = () => {
                     ContentProps={{ 'aria-describedby': 'message-id' }}
                     autoHideDuration={6000}
                 >
-
                     <SnackbarContent 
                         className={classes.snackbar}
                         message={ 
@@ -187,13 +178,8 @@ const Form = () => {
                             </IconButton>
                         }
                     />
-
                 </Snackbar>
-
             </Paper>
-
         </Grid>
     );
 };
-
-export default Form;

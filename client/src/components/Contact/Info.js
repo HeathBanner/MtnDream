@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { MediaContext } from '../../Context/MediaQuery';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -7,8 +8,6 @@ import {
     Icon,
     Divider
 } from '@material-ui/core';
-
-import { MediaContext } from '../../Context/MediaQuery';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -76,10 +75,10 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         height: 100,
         width: '50%',
-    },
+    }
 }));
 
-const Info = () => {
+export default () => {
 
     const classes = useStyles();
     const media = useContext(MediaContext);
@@ -101,9 +100,7 @@ const Info = () => {
 
     return (
         <Grid className={classes.container} container>
-
             <Grid className={classes.nameContainer} item xs={12}>
-
                 <Typography
                     className={classes.contactDesc}
                     variant={getNameVariant()}
@@ -130,15 +127,12 @@ const Info = () => {
                     If you would like to 
                     contact me quickly, you may fill out the express form below.
                 </Typography>
-
             </Grid>
             <Grid className={classes.listContainer} item xs={12}>
-
                 <a 
                     className={classes.link}
                     href={`tel:704-577-5028`}
                 >
-
                     <Icon
                         className={classes.icons}
                         fontSize={media.xs ? 'small' : 'large'}
@@ -152,14 +146,12 @@ const Info = () => {
                     >
                         704.577.5028
                     </Typography>
-
                 </a>
                 <a 
                     className={classes.link}
                     href={`mailto:robogator@aol.com`}
                     target="_top"
                 >
-
                     <Icon
                         className={classes.icons}
                         fontSize={media.xs ? 'small' : 'large'}
@@ -173,7 +165,6 @@ const Info = () => {
                     >
                         robogator@aol.com
                     </Typography>
-
                 </a>
                 <a 
                     className={classes.link}
@@ -181,7 +172,6 @@ const Info = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-
                     <Icon
                         className={classes.icons}
                         fontSize={media.xs ? 'small' : 'large'}
@@ -195,13 +185,8 @@ const Info = () => {
                     >
                         Availability Calendar
                     </Typography>
-
                 </a>
-
             </Grid>
-
         </Grid>
     );
 };
-
-export default Info;

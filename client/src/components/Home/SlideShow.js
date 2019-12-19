@@ -1,27 +1,19 @@
-import React, {
-  useContext,
-  useState,
-} from 'react';
-
-import {
-  makeStyles,
-  useTheme,
-} from '@material-ui/core/styles';
-import {
-  MobileStepper,
-  Button,
-  Icon,
-  Typography,
-} from '@material-ui/core';
-
-import { autoPlay } from 'react-swipeable-views-utils';
-import SwipeableViews from 'react-swipeable-views';
-
+import React, { useContext, useState } from 'react';
 import { MediaContext } from '../../Context/MediaQuery';
 
 import firePit from './imgs/cabinFire.jpg';
 import Autumn from './imgs/autumn.jpg';
 import Couch from './imgs/couch.jpg';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {
+  MobileStepper,
+  Button,
+  Icon,
+  Typography
+} from '@material-ui/core';
+
+import { autoPlay } from 'react-swipeable-views-utils';
+import SwipeableViews from 'react-swipeable-views';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -37,10 +29,10 @@ const tutorialSteps = [
   {
     label: 'Couch',
     imgPath: Couch,
-  },
+  }
 ];
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     [theme.breakpoints.down('xs')]: {
       width: '70%',
@@ -83,10 +75,10 @@ const useStyles = makeStyles(theme => ({
   dotActive: {
     backgroundColor: '#fff2d9',
     transform: 'scale(1.5)',
-  },
+  }
 }));
 
-const SlideShow = () => {
+export default () => {
 
   const classes = useStyles();
   const theme = useTheme();
@@ -95,9 +87,9 @@ const SlideShow = () => {
   const [activeStep, setActiveStep] = useState(0);
   const maxSteps = tutorialSteps.length;
 
-  const handleNext = () => { setActiveStep(prevActiveStep => prevActiveStep + 1); };
-  const handleBack = () => { setActiveStep(prevActiveStep => prevActiveStep - 1); };
-  const handleStepChange = step => { setActiveStep(step); };
+  const handleNext = () => setActiveStep(prevActiveStep => prevActiveStep + 1);
+  const handleBack = () => setActiveStep(prevActiveStep => prevActiveStep - 1);
+  const handleStepChange = (step) =>  setActiveStep(step);
 
   return (
     <div className={classes.root}>
@@ -108,11 +100,9 @@ const SlideShow = () => {
         onChangeIndex={handleStepChange}
         enableMouseEvents
       >
-        {
-          tutorialSteps.map((step, index) => (
+        {tutorialSteps.map((step, index) => (
             <div className={classes.imgHolder} key={step.label}>
-              {
-                Math.abs(activeStep - index) <= 2
+              {Math.abs(activeStep - index) <= 2
                   ?
                 <img
                   className={classes.img}
@@ -120,11 +110,9 @@ const SlideShow = () => {
                   alt={step.label}
                 />
                   :
-                null
-              }
+                null}
             </div>
-          ))
-        }
+          ))}
       </AutoPlaySwipeableViews>
       <MobileStepper
         className={classes.buttonContainer}
@@ -143,21 +131,18 @@ const SlideShow = () => {
             disabled={activeStep === maxSteps - 1}
             style={{ padding: '10px 10px 10px 20px' }}
           >
-
             <Typography variant={media.xs ? 'subtitle2' : 'h6'}>
               Next
             </Typography>
 
-            {
-              theme.direction === 'rtl' 
+            {theme.direction === 'rtl' 
                 ? 
               <Icon>keyboard_arrow_left</Icon> 
                 : 
-              <Icon>keyboard_arrow_right</Icon>
-            }
+              <Icon>keyboard_arrow_right</Icon>}
 
-          </Button>
-        }
+          </Button>}
+
         backButton={
           <Button 
             className={classes.buttons} 
@@ -166,22 +151,17 @@ const SlideShow = () => {
             style={{ padding: '10px 20px 10px 10px' }}
           >
 
-            {
-              theme.direction === 'rtl' 
+            {theme.direction === 'rtl' 
                 ? 
               <Icon>keyboard_arrow_right</Icon> 
                 :   
-              <Icon>keyboard_arrow_left</Icon>
-            }
+              <Icon>keyboard_arrow_left</Icon>}
 
             <Typography variant={media.xs ? 'body2' : 'h6'}>
               Back
             </Typography>
-          </Button>
-        }
+          </Button>}
       />
     </div>
   );
 };
-
-export default SlideShow;

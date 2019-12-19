@@ -9,7 +9,6 @@ import { Grid } from '@material-ui/core';
 export default () => {
     return (
         <Grid container>
-
             <Grid style={{ zIndex: 5, height: 70 }} item xs={12}>
                 
                 <Nav />
@@ -21,7 +20,6 @@ export default () => {
                 <ArticleSelection />
 
             </EditorProvider>
-
         </Grid>
     );
 };

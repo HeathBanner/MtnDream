@@ -1,11 +1,10 @@
 import React, { useContext } from 'react'
-
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography } from '@material-ui/core';
-
 import { MediaContext } from '../../Context/MediaQuery';
 
 import SlideShow from './SlideShow';
+
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -47,10 +46,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Body = () => {
+export default () => {
     
     const media = useContext(MediaContext);
-
     const classes = useStyles();
 
     const getVariant = () => {
@@ -64,15 +62,13 @@ const Body = () => {
             case media.lg:
                 return 'h5';
             default:
-                return 'h5'
+                return 'h5';
         }
     };
 
     return (
         <Grid className={classes.container} container>
-
             <Grid className={classes.textContainer} item xs={12}>
-
                 <Typography variant={getVariant()} align="center">
                     {`A Mountain Dream Cabin is far enough from 
                     civilization to be secluded, yet close enough to town & 
@@ -82,16 +78,12 @@ const Body = () => {
                     amenity to make your stay as comfortable, pleasant and stress 
                     free as you could ever imagine.`}
                 </Typography>
-
             </Grid>
             <Grid className={classes.slideContainer} item xs={12}>
                             
                 <SlideShow />
 
             </Grid>
-
         </Grid>
     );
 };
-
-export default Body;

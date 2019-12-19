@@ -1,13 +1,12 @@
 import React, { useContext } from 'react';
-
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Button } from '@material-ui/core';
-
 import { MediaContext } from '../../Context/MediaQuery';
 
 import BlowingRock from './imgs/blowingRock.jpg';
 
-const useStyles = makeStyles(theme => ({
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Typography, Button } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
     mainContainer: {
         display: 'flex',
         justifyContent: 'center',
@@ -64,23 +63,18 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Footer = () => {
+export default () => {
 
     const classes = useStyles();
     const media = useContext(MediaContext);
 
     return (
-
         <Grid className={classes.mainContainer} container>
-
             <Grid className={classes.headerContainer} item xs={12}>
-
                 <Typography 
                     className={classes.header} 
                     align="center"
-                    variant={
-                        media.xs ? 'h4' : 'h2'
-                    } 
+                    variant={media.xs ? 'h4' : 'h2'} 
                 >
                     We're right by the Blue Ridge Parkway
                 </Typography>
@@ -103,11 +97,7 @@ const Footer = () => {
                         </Typography>
                     </Button>
                 </a>
-
             </Grid>
-
         </Grid>
     );
 };
-
-export default Footer;
