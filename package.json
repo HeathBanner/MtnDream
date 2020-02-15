@@ -18,7 +18,7 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "react-swipeable-views": "^0.13.3",
-    "yarn": "^1.17.3"
+    "yarn": "^1.22.0"
   },
   "scripts": {
     "install": "yarn run install:client && yarn run install:server",
