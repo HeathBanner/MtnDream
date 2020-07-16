@@ -64,15 +64,10 @@ export default ({ margin, xs }) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleOpen = (e) => {
-        setAnchorEl(e.currentTarget);
-    };
+    const handleOpen = (e) => setAnchorEl(e.currentTarget);
+    const handleClose = () => setAnchorEl(null);
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };  
-
-    const wrapper = newStyle => {
+    const wrapper = (newStyle) => {
         holder.handleTextStyle(newStyle);
         handleClose();
     };
@@ -86,7 +81,7 @@ export default ({ margin, xs }) => {
                             variant="contained"
                         >
                             <Typography
-                                variant={xs ? 'body1' : 'h6'}
+                                variant="subtitle2"
                             >
                                 {holder[holder.sectionMode.el][holder.sectionMode.index].textStyle}
                             </Typography>
@@ -122,7 +117,7 @@ export default ({ margin, xs }) => {
                             variant="contained"
                         >
                             <Typography
-                                variant={xs ? 'body1' : 'h6'}
+                                variant="subtitle2"
                             >
                                 {holder[holder.sectionMode.el].textStyle}
                             </Typography>
@@ -141,15 +136,13 @@ export default ({ margin, xs }) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                {
-                    textOptions.map((item) => {
-                        return (
-                            <MenuItem key={item.cb} onClick={() => wrapper(item.cb)}>
-                                {item.cb}
-                            </MenuItem>
-                        );
-                    })
-                }    
+                {textOptions.map((item) => {
+                    return (
+                        <MenuItem key={item.cb} onClick={() => wrapper(item.cb)}>
+                            {item.cb}
+                        </MenuItem>
+                    );
+                })}    
             </Menu>
         </>
     );

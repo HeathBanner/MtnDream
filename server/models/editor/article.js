@@ -58,7 +58,7 @@ const bodySchema = new Schema({
 
 const jumbotronSchema = new Schema({
     isImage: Boolean,
-    src: String,
+    src: Buffer,
     alt: String,
     height: String,
     width: String,

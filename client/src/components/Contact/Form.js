@@ -66,7 +66,13 @@ const initInfo = {
     name: '',
     email: '',
     phone: '',
-    message: ''
+    message: '',
+    notify: {
+        error: false,
+        warning: false,
+        success: false,
+        message: ""
+    }
 };
 
 export default() => {
@@ -75,29 +81,53 @@ export default() => {
     const media = useContext(MediaContext);
 
     const [info, setInfo] = useState({ ...initInfo });
-    const [status, setStatus] = useState('Your contact information has been sent!');
-    const [open, setOpen] = useState(false);
+    const { warning, error, success, message } = info.notify;
 
     const handleSubmit = async () => {
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(info),
-            headers: { 'Content-Type': 'application/json' }
-        };
-        const res = await fetch('/api/contact/contactMe', options);
-        const json = await res.json();
-
-        if (!json) return setStatus('Something went wrong!');
-
-        setOpen(true);
-        setInfo({ ...initInfo });
+        try {
+            console.log("FIRE");
+            const options = {
+                method: 'POST',
+                body: JSON.stringify(info),
+                headers: { 'Content-Type': 'application/json' }
+            };
+            const res = await fetch('/api/contact/contactMe', options);
+            const json = await res.json();
+    
+            if (!json || json.statusCode === 500) {
+                return setInfo({
+                    ...info,
+                    notify: {
+                        ...info.notify,
+                        error: true,
+                        message: "Something went wrong :("
+                    }
+                });
+            }
+    
+            setInfo({
+                ...info,
+                notify: {
+                    ...info.notify,
+                    success: true,
+                    message: "Contact was successful!"
+                }
+            });
+        } catch (error) {
+            setInfo({
+                ...info,
+                notify: {
+                    ...info.notify,
+                    error: true,
+                    message: "Something went wrong"
+                }
+            });
+        }
     };
 
-    const handleClose = () => setOpen(false);
+    const handleClose = () => setInfo(initInfo);
 
-    const slideTransition = (props) => {
-        return <Slide {...props} direction="right" />;
-    };
+    const slideTransition = (props) => <Slide {...props} direction="right" />;
 
     return (
         <Grid className={classes.formContainer} item xs={12}>
@@ -158,8 +188,8 @@ export default() => {
                     </Typography>
                 </Button>
 
-                <Snackbar 
-                    open={open}
+                <Snackbar
+                    open={warning || error || success}
                     onClose={handleClose}
                     TransitionComponent={ slideTransition }
                     ContentProps={{ 'aria-describedby': 'message-id' }}
@@ -169,7 +199,7 @@ export default() => {
                         className={classes.snackbar}
                         message={ 
                             <Typography variant="h6" align="center">
-                                {status}
+                                {message}
                             </Typography>
                         }
                         action={

@@ -32,9 +32,7 @@ export default ({ src, alt, index }) => {
         holder.handleSectionMode({ el: 'image', index: index });
     };
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const handleClose = () => setAnchorEl(null);
 
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;

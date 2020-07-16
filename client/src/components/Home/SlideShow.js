@@ -34,10 +34,13 @@ const tutorialSteps = [
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    [theme.breakpoints.down('xs')]: {
-      width: '70%',
+    [theme.breakpoints.down('md')]: {
+      width: '70%'
     },
-    width: '40%',
+    [theme.breakpoints.down('xs')]: {
+      width: '90%',
+    },
+    width: '50%',
     margin: '20px auto',
     overflow: 'hidden',
     borderRadius: '10px',

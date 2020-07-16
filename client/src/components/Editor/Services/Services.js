@@ -30,7 +30,7 @@ export const FetchSubmit = async (edit, url) => {
         headers: { 'Content-Type': 'application/json' }
     };
 
-    const res = await fetch(`/api/editors/url`, options);
+    const res = await fetch(`/api/editors/${url}`, options);
     const json = await res.json();
 
     if (json.error) {
@@ -61,7 +61,7 @@ export const HandleData = (edit) => {
         parsedDate: `${months[now.getMonth()]} ${now.getDate()}`,
         epoch: now.getTime(),
     };
-    const data = {
+     return {
         title: edit.title,
         description: edit.description,
         readLength: edit.readLength,

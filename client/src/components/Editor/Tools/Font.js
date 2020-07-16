@@ -59,13 +59,8 @@ export default ({ margin, xs }) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleOpen = (e) => {
-        setAnchorEl(e.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };  
+    const handleOpen = (e) => setAnchorEl(e.currentTarget);
+    const handleClose = () => setAnchorEl(null);
 
     const wrapper = (font) => {
         holder.handleFont(font);
@@ -121,22 +116,20 @@ export default ({ margin, xs }) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                {
-                    fontOptions.map((item) => {
-                        return (
-                            <MenuItem
-                                style={{
-                                    textTransform: 'capitalize',
-                                    fontFamily: `${item.font}, Helvetica, Arial, sans-serif`,
-                                }}
-                                onClick={() => wrapper(item.font)}
-                                key={item.font}
-                            >
-                                {item.font}
-                            </MenuItem>
-                        );
-                    })
-                }
+                {fontOptions.map((item) => {
+                    return (
+                        <MenuItem
+                            style={{
+                                textTransform: 'capitalize',
+                                fontFamily: `${item.font}, Helvetica, Arial, sans-serif`,
+                            }}
+                            onClick={() => wrapper(item.font)}
+                            key={item.font}
+                        >
+                            {item.font}
+                        </MenuItem>
+                    );
+                })}
             </Menu>
         </>
     );

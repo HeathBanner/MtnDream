@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-
 import { EditorContext } from '../../../Context/EditorContext';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -200,13 +199,8 @@ export default ({ margin }) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const handleClick = (event) => setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
 
   const wrapper = (color) => {
     holder.handleTextColor(color);
@@ -262,7 +256,6 @@ export default ({ margin }) => {
             }}
         >
             <div className={classes.colorsContainer}>
-                
                 {colorPalette.map((color) => {
                     return (
                         <Avatar
@@ -273,7 +266,6 @@ export default ({ margin }) => {
                         />
                     );
                 })}
-    
             </div>
         </Popover>
     </>

@@ -4,6 +4,7 @@ import { EditorContext } from '../../../Context/EditorContext';
 import { Typography, TextField, Icon } from '@material-ui/core';
 
 export default ({ margin, md, xs }) => {
+
     const holder = useContext(EditorContext);
 
     const marginSwitch = () => {
@@ -28,7 +29,7 @@ export default ({ margin, md, xs }) => {
                     margin: '0 auto',
                     marginRight: margin,    
                 }}
-                variant={xs ? 'body1' : 'h6'}
+                variant="subtitle2"
             >
                 Margin Top:
             </Typography>
@@ -64,7 +65,7 @@ export default ({ margin, md, xs }) => {
                     margin: '0 auto',
                     marginRight: margin,    
                 }}
-                variant={xs ? 'body1' : 'h6'}
+                variant="subtitle2"
             >
                 Margin Bottom:
             </Typography>

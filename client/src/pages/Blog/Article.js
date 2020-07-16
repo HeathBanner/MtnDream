@@ -1,18 +1,10 @@
-import React, {
-    useEffect,
-    useState,
-    useContext,
-} from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { MediaContext } from '../../Context/MediaQuery';
 
 import Nav from '../../components/Navigation/Nav';
 
 import { makeStyles } from '@material-ui/core/styles';
-import {
-    Grid,
-    Typography,
-    Avatar,
-} from '@material-ui/core';
+import { Grid, Typography, Avatar } from '@material-ui/core';
 
 const fontSizes = {
     h1: '6rem',
@@ -31,7 +23,7 @@ const mobileFontSizes = {
     h6: '1rem',
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     container: {
         marginTop: 60,
         marginBottom: 80,
@@ -98,6 +90,7 @@ export default ({ match }) => {
             <Grid style={{ height: 60 }} item xs={12}>
 
                 <Nav />
+                
             </Grid>
             <Grid className={classes.container} item xs={12}>
 

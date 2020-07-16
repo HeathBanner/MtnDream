@@ -37,7 +37,13 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        flexWrap: 'wrap',
         color: 'white',
+    },
+    text: {
+        width: '100%',
+        textAlign: 'center',
+        marginBottom: 20,
     },
     slideContainer: {
         display: 'flex',
@@ -69,10 +75,14 @@ export default () => {
     return (
         <Grid className={classes.container} container>
             <Grid className={classes.textContainer} item xs={12}>
-                <Typography variant={getVariant()} align="center">
+                <Typography className={classes.text} variant={getVariant()}>
                     {`A Mountain Dream Cabin is far enough from 
                     civilization to be secluded, yet close enough to town & 
-                    local attractions to be more than convenient. Located only 
+                    local attractions to be more than convenient.`}
+                </Typography>
+
+                <Typography className={classes.text} variant={getVariant()}>
+                    {`Located only 
                     10 quick miles outside of Boone, NC in the exclusive log 
                     cabin community of Twin Hollows. A Mountain Dream has every 
                     amenity to make your stay as comfortable, pleasant and stress 

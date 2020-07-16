@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
         alignContent: 'center',
     },
     headerContainer: {
-        padding: '120px 0px',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -22,9 +21,11 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'wrap',
         color: 'white',
         backgroundColor: '#18121E',
+        minHeight: '100vh'
     },
     header: {
-        marginBottom: 60,
+        marginTop: 20,
+        marginBottom: 40,
         width: '90%'
     },
     img: {
@@ -53,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
         },
         color: 'white',
         padding: 20,
+        marginBottom: 20,
         transition: 'all 0.4s ease',
         backgroundColor: '#25472e',
         boxShadow: '0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12)',

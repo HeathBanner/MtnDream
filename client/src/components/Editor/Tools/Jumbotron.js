@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { EditorContext } from '../../../Context/EditorContext';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Popover, Button, TextField } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
     paper: {
@@ -15,92 +15,58 @@ export default () => {
 
     const classes = useStyles();
     const holder = useContext(EditorContext);
+    const imgHelper = "data:image/jpeg;base64,";
 
-    const [anchorEl, setAnchorEl] = useState(null);
-
-    const handleClick = e => {
-        setAnchorEl(e.currentTarget);
-        holder.handleSectionMode({ el: 'jumbotron' });
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
+    const handleClick = (e) =>  holder.handleSectionMode({ el: 'jumbotron' });
 
     if (holder.jumbotron.src) {
         return (
             <>
-                <Button style={{ width: '50%' }} onClick={handleClick}>
-                    <img 
-                        style={{
-                            width: '100%',
-                            height: 'auto',
-                            margin: '20px 0px',
-                        }} 
-                        src={holder.jumbotron.src} 
-                        alt={holder.title.text} 
-                    />
-                </Button>
-
-                <Popover
-                    PaperProps={{ className: classes.paper }}
-                    ModalClasses={{ className: classes.paper }}
-                    id={id}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                        vertical: 'center',
-                        horizontal: 'center',
+                <input
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'none'
                     }}
-                    transformOrigin={{
-                        vertical: 'center',
-                        horizontal: 'center',
-                    }}
-                > 
-                    <TextField
-                        style={{ width: '100%' }}
-                        label="Paste Url"
-                        variant="outlined"
-                        value={holder.jumbotron.src}
-                        onChange={(e) => holder.handleInput(e, { El: 'jumbotron' })}
-                    />
-                </Popover> 
+                    onChange={(e) => holder.handleInput(e, { El: "jumbotron" })}
+                    accept="image/*"
+                    id="image-uploader"
+                    type="file"
+                />
+                <label htmlFor="image-uploader" onClick={handleClick}>
+                    <Button className={classes.button} component="span">
+                        <img 
+                            style={{
+                                width: '100%',
+                                height: 'auto',
+                                margin: '20px 0px',
+                            }}
+                            src={`${imgHelper}${holder.jumbotron.src}`}
+                            alt={holder.title.text} 
+                        />                    
+                    </Button>
+                </label>
             </>
         );
     } else {
         return (
             <>
-                <Button style={{ margin: '40px auto 0px auto' }} variant="contained" onClick={handleClick}>
-                    Add Jumbotron
-                </Button>
-
-                <Popover
-                    PaperProps={{ className: classes.paper }}
-                    id={id}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                        vertical: 'center',
-                        horizontal: 'center',
+                <input
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'none'
                     }}
-                    transformOrigin={{
-                        vertical: 'center',
-                        horizontal: 'center',
-                    }}
-                > 
-                    <TextField
-                        style={{ width: '100%' }}
-                        label="Paste Url"
-                        variant="outlined"
-                        value={holder.jumbotron.src}
-                        onChange={(e) => holder.handleInput(e, { El: 'jumbotron' })}
-                    />
-                </Popover>
+                    onChange={(e) => holder.handleInput(e, { El: "jumbotron" })}
+                    accept="image/*"
+                    id="image-uploader"
+                    type="file"
+                />
+                <label htmlFor="image-uploader" style={{ width: '60%' }} onClick={handleClick}>
+                    <Button className={classes.button} component="span">
+                        Upload Jumbotron                  
+                    </Button>
+                </label>
             </>
         );
     }

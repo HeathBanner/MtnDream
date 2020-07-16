@@ -1,22 +1,27 @@
 import React, { useContext } from 'react';
 import { MediaContext } from '../../Context/MediaQuery';
 
+import { deepOrange } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import {
     Grid,
     Typography,
     Icon,
-    Divider
+    Divider,
+    Avatar
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        height: '100vh',
+        [theme.breakpoints.down('sm')]: {
+            padding: '20% 0% 10% 0%'
+        },
+        minHeight: '100vh',
         backgroundColor: '#25472e',
         display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
         alignContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     nameContainer: {
         [theme.breakpoints.down('lg')]: {
@@ -60,16 +65,26 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('xs')]: {
             marginTop: 10,
         },
+        display: 'flex',
+        alignItems: 'center',
+        alignContent: 'center',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
         marginTop: 30,
         width: '100%',
         color: 'white',
         textDecoration: 'none',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
     },
-    icons: {
-        marginRight: 10,
+    avatar: {
+        color: 'white',
+        backgroundColor: deepOrange[700],
+        height: 50,
+        width: 50
+    },
+    info: {
+        width: '100%',
+        textAlign: 'center',
+        marginBottom: 20
     },
     infoHolder: {
         position: 'relative',
@@ -133,15 +148,14 @@ export default () => {
                     className={classes.link}
                     href={`tel:704-577-5028`}
                 >
-                    <Icon
-                        className={classes.icons}
-                        fontSize={media.xs ? 'small' : 'large'}
-                    >
-                        local_phone
-                    </Icon>
+                    <Avatar className={classes.avatar}>
+                        <Icon>
+                            local_phone
+                        </Icon>
+                    </Avatar>
                     
                     <Typography
-                        className={classes.typoInfo}
+                        className={classes.info}
                         variant={media.xs ? 'h6' : 'h5'}
                     >
                         704.577.5028
@@ -152,15 +166,14 @@ export default () => {
                     href={`mailto:robogator@aol.com`}
                     target="_top"
                 >
-                    <Icon
-                        className={classes.icons}
-                        fontSize={media.xs ? 'small' : 'large'}
-                    >
-                        send
-                    </Icon>
+                    <Avatar className={classes.avatar}>
+                        <Icon>
+                            send
+                        </Icon>
+                    </Avatar>
 
                     <Typography
-                        className={classes.typoInfo}
+                        className={classes.info}
                         variant={media.xs ? 'h6' : 'h5'}
                     >
                         robogator@aol.com
@@ -172,15 +185,14 @@ export default () => {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <Icon
-                        className={classes.icons}
-                        fontSize={media.xs ? 'small' : 'large'}
-                    >
-                        calendar_today
-                    </Icon>
+                    <Avatar className={classes.avatar}>
+                        <Icon>
+                            calendar_today
+                        </Icon>
+                    </Avatar>
 
                     <Typography
-                        className={classes.typoInfo}
+                        className={classes.info}
                         variant={media.xs ? 'h6' : 'h5'}
                     >
                         Availability Calendar

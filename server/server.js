@@ -1,18 +1,10 @@
 const express = require('express');
-
 const app = express();
-
 const session = require('express-session');
-
 const passport = require('passport');
 
 // Passport Config
 require('./config/passport')(passport);
-
-const mongoose = require('mongoose');
-
-const MONGOD_URI = 'mongodb://localhost/mtnDream';
-mongoose.connect(MONGOD_URI, { useNewUrlParser: true });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -38,6 +30,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const PORT = process.env.PORT || 3001;
+const mongoose = require('mongoose');
+
+const MONGOD_URI = process.env.MONGOD_URI;
+mongoose.connect(MONGOD_URI, { useNewUrlParser: true });
 
 if (process.env.NODE_ENV === 'production') {
     const clientBuildPath = path.join(__dirname, '..', 'client', 'build');

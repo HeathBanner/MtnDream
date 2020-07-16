@@ -49,9 +49,9 @@ export const EditorProvider = (props) => {
     const [sectionMode, setSectionMode] = useState({ el: 'title' });
     const [title, setTitle] = useState({ ...intialPreview, isPublished: false });
     const [description, setDescription] = useState({ ...initialInfo, textStyle: 'h5' });
-    const [readLength, setReadLength] = useState({ ...initialInfo });
-    const [jumbotron, setJumbotron] = useState({ ...initialImg });
-    const [body, setBody] = useState([ { ...intialPreview } ]);
+    const [readLength, setReadLength] = useState(initialInfo );
+    const [jumbotron, setJumbotron] = useState(initialImg);
+    const [body, setBody] = useState([ intialPreview ]);
     
     // Once component mounts it will fetch a list of the
     // top ten most recent articles
@@ -136,6 +136,20 @@ export const EditorProvider = (props) => {
         setBody([ ...newBody ]);
     };
 
+    const handleImages = async (blob) => {
+        console.log(blob);
+        let reader = new FileReader();
+        reader.onload = (e) => {
+            const parsed = e.target.result.split("base64,");
+            console.log(parsed[1]);
+            setJumbotron({
+                ...jumbotron,
+                src: parsed[1]
+            });
+        };
+        reader.readAsDataURL(blob[0]);
+    };
+
     // This function will store the url posted within the input and update the state
     const handleImage = (input, index) => {
         let newBody = body;
@@ -166,7 +180,7 @@ export const EditorProvider = (props) => {
                 setReadLength({ ...readLength, text: input });
                 break;
             case 'jumbotron':
-                setJumbotron({ ...jumbotron, src: input });
+                handleImages(e.target.files);
                 break;
             case 'body':
                 handleBody(input, section.index);

@@ -1,4 +1,5 @@
 import React, {useContext, useState } from 'react';
+import { EditorContext } from '../../Context/EditorContext';
 
 import TextSize from './Tools/TextSize';
 import Font from './Tools/Font';
@@ -6,9 +7,6 @@ import Styling from './Tools/Styling';
 import Justify from './Tools/Justify';
 import Margin from './Tools/Margin';
 import Notification from '../Notification/Notification';
-import { PreSubmit, FetchSubmit } from './Services/Services';
-
-import { EditorContext } from '../../Context/EditorContext';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -45,7 +43,10 @@ const useStyles = makeStyles((theme) => ({
     },
     save: {
         position: 'relative',
-        backgroundColor: 'rgb(0, 0, 0, 0.2)',
+        borderRadius: 20,
+        padding: 10,
+        backgroundColor: '#379683',
+        color: 'white',
         transition: 'all 0.4s ease',
         '&:hover': {
             transform: 'scale(1.03)',
@@ -73,7 +74,7 @@ const initNotify = {
     message: ""
 };
 
-const Toolbar = (props) => {
+export default ({ xs, md }) => {
 
     const classes = useStyles();
     const edit = useContext(EditorContext);
@@ -81,33 +82,36 @@ const Toolbar = (props) => {
     const [open, setOpen] = useState(false);
 
     // These will toggle the notification components
-    const [notify, setNotify] = useState({ ...initNotify });
+    const [notify, setNotify] = useState(initNotify );
 
-    const handleClose = () => setNotify({ ...initNotify });
+    const handleClose = () => setNotify(initNotify);
 
-    const handleSave = () => {
+    const handleSave = async () => {
+        const { PreSubmit } = await import('./Services/Services');
         const obj = PreSubmit(edit);
+
         if (obj.error || obj.warning) return setNotify({ ...obj });
         if (edit.isPublished) return handleChanges();
 
         handleSubmit();
-    }
+    };
 
     // If the preSubmit function passes with no errors or warnings it will
     // then log the current date and store it within the database
     const handleSubmit =  async () => {
-        const res = FetchSubmit(edit, "newArticle");
+        const { FetchSubmit } = await import('./Services/Services');
+        const result = await FetchSubmit(edit, "newArticle");
 
-        setNotify({ ...res });
+        setNotify({ ...result });
         edit.setPublished();
     };
 
     // If the user has already published the article, this function will then
     // update the article within the database
     const handleChanges = async () => {
-        const res = FetchSubmit(edit, "saveChanges");
-
-        setNotify({ ...res });
+        const { FetchSubmit } = await import('./Services/Services');
+        const result = await FetchSubmit(edit, "saveChanges");
+        setNotify({ ...result });
     };
 
     return (
@@ -124,9 +128,7 @@ const Toolbar = (props) => {
                     className={classes.menuButton}
                     onClick={() => setOpen(true)}
                 >
-                    <Icon
-                        fontSize={props.xs ? 'small' : 'large'}
-                    >
+                    <Icon fontSize={xs ? 'small' : 'large'}>
                         menu
                     </Icon>
                 </Button>
@@ -159,34 +161,26 @@ const Toolbar = (props) => {
                     </Button>
                 }
 
-                <Drawer
-                    open={open}
-                    onClose={() => setOpen(false)}
-                >
-                    <TextSize xs={props.xs} margin={0} />
+                <Drawer open={open} onClose={() => setOpen(false)}>
+                    <TextSize xs={xs} margin={0} />
                     
-                    <Font xs={props.xs} margin={0} />
+                    <Font xs={xs} margin={0} />
 
-                    <Styling xs={props.xs} margin={0} />
+                    <Styling xs={xs} margin={0} />
 
-                    <Justify xs={props.xs} margin={0} />
+                    <Justify xs={xs} margin={0} />
 
-                    <Margin xs={props.xs} md={props.md} margin={'0 auto'} />
+                    <Margin xs={xs} md={md} margin={'0 auto'} />
 
-                    <a
-                        href="/blog"
-                        className={classes.backButton}
-                    >
+                    <a href="/blog" className={classes.backButton}>
                         <Button>
                             <Icon
-                                fontSize={props.xs ? 'small' : 'large'}
+                                fontSize={xs ? 'small' : 'large'}
                                 style={{ marginRight: 10 }}
                             >
                                 exit_to_app
                             </Icon>
-                            <Typography
-                                variant={props.xs ? 'body1' : 'h6'}
-                            >
+                            <Typography variant={xs ? 'body1' : 'h6'}>
                                 Blog
                             </Typography>
                         </Button>
@@ -204,5 +198,3 @@ const Toolbar = (props) => {
         </Grid>
     );
 };
-
-export default Toolbar;

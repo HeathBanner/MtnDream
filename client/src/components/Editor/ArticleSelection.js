@@ -21,10 +21,16 @@ const useStyles = makeStyles(() => ({
         alignContent:'center',
         flexWrap: 'wrap',
     },
+    link: {
+        textDecoration: 'none',
+        color: 'inherit',
+        width: '80%',
+        marginTop: 30,
+    },
     button: {
         width: '100%',
         padding: 10,
-        background: 'linear-gradient(135deg, rgb(26, 118, 30) 0%, rgb(26, 118, 30) 23%,rgb(72, 215, 80) 23%, rgb(72, 215, 80) 28%,rgb(34, 176, 39) 28%, rgb(34, 176, 39) 35%,rgb(42, 126, 41) 35%, rgb(42, 126, 41) 100%)',
+        background: 'rgb(26, 118, 30)',
         color: 'white'
     }
 }));
@@ -57,12 +63,7 @@ export default () => {
             <Grid className={classes.container} item xs={12}>
 
                 <Link 
-                    style={{
-                        textDecoration: 'none',
-                        color: 'inherit',
-                        width: '80%',
-                        marginTop: 30,
-                    }}
+                    className={classes.link}
                     to={`/editor/new`}
                 >
                     <Button className={classes.button}>

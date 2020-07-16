@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { MediaContext } from '../../Context/MediaQuery';
 
-import { Grid } from '@material-ui/core';
-
 import MDToolbar from '../../components/Editor/MDToolbar';
 import LGToolbar from '../../components/Editor/LGToolbar';
 import Preview from '../../components/Editor/Preview';
+
+import { Grid } from '@material-ui/core';
 
 export default ({ match }) => {
 
@@ -14,13 +14,15 @@ export default ({ match }) => {
     return (
         <Grid container>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} styles={{ minHeight: '100vh' }}>
 
-                {media.md
-                    ?
-                <MDToolbar xs={media.xs} md={media.md} />
-                    :
-                <LGToolbar />}
+                {
+                    media.md
+                        ?
+                    <MDToolbar xs={media.xs} md={media.md} />
+                        :
+                    <LGToolbar />
+                }
 
                 <Preview xs={media.xs} md={media.md} title={match.params.title} />
 
