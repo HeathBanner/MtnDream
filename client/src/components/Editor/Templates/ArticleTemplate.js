@@ -2,11 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/styles';
-import {
-    Paper,
-    Typography,
-    Avatar
-} from '@material-ui/core';
+import { Typography, Avatar } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
     paper: {
@@ -18,6 +14,11 @@ const useStyles = makeStyles(() => ({
         alignItems: 'center',
         flexWrap: 'wrap',
         cursor: 'pointer',
+        boxShadow: '2px 2px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12)',
+        borderRadius: 10,
+        backgroundColor: '#fff',
+        textDecoration: 'none',
+        color: 'inherit'
     },
     infoContainer: {
         position: 'relative',
@@ -43,23 +44,22 @@ const useStyles = makeStyles(() => ({
 export default ({ title, jumbotron, description, date, readLength  }) => {
 
     const classes = useStyles();
-
+    const imgHelper = "data:image/jpeg;base64,";
+    
+    if (!jumbotron.src) return "";
+    const data = Buffer.from(jumbotron.src.data, 'binary');
     return (
-        <Paper
+        <Link
             className={classes.paper}
             key={title.text}
+            to={`/editor/${title.text}`}
         >
             <Typography
                 style={{ width: '100%', marginBottom: 20 }}
                 align="center"
                 variant="h2"
             >
-                <Link
-                    style={{ textDecoration: 'none', color: 'inherit' }}
-                    to={`/editor/${title.text}`}
-                >
-                    {title.text}
-                </Link>
+                {title.text}
             </Typography>
 
             <Typography
@@ -68,12 +68,7 @@ export default ({ title, jumbotron, description, date, readLength  }) => {
                 variant="h5"
                 color="textSecondary"
             >
-                <Link
-                    style={{ textDecoration: 'none', color: 'inherit' }}
-                    to={`/editor/${title.text}`}
-                >
-                    {description.text}
-                </Link>
+                {description.text}
             </Typography>
 
             <div className={classes.infoContainer} style={{ width: 'auto' }}>
@@ -94,28 +89,23 @@ export default ({ title, jumbotron, description, date, readLength  }) => {
                 </Typography>
             </div>
 
-            <Link
-                style={{ textDecoration: 'none', color: 'inherit' }}
-                to={`/editor/${title.text}`}
+            <div
+                style={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
             >
-                <div
+                <img
                     style={{
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'center',
+                        marginTop: 10,
+                        marginBottom: 10,
+                        width: '50%',
                     }}
-                >
-                    <img
-                        style={{
-                            marginTop: 10,
-                            marginBottom: 10,
-                            width: '50%',
-                        }}
-                        src={jumbotron.src}
-                        alt={title.text}
-                    />
-                </div>
-            </Link>
-        </Paper>
+                    src={`${imgHelper}${data}`}
+                    alt={title.text}
+                />
+            </div>
+        </Link>
     );
 };

@@ -13,7 +13,6 @@ export default ({ match }) => {
 
     return (
         <Grid container>
-
             <Grid item xs={12} styles={{ minHeight: '100vh' }}>
 
                 {
@@ -27,7 +26,6 @@ export default ({ match }) => {
                 <Preview xs={media.xs} md={media.md} title={match.params.title} />
 
             </Grid>
-
         </Grid>
     );
 };

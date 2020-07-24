@@ -1,11 +1,18 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
+import { initialNotify } from './Services/EditorServices';
 
 import useTheme from '@material-ui/core/styles/useTheme';
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 export const MediaContext = createContext();
 
-export const MediaProvider = props => {
+export const MediaProvider = ({ children }) => {
+
+    const [notify, setNotify] = useState(initialNotify);
+
+    const openNotify = (newNotify) => setNotify({ ...notify, ...newNotify });
+    const errorNotify = () => setNotify({ ...notify, error: true, message: "Something went wrong :(" });
+    const closeNotify = () => setNotify(initialNotify);
 
     const theme = useTheme();
 
@@ -36,11 +43,20 @@ export const MediaProvider = props => {
     // getWidth();
 
     return (
-
-        <MediaContext.Provider value={{ xl, lg, md, sm, xs }} >
-
-            { props.children }
-
+        <MediaContext.Provider
+            value={{
+                xl,
+                lg,
+                md,
+                sm,
+                xs,
+                notify,
+                openNotify,
+                errorNotify,
+                closeNotify,
+            }}
+        >
+            { children }
         </MediaContext.Provider>
     );
 };

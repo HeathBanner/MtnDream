@@ -69,10 +69,17 @@ export default ({ margin, xs }) => {
 
     const fontSwitch = () => {
         const sectionEl = holder.sectionMode.el;
-        const font = holder[sectionEl].font;
+        let font;
+        if (sectionEl !== 'jumbotron' && sectionEl !== 'image') {
+            console.log(sectionEl);
+            font = holder[sectionEl].font;
+        }
 
         switch (sectionEl) {
             case 'body':
+                if (sectionEl === 'image') {
+                    return <ButtonTemplate margin={margin} locked={true} />;
+                }
                 return <ButtonTemplate
                     margin={margin}
                     font={font}

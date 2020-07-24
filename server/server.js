@@ -7,7 +7,7 @@ const passport = require('passport');
 require('./config/passport')(passport);
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 
 app.use(session({
     secret: 'keyboard_cat',
@@ -32,7 +32,7 @@ if (process.env.NODE_ENV !== 'production') {
 const PORT = process.env.PORT || 3001;
 const mongoose = require('mongoose');
 
-const MONGOD_URI = process.env.MONGOD_URI;
+const { MONGOD_URI } = process.env;
 mongoose.connect(MONGOD_URI, { useNewUrlParser: true });
 
 if (process.env.NODE_ENV === 'production') {

@@ -4,12 +4,15 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './index.css';
 
+import { MediaProvider } from './Context/MediaQuery';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
     <BrowserRouter>
-        <App /> 
+        <MediaProvider>
+            <App /> 
+        </MediaProvider>
     </BrowserRouter>,
 document.getElementById('root'));
 

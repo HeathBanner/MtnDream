@@ -92,6 +92,7 @@ export default ({ xs, md }) => {
 
         if (obj.error || obj.warning) return setNotify({ ...obj });
         if (edit.isPublished) return handleChanges();
+        console.log(edit.isPublished);
 
         handleSubmit();
     };
@@ -172,7 +173,21 @@ export default ({ xs, md }) => {
 
                     <Margin xs={xs} md={md} margin={'0 auto'} />
 
-                    <a href="/blog" className={classes.backButton}>
+                    <a href="/editor" className={classes.backButton}>
+                        <Button>
+                            <Icon
+                                fontSize={xs ? 'small' : 'large'}
+                                style={{ marginRight: 10 }}
+                            >
+                                list_alt_outlined
+                            </Icon>
+                            <Typography variant={xs ? 'body1' : 'h6'}>
+                                Back
+                            </Typography>
+                        </Button>
+                    </a>
+
+                    {/* <a href="/blog" className={classes.backButton}>
                         <Button>
                             <Icon
                                 fontSize={xs ? 'small' : 'large'}
@@ -184,7 +199,7 @@ export default ({ xs, md }) => {
                                 Blog
                             </Typography>
                         </Button>
-                    </a>
+                    </a> */}
 
                 </Drawer>
 

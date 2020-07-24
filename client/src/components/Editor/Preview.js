@@ -5,13 +5,15 @@ import {
     Grid,
     Typography,
     TextField,
-    Button,
+    IconButton,
     Avatar,
     CircularProgress,
+    Icon
 } from '@material-ui/core';
 
 import Jumbotron from './Tools/Jumbotron';
 import Image from './Tools/Image';
+import MiniTextField from './MiniComponents/MiniTextField';
 
 import { EditorContext } from '../../Context/EditorContext';
 
@@ -46,21 +48,21 @@ const months = [
     'December',
 ];
 
-export default ({ title, xs, md}) => {
+export default ({ title, xs }) => {
 
-    const holder = useContext(EditorContext);
+    const context = useContext(EditorContext);
 
     // Once the component mounts, it will send the url parameter to the context
     // to have it update with the currently selected article
     useEffect(() => {
-        holder.editArticle(title);
+        context.editArticle(title);
     }, []);
 
     // The makeStyles hook was added within the component due to the reliance of
     // the context information
     const useStyles = makeStyles(() => ({
         container: {
-            marginTop: 120 + parseInt(holder.title.marginTop),
+            marginTop: 120 + parseInt(context.title.marginTop),
             padding: 40,
             display: 'flex',
             justifyContent: 'center',
@@ -68,39 +70,36 @@ export default ({ title, xs, md}) => {
             flexWrap: 'wrap',
         },
         typo: {
-            fontSize: xs ? mobileFontSizes[holder.title.textStyle] : fontSizes[holder.title.textStyle],
-            fontFamily: `${holder.title.font}, Helvetica, Arial, sans-serif`,
-            fontWeight: holder.title.bold ? 'bold' : 'normal',
-            fontStyle: holder.title.italic ? 'italic' : 'normal',
-            textDecoration: holder.title.underline ? 'underline' : 'none',
-            textAlign: holder.title.justify,
-            color: holder.title.color,
-            backgroundColor: holder.title.highlight ? '#ffff00' : 'inherit',
+            fontSize: xs ? mobileFontSizes[context.title.textStyle] : fontSizes[context.title.textStyle],
+            fontFamily: `${context.title.font}, Helvetica, Arial, sans-serif`,
+            fontWeight: context.title.bold ? 'bold' : 'normal',
+            fontStyle: context.title.italic ? 'italic' : 'normal',
+            textDecoration: context.title.underline ? 'underline' : 'none',
+            textAlign: context.title.justify,
+            color: context.title.color,
+            backgroundColor: context.title.highlight ? '#ffff00' : 'inherit',
             padding: 0,
             width: '100%',
             lineHeight: 1.17,
         },
         description: {
-            fontSize: xs ? mobileFontSizes[holder.description.textStyle] : fontSizes[holder.description.textStyle],
-            fontFamily: `${holder.description.font}, Helvetica, Arial, sans-serif`,
-            color: holder.description.color,
-            textAlign: holder.description.justify,
+            fontSize: xs ? mobileFontSizes[context.description.textStyle] : fontSizes[context.description.textStyle],
+            fontFamily: `${context.description.font}, Helvetica, Arial, sans-serif`,
+            color: context.description.color,
+            textAlign: context.description.justify,
             marginTop: 20,
             padding: 0,
             lineHeight: 1.17,
         },
-        jumboContainer: {
-            width: '100%',
-            display: 'flex',
-            justifyContent: holder.jumbotron.justify,
-        },
-        newSection: {
+        newSectionContainers: {
             flexGrow: 1,
-            marginTop: 20,
-            padding: 15,
-            backgroundColor: 'rgb(0, 0, 0, 0.1)',
             display: 'flex',
             justifyContent: 'center',
+        },
+        newSectionButtons: {
+            padding: 15,
+            marginTop: 20,
+            backgroundColor: 'rgb(0, 0, 0, 0.1)',
             transition: 'background-color .4s ease',
             '&:hover': {
                 backgroundColor: 'rgb(0, 0, 0, 0.2)',
@@ -144,7 +143,7 @@ export default ({ title, xs, md}) => {
         return `${months[now.getMonth()]} ${now.getDate()}`;
     };
 
-    if ( (title) && (title !== 'new') && (!holder.title.text) ) {
+    if ( (title) && (title !== 'new') && (!context.title.text) ) {
         return (
             <Grid className={classes.container} item xs={12}>
                 <CircularProgress />
@@ -158,13 +157,13 @@ export default ({ title, xs, md}) => {
                 <TextField
                     style={{
                         width: '100%',
-                        marginBottom: parseInt(holder.title.marginBottom),
+                        marginBottom: parseInt(context.title.marginBottom),
                     }}
                     inputProps={{ className: classes.typo }}
                     InputProps={{ className: classes.inputs }}
-                    value={holder.title.text}
-                    onClick={() => holder.handleSectionMode({ el: 'title' })}
-                    onChange={(e) => holder.handleInput(e, { El: 'title' })}
+                    value={context.title.text}
+                    onClick={() => context.handleSectionMode({ el: 'title' })}
+                    onChange={(e) => context.handleInput(e.target.value, { El: 'title' })}
                     multiline={true}
                 />
 
@@ -172,15 +171,15 @@ export default ({ title, xs, md}) => {
                     style={{ width: '100%' }}                
                     inputProps={{ className: classes.description }}
                     InputProps={{ className: classes.inputs }}
-                    value={holder.description.text}
-                    onClick={() => holder.handleSectionMode({ el: 'description' })}
-                    onChange={(e) => holder.handleInput(e, { El: 'description' })}
+                    value={context.description.text}
+                    onClick={() => context.handleSectionMode({ el: 'description' })}
+                    onChange={(e) => context.handleInput(e.target.value, { El: 'description' })}
                     multiline={true}
                 />
 
                 <div
                     className={classes.infoContainer}
-                    style={{ width: holder.readLength.justify === 'flex-start' ? '100%' : 'auto' }}
+                    style={{ width: context.readLength.justify === 'flex-start' ? '100%' : 'auto' }}
                 >
 
                     <Avatar
@@ -206,9 +205,9 @@ export default ({ title, xs, md}) => {
                             style: { textAlign: 'center', padding: 0 },
                         }}
                         InputProps={{ className: classes.inputs }}
-                        value={holder.readLength.text}
-                        onClick={() => holder.handleSectionMode({ el: 'readLength' })}
-                        onChange={(e) => holder.handleInput(e, { El: 'readLength' })}
+                        value={context.readLength.text}
+                        onClick={() => context.handleSectionMode({ el: 'readLength' })}
+                        onChange={(e) => context.handleInput(e.target.value, { El: 'readLength' })}
                     />
 
                     <Typography className={classes.readLength}>
@@ -217,88 +216,65 @@ export default ({ title, xs, md}) => {
 
                 </div>
                 
-                <div className={classes.jumboContainer}>
-
-                    <Jumbotron />
-                
-                </div>
-                
+                <Jumbotron justify={context.jumbotron.justify} />
+                                
                 {/* Since the body object contains both image and text elements,
                 a conditional was required to render both */}
-                { 
-                    holder.body.map((section, index) => {
-                        
-                        if (section.isText) {
-                            return (
-                                <TextField
-                                    style={{
-                                        width: '100%',
-                                        marginTop: parseInt(holder.body[index].marginTop),
-                                        marginBottom: parseInt(holder.body[index].marginBottom),
-                                    }}
-                                    multiline={true}
-                                    inputProps={{
-                                        style: {
-                                            width: '100%',
-                                            fontSize: xs ? mobileFontSizes[holder.body.textStyle] : fontSizes[holder.body[index].textStyle],
-                                            fontFamily: `${holder.body[index].font}, Helvetica, Arial, sans-serif`,
-                                            fontWeight: holder.body[index].bold ? 'bold' : 'normal',
-                                            fontStyle: holder.body[index].italic ? 'italic' : 'normal',
-                                            textDecoration: holder.body[index].underline ? 'underline' : 'none',
-                                            textAlign: holder.body[index].justify,
-                                            color: holder.body[index].color,
-                                            backgroundColor: holder.body[index].highlight ? '#ffff00' : 'inherit',
-                                            lineHeight: 1.17,
-                                        } 
-                                    }}
-                                    InputProps={{ className: classes.inputs }}
-                                    value={holder.body[index].text}
-                                    onClick={() => holder.handleSectionMode({ el: 'body', index: index })}
-                                    onChange={(e) => holder.handleInput(e, { El: 'body', index: index })}
-                                    key={index}
+                {context.body.map((section, index) => {
+                    if (section.isText) {
+                        return (
+                            <MiniTextField
+                                body={section}
+                                index={index}
+                                fonts={{ mobileFontSizes, fontSizes }}
+                                inputClass={classes.inputs}
+                                handleSectionMode={context.handleSectionMode}
+                                handleInput={context.handleInput}
+                                xs={xs}
+                            />
+                        );
+                    }
+                    if (section.isImage) {
+                        return (
+                            <div
+                                style={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    justifyContent: section.justify,
+                                    marginTop: parseInt(context.body[index].marginTop),
+                                    marginBottom: parseInt(context.body[index].marginBottom),
+                                }}
+                                key={index}
+                            >
+                                <Image
+                                    src={section.src}
+                                    index={index}
                                 />
-                            );
-                        }
-                        if (section.isImage) {
-                            return (
-                                <div
-                                    style={{
-                                        width: '100%',
-                                        display: 'flex',
-                                        justifyContent: section.justify,
-                                        marginTop: parseInt(holder.body[index].marginTop),
-                                        marginBottom: parseInt(holder.body[index].marginBottom),
-                                    }}
-                                    key={index}
-                                >
-                                    <Image
-                                        src={section.src}
-                                        index={index}
-                                    />
-                                </div>
-                            );
-                        }
-                    })
-                }
-
-                <Button
-                    className={classes.newSection}
-                    onClick={holder.newBody}
-                    style={{ marginRight: xs ? 0 : 20 }}
-                >
-                    <Typography variant={xs ? 'body1' : 'h6'}>
-                        Add Body Section
-                    </Typography>
-                </Button>
-
-                <Button
-                    className={classes.newSection}
-                    onClick={holder.newImgEl}
-                >
-                    <Typography variant={xs ? 'body1' : 'h6'}>
-                        Add Photo
-                    </Typography>
-                </Button>
+                            </div>
+                        );
+                    }
+                })}
+                <div className={classes.newSectionContainers}>
+                    <IconButton
+                        className={classes.newSectionButtons}
+                        onClick={context.handleNewBody}
+                        style={{ marginRight: xs ? 0 : 20 }}
+                    >
+                        <Icon>
+                            view_headline_outlined
+                        </Icon>
+                    </IconButton>
+                </div>
+                <div className={classes.newSectionContainers}>
+                    <IconButton
+                        className={classes.newSectionButtons}
+                        onClick={context.newImgEl}
+                    >
+                        <Icon>
+                            add_to_photos_outlined
+                        </Icon>
+                    </IconButton>
+                </div>
 
             </Grid>
         </>

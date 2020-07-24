@@ -5,13 +5,23 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
+    jumboContainer: {
+        width: '100%',
+        display: 'flex'
+    },
     paper: {
         padding: 20,
         width: 350,
+    },
+    button: {
+        width: '100%',
+        padding: 10,
+        color: 'white',
+        backgroundColor: '#379683'
     }
 }));
 
-export default () => {
+export default ({ justify }) => {
 
     const classes = useStyles();
     const holder = useContext(EditorContext);
@@ -21,20 +31,20 @@ export default () => {
 
     if (holder.jumbotron.src) {
         return (
-            <>
+            <div className={classes.jumboContainer} style={{ justifyContent: justify }}>
                 <input
                     style={{
                         width: '100%',
                         height: '100%',
                         display: 'none'
                     }}
-                    onChange={(e) => holder.handleInput(e, { El: "jumbotron" })}
+                    onChange={(e) => holder.handleImage(e.target.files[0], { El: "jumbotron" })}
                     accept="image/*"
                     id="image-uploader"
                     type="file"
                 />
                 <label htmlFor="image-uploader" onClick={handleClick}>
-                    <Button className={classes.button} component="span">
+                    <Button component="span">
                         <img 
                             style={{
                                 width: '100%',
@@ -46,18 +56,18 @@ export default () => {
                         />                    
                     </Button>
                 </label>
-            </>
+            </div>
         );
     } else {
         return (
-            <>
+            <div className={classes.jumboContainer} style={{ justifyContent: justify }}>
                 <input
                     style={{
                         width: '100%',
                         height: '100%',
                         display: 'none'
                     }}
-                    onChange={(e) => holder.handleInput(e, { El: "jumbotron" })}
+                    onChange={(e) => holder.handleImage(e.target.files[0], { El: "jumbotron" })}
                     accept="image/*"
                     id="image-uploader"
                     type="file"
@@ -67,7 +77,7 @@ export default () => {
                         Upload Jumbotron                  
                     </Button>
                 </label>
-            </>
+            </div>
         );
     }
 };

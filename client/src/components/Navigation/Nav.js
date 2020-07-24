@@ -1,19 +1,11 @@
-import React, {
-  useEffect,
-  useState,
-  useContext
-} from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { MediaContext } from '../../Context/MediaQuery';
 
 import Drawer from './Drawer';
+import Weather from './Weather';
 
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  CircularProgress
-} from '@material-ui/core';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -97,37 +89,21 @@ export default () => {
                 A Mountain Dream
               </Typography>
 
-              {media.xs
+              {
+                media.xs
                   ?
                 ''
                   :
-                <div className={classes.weatherContainer}>
-
-                  <Typography
-                    style={{ textTransform: 'capitalize' }}
-                    variant={media.xs ? 'subtitle2' : 'h6'}
-                    color="inherit"
-                  >
-                    {
-                      weather.desc
-                        ?
-                      weather.desc
-                        :
-                      <CircularProgress />
-                    }
-                  </Typography>
-  
-                    <img 
-                      className={media.xs ? classes.imgSm : classes.imgLg}
-                      src={ 
-                        weather.image ? weather.image
-                          :
-                        ''
-                      } 
-                      alt={weather.desc ? weather.desc : 'Fetching...'}
-                    />
-
-                </div>}
+                <Weather
+                  xs={media.xs}
+                  weather={weather}
+                  classes={{
+                    weatherContainer: classes.weatherContainer,
+                    imgSm: classes.imgSm,
+                    imgLg: classes.imgLg
+                  }}
+                />
+              }
 
             </Toolbar>
           </AppBar>

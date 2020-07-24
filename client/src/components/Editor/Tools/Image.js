@@ -1,14 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { EditorContext } from '../../../Context/EditorContext';
 
 import { makeStyles } from '@material-ui/core/styles';
-import {
-    Popover,
-    Button,
-    TextField
-} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     container: {
         width: '100%',
         display: 'flex',
@@ -17,6 +13,12 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         padding: 20,
         width: 350,
+    },
+    button: {
+        width: '100%',
+        padding: 10,
+        color: 'white',
+        backgroundColor: '#379683'
     }
 }));
 
@@ -24,86 +26,64 @@ export default ({ src, alt, index }) => {
     
     const classes = useStyles();
     const holder = useContext(EditorContext);
+    const imgHelper = "data:image/jpeg;base64,";
 
-    const [anchorEl, setAnchorEl] = useState(null);
-
-    const handleClick = e => {
-        setAnchorEl(e.currentTarget);
+    const handleClick = () => {
         holder.handleSectionMode({ el: 'image', index: index });
     };
 
-    const handleClose = () => setAnchorEl(null);
-
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
+    const handleInput = (e) => {
+        holder.handleImage(e.target.files[0], { El: "image", index: index });
+    };
 
     if (src) {
         return (
             <>
-                <Button onClick={handleClick}>
-                    <img 
-                        style={{ width: '100%', height: 'auto' }} 
-                        src={src} 
-                        alt={alt} 
-                    />
-                </Button>
-
-                <Popover
-                    PaperProps={{ className: classes.paper }}
-                    ModalClasses={{ className: classes.paper}}
-                    id={id}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                        vertical: 'center',
-                        horizontal: 'center',
+                <input
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'none'
                     }}
-                    transformOrigin={{
-                        vertical: 'center',
-                        horizontal: 'center',
-                    }}
-                > 
-                    <TextField 
-                        style={{ width: '100%' }}
-                        label="Paste Url"
-                        variant="outlined"
-                        value={src}
-                        onChange={(e) => holder.handleInput(e, { El: 'image', index: index })}
-                    />
-                </Popover>
+                    onChange={handleInput}
+                    accept="image/*"
+                    id={`bodyUploader${index}`}
+                    type="file"
+                />
+                <label htmlFor={`bodyUploader${index}`} onClick={handleClick}>
+                    <Button component="span">
+                        <img 
+                            style={{
+                                width: '100%',
+                                height: 'auto',
+                                margin: '20px 0px',
+                            }}
+                            src={`${imgHelper}${src}`}
+                            alt={alt} 
+                        />                    
+                    </Button>
+                </label>
             </>
         );
     } else {
         return (
             <>
-                <Button variant="contained" onClick={handleClick}>
-                    Add Image
-                </Button>
-
-                <Popover
-                    PaperProps={{ className: classes.paper }}
-                    id={id}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                        vertical: 'center',
-                        horizontal: 'center',
+                <input
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'none'
                     }}
-                    transformOrigin={{
-                        vertical: 'center',
-                        horizontal: 'center',
-                    }}
-                > 
-                    <TextField
-                        style={{ width: '100%' }}
-                        label="Paste Url"
-                        variant="outlined"
-                        value={src}
-                        onChange={(e) => holder.handleInput(e, { El: 'image', index: index })}
-                    />
-                </Popover>
+                    onChange={handleInput}
+                    accept="image/*"
+                    id={`bodyUploader${index}`}
+                    type="file"
+                />
+                <label htmlFor={`bodyUploader${index}`} style={{ width: '60%' }} onClick={handleClick}>
+                    <Button className={classes.button} component="span">
+                        Upload Image
+                    </Button>
+                </label>
             </>
         );
     };

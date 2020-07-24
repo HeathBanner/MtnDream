@@ -48,7 +48,7 @@ const bodySchema = new Schema({
     // Images
     // ===============
     isImage: Boolean,
-    src: String,
+    src: Buffer,
     alt: String,
     height: String,
     width: String,
@@ -79,6 +79,7 @@ const articleSchema = new Schema({
     jumbotron: jumbotronSchema,
     body: [bodySchema],
     date: dateSchema,
+    isPublished: Boolean,
 }, { collection: 'Articles' });
 
 const Articles = mongoose.model('Articles', articleSchema, 'Articles');

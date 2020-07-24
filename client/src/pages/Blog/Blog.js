@@ -1,13 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { EditorContext } from '../../Context/EditorContext';
 
-import { EditorProvider } from '../../Context/EditorContext';
-
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
-
-import Nav from '../../components/Navigation/Nav';
 import NewArticle from '../../components/Blog/NewArticle';
 import Latest from '../../components/Blog/Latest';
+
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, CircularProgress } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     articlesContainer: {
@@ -18,38 +16,37 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: 80,
         marginTop: 100,
         paddingLeft: '15%',
-        paddingRight: '15%',
+        paddingRight: '15%'
     },
+    progressContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh'
+    }
 }));
 
-const Blog = () => {
+export default () => {
 
     const classes = useStyles();
+    const context = useContext(EditorContext);
 
+    if (!context.articleList) {
+        return (
+            <Grid container className={classes.progressContainer}>
+                <CircularProgress />
+            </Grid>
+        );
+    }
     return (
-        <Grid className={classes.container} container>
+        <Grid container>
+            <Grid className={classes.articlesContainer} item xs={12}>
 
-            <EditorProvider>
+                <NewArticle article={context.articleList[0]} />
 
-                <Grid item xs={12}>
-
-                    {/* This will tell the navigation bar whether to load the weather
-                    or the login panel */}
-                    <Nav isBlog={true} />
-
-                </Grid>
-                <Grid className={classes.articlesContainer} item xs={12}>
-
-                    <NewArticle />
-
-                    <Latest />
-                
-                </Grid>
-
-            </EditorProvider>
-
+                <Latest articleList={context.articleList} />
+            
+            </Grid>
         </Grid>
     );
 };
-
-export default Blog;

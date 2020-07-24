@@ -1,10 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Avatar } from '@material-ui/core';
-
-import { EditorContext } from '../../Context/EditorContext';
 
 const useStyles = makeStyles(() => ({
     infoContainer: {
@@ -28,34 +26,37 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-export default () => {
+export default ({ article }) => {
 
-    const holder = useContext(EditorContext);
     const classes = useStyles();
+    const imgHelper = "data:image/jpeg;base64,";
+    let data;
+    try {
+        data = Buffer.from(article.jumbotron.src.data, 'binary');
+    } catch (error) { }
 
-    if (holder.articleList.length < 1)  return "";
     return (
         <>
             <Link
                 style={{ width: '100%', height: 'auto' }}
-                to={`/blog/${holder.articleList[0].title.text}`}
+                to={`/blog/${article.title.text}`}
             >
                 <img
-                    style={{ width: '100%', height: 'auto' }}
-                    src={holder.articleList[0].jumbotron.src}
-                    alt={holder.articleList[0].title.text}
+                    style={{ width: 'auto', height: 300 }}
+                    src={`${imgHelper}${data}`}
+                    alt={article.title.text}
                 />
             </Link>
 
             <Typography style={{ marginTop: 20 }} variant="h2">
-                <Link style={{ textDecoration: 'none', color: 'inherit' }} to={`/blog/${holder.articleList[0].title.text}`}>
-                    {holder.articleList[0].title.text}
+                <Link style={{ textDecoration: 'none', color: 'inherit' }} to={`/blog/${article.title.text}`}>
+                    {article.title.text}
                 </Link>
             </Typography>
 
             <Typography style={{ marginTop: 15, marginBottom: 15 }} variant="h6" color="textSecondary">
-                <Link style={{ textDecoration: 'none', color: 'inherit' }} to={`/blog/${holder.articleList[0].title.text}`}>
-                    {holder.articleList[0].description.text}
+                <Link style={{ textDecoration: 'none', color: 'inherit' }} to={`/blog/${article.title.text}`}>
+                    {article.description.text}
                 </Link>
             </Typography>
 
@@ -72,7 +73,7 @@ export default () => {
                 </Typography>
     
                 <Typography style={{ width: '100%' }} variant="body1" color="textSecondary">
-                    {`${holder.articleList[0].date.parsedDate} `} &#8226; {` ${holder.articleList[0].readLength.text} min read`}
+                    {`${article.date.parsedDate} `} &#8226; {` ${article.readLength.text} min read`}
                 </Typography>
                 
             </div>

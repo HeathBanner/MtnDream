@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { MediaContext } from '../../Context/MediaQuery';
 
-import Nav from '../../components/Navigation/Nav';
-
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Avatar } from '@material-ui/core';
+import { Grid, Typography, Avatar, CircularProgress } from '@material-ui/core';
 
 const fontSizes = {
     h1: '6rem',
@@ -25,11 +23,20 @@ const mobileFontSizes = {
 
 const useStyles = makeStyles(() => ({
     container: {
+        minHeight: '100vh',
         marginTop: 60,
         marginBottom: 80,
+        padding: '0px 10%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'flex-start',
+        flexWrap: 'wrap',
+    },
+    progressContainer: {
+        minHeight: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         flexWrap: 'wrap',
     },
     articlesContainer: {
@@ -64,6 +71,7 @@ export default ({ match }) => {
 
     const media = useContext(MediaContext);
     const classes = useStyles();
+    const imgHelper = "data:image/jpeg;base64,";
 
     const [article, setArticle] = useState('');
 
@@ -72,26 +80,40 @@ export default ({ match }) => {
     useEffect(() => fetchArticle(), []);
 
     const fetchArticle = async () => {
-        const title = match.params.title;
-        const options = {
-            method: 'POST',
-            body: JSON.stringify({ title }),
-            headers: { 'Content-Type': 'application/json' },
-        };
-        const res = await fetch('/api/editors/getArticle', options);
-        const json = await res.json();
-        
-        setArticle(json);
+        try {
+            const title = match.params.title;
+            const options = {
+                method: 'POST',
+                body: JSON.stringify({ title }),
+                headers: { 'Content-Type': 'application/json' },
+            };
+            const res = await fetch('/api/editors/getArticle', options);
+            const json = await res.json();
+            if (json.error) {
+                return media.openNotify({ error: true, message: json.message });                ;
+            }
+            
+            setArticle(json);
+        } catch (error) {
+            media.errorNotify();
+        }
     };
 
-    if (!article) { return '' }
+    if (!article) return (
+        <Grid container className={classes.progressContainer}>
+            <CircularProgress />
+        </Grid>
+    );
+
+    let data;
+    try {
+        data = Buffer.from(article.jumbotron.src.data, 'binary');
+    } catch (error) {
+        media.errorNotify();
+    }
+
     return (
         <Grid container>
-            <Grid style={{ height: 60 }} item xs={12}>
-
-                <Nav />
-                
-            </Grid>
             <Grid className={classes.container} item xs={12}>
 
                 {/* The elements will have styles applied inline due to
@@ -159,7 +181,7 @@ export default ({ match }) => {
                             marginBottom: article.jumbotron.marginBottom,
                             width: '50%',
                         }}
-                        src={article.jumbotron.src}
+                        src={`${imgHelper}${data}`}
                         alt={article.title.text}
                     />
                 </div>
@@ -189,15 +211,28 @@ export default ({ match }) => {
                             </Typography>
                         );
                     }
+                    let bodyImage;
+                    try {
+                        bodyImage = Buffer.from(section.src.data, 'binary');
+                    } catch (error) {
+                        media.errorNotify();
+                    }
+
                     return (
                         <div
                             style={{
                                 width: '100%',
                                 display: 'flex',
                                 justifyContent: section.justify,
+                                marginTop: section.marginTop,
+                                marginBottom: section.marginBottom
                             }}
                         >
-                            <img src={section.src} alt={section.alt} />
+                            <img
+                                src={`${imgHelper}${bodyImage}`}
+                                alt={section.alt}
+                                style={{ width: '70%' }}
+                            />
                         </div>
                     );
                 })}

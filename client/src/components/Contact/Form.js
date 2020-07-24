@@ -2,19 +2,13 @@ import React, { useState, useContext } from 'react';
 import { MediaContext } from '../../Context/MediaQuery';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
 import {
     Divider,
     Grid,
     Paper,
     TextField,
     Typography,
-    Button,
-    Snackbar,
-    SnackbarContent,
-    Slide,
-    Icon,
-    IconButton
+    Button
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -57,9 +51,6 @@ const useStyles = makeStyles((theme) => ({
             transform: 'scale(1.01)',
         },
     },
-    snackbar: {
-        backgroundColor: green[600]
-    }
 }));
 
 const initInfo = {
@@ -67,25 +58,17 @@ const initInfo = {
     email: '',
     phone: '',
     message: '',
-    notify: {
-        error: false,
-        warning: false,
-        success: false,
-        message: ""
-    }
 };
 
-export default() => {
+export default () => {
 
     const classes = useStyles();
     const media = useContext(MediaContext);
 
-    const [info, setInfo] = useState({ ...initInfo });
-    const { warning, error, success, message } = info.notify;
+    const [info, setInfo] = useState(initInfo);
 
     const handleSubmit = async () => {
         try {
-            console.log("FIRE");
             const options = {
                 method: 'POST',
                 body: JSON.stringify(info),
@@ -95,39 +78,16 @@ export default() => {
             const json = await res.json();
     
             if (!json || json.statusCode === 500) {
-                return setInfo({
-                    ...info,
-                    notify: {
-                        ...info.notify,
-                        error: true,
-                        message: "Something went wrong :("
-                    }
-                });
+                return media.errorNotify();
             }
-    
-            setInfo({
-                ...info,
-                notify: {
-                    ...info.notify,
-                    success: true,
-                    message: "Contact was successful!"
-                }
-            });
+            media.openNotify({ success: true, message: 'Contact was successful' });
+            setInfo(initInfo);
         } catch (error) {
-            setInfo({
-                ...info,
-                notify: {
-                    ...info.notify,
-                    error: true,
-                    message: "Something went wrong"
-                }
-            });
+            media.errorNotify();
         }
     };
 
-    const handleClose = () => setInfo(initInfo);
-
-    const slideTransition = (props) => <Slide {...props} direction="right" />;
+    const handleInput = (event, type) => setInfo({ ...info, [type]: event.target.value });
 
     return (
         <Grid className={classes.formContainer} item xs={12}>
@@ -149,7 +109,7 @@ export default() => {
                     variant="outlined"
                     label="Name"
                     value={info.name}
-                    onChange={(e) => setInfo({ ...info, name: e.target.value })}
+                    onChange={(e) => handleInput(e, 'name')}
                 />
                 <TextField 
                     className={classes.input}
@@ -158,7 +118,7 @@ export default() => {
                     variant="outlined"
                     label="Email"
                     value={info.email}
-                    onChange={(e) => setInfo({ ...info, email: e.target.value })}
+                    onChange={(e) => handleInput(e, 'email')}
                 />
                 <TextField 
                     className={classes.input}
@@ -167,7 +127,7 @@ export default() => {
                     variant="outlined"
                     label="Phone"
                     value={info.phone}
-                    onChange={(e) => setInfo({ ...info, phone: e.target.value })}
+                    onChange={(e) => handleInput(e, 'phone')}
                 />
                 <TextField 
                     className={classes.input}
@@ -176,7 +136,7 @@ export default() => {
                     variant="outlined"
                     label="Message"
                     value={info.message}
-                    onChange={(e) => setInfo({ ...info, message: e.target.value })}
+                    onChange={(e) => handleInput(e, 'message')}
                 />
 
                 <Button
@@ -187,28 +147,6 @@ export default() => {
                         Submit
                     </Typography>
                 </Button>
-
-                <Snackbar
-                    open={warning || error || success}
-                    onClose={handleClose}
-                    TransitionComponent={ slideTransition }
-                    ContentProps={{ 'aria-describedby': 'message-id' }}
-                    autoHideDuration={6000}
-                >
-                    <SnackbarContent 
-                        className={classes.snackbar}
-                        message={ 
-                            <Typography variant="h6" align="center">
-                                {message}
-                            </Typography>
-                        }
-                        action={
-                            <IconButton color="inherit" onClick={handleClose}>
-                                <Icon>close</Icon>
-                            </IconButton>
-                        }
-                    />
-                </Snackbar>
             </Paper>
         </Grid>
     );

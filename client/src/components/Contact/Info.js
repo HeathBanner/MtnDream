@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { MediaContext } from '../../Context/MediaQuery';
 
-import { deepOrange } from '@material-ui/core/colors';
+import { deepOrange, blue } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import {
     Grid,
@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
         color: 'white',
-        backgroundColor: deepOrange[700],
+        backgroundColor: blue[800],
         height: 50,
         width: 50
     },

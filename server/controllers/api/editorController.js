@@ -1,16 +1,13 @@
 const editorController = require('express').Router();
 const db = require('../../models/editor/article');
 
-editorController.post('/getArticle', (req, res) => {
+editorController.post('/getArticle', async (req, res) => {
     const { title } = req.body;
-    db.findOne({ 'title.text': title })
-        .then((result) => {
-            if (!result) {
-                res.status(404).json({ error: 'Article not found!' });
-            }
-            res.status(200).json(result);
-        })
-        .catch((error) => { res.status(500).json(error); });
+    const result = await db.findOne({ 'title.text': title });
+    if (!result) {
+        return res.status(404).json({ error: true, message: 'Article not found!' });
+    }
+    res.status(200).json(result);
 });
 
 editorController.get('/getList', (req, res) => {
