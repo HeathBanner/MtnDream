@@ -27,7 +27,7 @@ export default ({ margin, md, xs }) => {
             <Typography
                 style={{
                     margin: '0 auto',
-                    marginRight: margin,    
+                    width: '100%'
                 }}
                 variant="subtitle2"
             >

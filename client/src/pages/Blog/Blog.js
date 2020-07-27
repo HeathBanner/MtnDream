@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { EditorContext } from '../../Context/EditorContext';
 
+import { url } from '../../resources/avatar';
 import NewArticle from '../../components/Blog/NewArticle';
 import Latest from '../../components/Blog/Latest';
 
@@ -42,7 +43,7 @@ export default () => {
         <Grid container>
             <Grid className={classes.articlesContainer} item xs={12}>
 
-                <NewArticle article={context.articleList[0]} />
+                <NewArticle article={context.articleList[0]} url={url} />
 
                 <Latest articleList={context.articleList} />
             

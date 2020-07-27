@@ -76,7 +76,7 @@ export default ({ margin, xs }) => {
         switch (holder.sectionMode.el) {
             case 'body':
                 return <Button
-                            style={{ marginRight: margin }}
+                            style={{ width: '100%' }}
                             onClick={handleOpen}
                             variant="contained"
                         >
@@ -88,7 +88,7 @@ export default ({ margin, xs }) => {
                         </Button>;
             case 'jumbotron':
                 return <Button
-                            style={{ marginRight: margin }}
+                            style={{ width: '100%' }}
                             disabled={true}
                             variant="contained"
                         >
@@ -96,7 +96,7 @@ export default ({ margin, xs }) => {
                         </Button>;
             case 'image':
                 return <Button 
-                            style={{ marginRight: margin }}
+                            style={{ width: '100%' }}
                             disabled={true}
                             variant="contained"
                         >
@@ -104,7 +104,7 @@ export default ({ margin, xs }) => {
                         </Button>;
             case 'readLength':
                 return <Button
-                            style={{ marginRight: margin }}
+                            style={{ width: '100%' }}
                             disabled={true}
                             variant="contained"
                         >
@@ -112,7 +112,7 @@ export default ({ margin, xs }) => {
                         </Button>;
             default:
                 return <Button
-                            style={{ marginRight: margin }}
+                            style={{ width: '100%' }}
                             onClick={handleOpen}
                             variant="contained"
                         >

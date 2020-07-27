@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import profilePhoto from '../../../resources/avatar';
+
 import { makeStyles } from '@material-ui/styles';
 import { Typography, Avatar } from '@material-ui/core';
 
@@ -74,7 +76,7 @@ export default ({ title, jumbotron, description, date, readLength  }) => {
             <div className={classes.infoContainer} style={{ width: 'auto' }}>
                 <Avatar
                     className={classes.avatar}
-                    src={`https://media.licdn.com/dms/image/C4E03AQESXvxigX8NfQ/profile-displayphoto-shrink_800_800/0?e=1571875200&v=beta&t=jVs0jK8YKBHrOOcmnghTMtN9bhPfu7rH9MHADyTboBY`}
+                    src={`data:image/jpeg;base64,${profilePhoto.url}`}
                     alt="Terri Banner Profile Photo"
                 />
 

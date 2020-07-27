@@ -81,7 +81,6 @@ export const EditorProvider = ({ children }) => {
             const parsed = e.target.result.split("base64,");
             if (section.El === 'image') {
                 newBody[section.index].src = parsed[1];
-                console.log('HIT')
                 result = { ...article, body: newBody };
             } else {
                 result = {

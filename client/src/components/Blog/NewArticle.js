@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-export default ({ article }) => {
+export default ({ article, url }) => {
 
     const classes = useStyles();
     const imgHelper = "data:image/jpeg;base64,";
@@ -64,7 +64,7 @@ export default ({ article }) => {
 
                 <Avatar
                     className={classes.avatar}
-                    src={`https://media.licdn.com/dms/image/C4E03AQESXvxigX8NfQ/profile-displayphoto-shrink_800_800/0?e=1571875200&v=beta&t=jVs0jK8YKBHrOOcmnghTMtN9bhPfu7rH9MHADyTboBY`}
+                    src={`${imgHelper}${url}`}
                     alt="Terri Banner Profile Photo"
                 />
     

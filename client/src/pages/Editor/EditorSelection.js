@@ -7,20 +7,34 @@ import ArticleTemplate from '../../components/Editor/Templates/ArticleTemplate';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Button, Typography } from '@material-ui/core';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     container: {
+        [theme.breakpoints.up('md')]: {
+            paddingLeft: '30%',
+            paddingRight: '30%'
+        },
+        [theme.breakpoints.up('sm')]: {
+            paddingLeft: '20%',
+            paddingRight: '20%'
+        },
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         alignContent:'center',
         flexWrap: 'wrap',
         paddingBottom: 40,
-        paddingTop: 60
+        paddingTop: 20
     },
     link: {
+        [theme.breakpoints.up('md')]: {
+            width: '40%'
+        },
+        [theme.breakpoints.up('sm')]: {
+            width: '60%'
+        },
+        width: '80%',
         textDecoration: 'none',
         color: 'inherit',
-        width: '80%',
         marginTop: 30,
     },
     button: {
@@ -60,7 +74,7 @@ export default () => {
     };
 
     return (
-        <Grid container>
+        <Grid style={{ marginTop: 30 }} container>
             <Grid className={classes.container} item xs={12}>
 
                 <Link 

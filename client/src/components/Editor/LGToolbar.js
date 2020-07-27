@@ -14,8 +14,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
     Grid,
     Icon,
-    Fab,
-    Typography
+    Button,
+    Typography,
+    Drawer
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
         padding: 20,
         background: '#ffffff',
         position: 'fixed',
-        top: 70,
         zIndex: 2,
         boxShadow: '0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)',
     },
@@ -35,6 +35,11 @@ const useStyles = makeStyles((theme) => ({
     input: {
         width: '80%'
     },
+    submitContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     save: {
         position: 'relative',
         backgroundColor: 'rgb(0, 0, 0, 0.2)',
@@ -42,6 +47,24 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             transform: 'scale(1.03)',
             backgroundColor: 'rgb(0, 0, 0, 0.05)',
+        },
+    },
+    customDrawer: {
+        display: 'flex',
+        alignItems: 'flex-start',
+        flexWrap: "wrap",
+        paddingTop: 30,
+    },
+    backButton: {
+        position: 'absolute',
+        bottom: '5%',
+        left: '50%',
+        transform: 'translate(-50%, 0%)',
+        textDecoration: 'none',
+        color: 'inherit',
+        '&:hover': {
+            textDecoration: 'none',
+            color: 'inherit',
         },
     },
 }));
@@ -69,7 +92,7 @@ export default () => {
         if (edit.isPublished) return handleChanges();
 
         handleSubmit();
-    }
+    };
 
     // If the preSubmit function passes with no errors or warnings it will
     // then log the current date and store it within the database
@@ -95,25 +118,24 @@ export default () => {
             alignItems="center"
             container
         >
-
-            <Grid item xs={1}>
+            <Grid className={classes.submitContainer} item xs={12}>
 
                 {
                     edit.title.isPublished
                         ?
-                    <Fab className={classes.save} onClick={handleSave} variant="extended">
+                    <Button className={classes.save} onClick={handleSave}>
                         <Icon>save</Icon>
                         <Typography style={{ marginLeft: 10 }}>
                             Save
                         </Typography>
-                    </Fab>
+                    </Button>
                         :
-                    <Fab className={classes.save} onClick={handleSave} variant="extended">
+                    <Button className={classes.save} onClick={handleSave}>
                         <Icon>save</Icon>
                         <Typography style={{ marginLeft: 10 }}>
                             Publish
                         </Typography>
-                    </Fab>
+                    </Button>
                 }
 
                 <Notification
@@ -122,8 +144,11 @@ export default () => {
                 />
 
             </Grid>
-            <Grid className={classes.editorTools} item xs={11}>
-
+            <Drawer
+                classes={{ paper: classes.customDrawer }}
+                variant="permanent"
+                anchor="left"
+            >
                 <TextSize margin={10} />
                 
                 <Font margin={10} />
@@ -134,8 +159,20 @@ export default () => {
 
                 <Margin margin={10} />
 
-            </Grid>
-
+                <a href="/editor" className={classes.backButton}>
+                    <Button>
+                        <Icon
+                            fontSize="small"
+                            style={{ marginRight: 10 }}
+                        >
+                            list_alt_outlined
+                        </Icon>
+                        <Typography variant="body1">
+                            Back
+                        </Typography>
+                    </Button>
+                </a>
+            </Drawer>
         </Grid>
     );
 };

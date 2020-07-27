@@ -17,9 +17,9 @@ export default ({ margin, font, handleOpen, xs, locked }) => {
     return (
         <Button
             style={{
-                marginRight: margin,
                 textTransform: 'capitalize',
-                fontFamily: `${font}, Helvetica, Arial, sans-serif`
+                fontFamily: `${font}, Helvetica, Arial, sans-serif`,
+                width: '100%'
             }}
             onClick={handleOpen}
             variant="contained"

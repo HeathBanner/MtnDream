@@ -74,7 +74,7 @@ export default ({ justify }) => {
                 />
                 <label htmlFor="image-uploader" style={{ width: '60%' }} onClick={handleClick}>
                     <Button className={classes.button} component="span">
-                        Upload Jumbotron                  
+                        Jumbotron                  
                     </Button>
                 </label>
             </div>

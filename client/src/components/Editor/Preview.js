@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 
+import profilePhoto from '../../resources/avatar';
+
 import { makeStyles } from '@material-ui/core/styles';
 import {
     Grid,
@@ -60,8 +62,11 @@ export default ({ title, xs }) => {
 
     // The makeStyles hook was added within the component due to the reliance of
     // the context information
-    const useStyles = makeStyles(() => ({
+    const useStyles = makeStyles((theme) => ({
         container: {
+            [theme.breakpoints.up('md')]: {
+                padding: "40px 20%"
+            },
             marginTop: 120 + parseInt(context.title.marginTop),
             padding: 40,
             display: 'flex',
@@ -138,10 +143,10 @@ export default ({ title, xs }) => {
 
     // This function generate the current date and parses it to be applied to the
     // elements below
-    const generateDate = () => {
+    const generatedDate = (() => {
         const now = new Date();
         return `${months[now.getMonth()]} ${now.getDate()}`;
-    };
+    })();
 
     if ( (title) && (title !== 'new') && (!context.title.text) ) {
         return (
@@ -184,7 +189,7 @@ export default ({ title, xs }) => {
 
                     <Avatar
                         className={classes.avatar}
-                        src={`https://media.licdn.com/dms/image/C4E03AQESXvxigX8NfQ/profile-displayphoto-shrink_800_800/0?e=1571875200&v=beta&t=jVs0jK8YKBHrOOcmnghTMtN9bhPfu7rH9MHADyTboBY`}
+                        src={`data:image/jpeg;base64,${profilePhoto.url}`}
                         alt="Terri Banner Profile Photo"
                     />
 
@@ -195,7 +200,7 @@ export default ({ title, xs }) => {
                     </div>
 
                     <Typography className={classes.readLength}>
-                        {generateDate()} &#8226;
+                        {generatedDate} &#8226;
                     </Typography>
 
                     <TextField
@@ -235,6 +240,7 @@ export default ({ title, xs }) => {
                         );
                     }
                     if (section.isImage) {
+                        let image = Buffer.from(section.src.data, 'binary');
                         return (
                             <div
                                 style={{
@@ -247,7 +253,7 @@ export default ({ title, xs }) => {
                                 key={index}
                             >
                                 <Image
-                                    src={section.src}
+                                    src={image}
                                     index={index}
                                 />
                             </div>

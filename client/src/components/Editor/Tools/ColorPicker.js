@@ -231,7 +231,7 @@ export default ({ margin }) => {
   return (
     <>
         <Button
-            style={{ marginRight: margin }}
+            style={{ width: '100%' }}
             aria-describedby={id}
             variant="contained"
             onClick={handleClick}

@@ -21,7 +21,7 @@ export default ({ margin, xs }) => {
                 disabled={handleSwitch("left")}
                 onClick={() => holder.handleJustify('left')}
                 variant="contained"
-                style={{ marginRight: margin }}
+                style={{ width: "100%" }}
             >
                 <Icon
                     fontSize={xs ? 'small' : 'large'}
@@ -33,7 +33,7 @@ export default ({ margin, xs }) => {
                 disabled={handleSwitch("center")}
                 onClick={() => holder.handleJustify('center')}
                 variant="contained"
-                style={{ marginRight: margin }}
+                style={{ width: "100%" }}
             >
                 <Icon
                     fontSize={xs ? 'small' : 'large'}
@@ -45,7 +45,7 @@ export default ({ margin, xs }) => {
                 disabled={handleSwitch("right")}
                 onClick={() => holder.handleJustify('right')}
                 variant="contained"
-                style={{ marginRight: margin }}
+                style={{ width: "100%" }}
             >
                 <Icon
                     fontSize={xs ? 'small' : 'large'}
@@ -57,7 +57,7 @@ export default ({ margin, xs }) => {
                 disabled={handleSwitch("justify")}
                 onClick={() => holder.handleJustify('justify')}
                 variant="contained"
-                style={{ marginRight: margin }}
+                style={{ width: "100%" }}
             >
                 <Icon
                     fontSize={xs ? 'small' : 'large'}

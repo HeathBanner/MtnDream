@@ -57,7 +57,7 @@ export default ({ margin, xs }) => {
                     disabled={true}
                     onClick={() => holder.handleStyling('bold')}
                     variant="contained"
-                    style={{ marginRight: margin }}
+                    style={{ width: '100%' }}
                 >
                     <Icon
                         fontSize={xs ? 'small' : 'large'}
@@ -70,7 +70,7 @@ export default ({ margin, xs }) => {
                     disabled={true}
                     onClick={() => holder.handleStyling('italic')}
                     variant="contained"
-                    style={{ marginRight: margin }}
+                    style={{ width: '100%' }}
                 >
                     <Icon
                         fontSize={xs ? 'small' : 'large'}
@@ -83,7 +83,7 @@ export default ({ margin, xs }) => {
                     disabled={true}
                     onClick={() => holder.handleStyling('underline')}
                     variant="contained"
-                    style={{ marginRight: margin }}
+                    style={{ width: '100%' }}
                 >
                     <Icon
                         fontSize={xs ? 'small' : 'large'}
@@ -98,7 +98,7 @@ export default ({ margin, xs }) => {
                     <ColorPicker />
                         :
                     <Button
-                        style={{ marginRight: margin }}
+                        style={{ width: '100%' }}
                         disabled={true}
                         variant="contained"
                     >
@@ -114,7 +114,7 @@ export default ({ margin, xs }) => {
                     disabled={true}
                     onClick={() => holder.handleStyling('highlight')}
                     variant="contained"
-                    style={{ marginRight: margin }}
+                    style={{ width: '100%' }}
                 >
                     <Icon
                         fontSize={xs ? 'small' : 'large'}
@@ -131,7 +131,7 @@ export default ({ margin, xs }) => {
                     className={checkDisabled('bold') ? classes.disabled : classes.active}
                     onClick={() => holder.handleStyling('bold')}
                     variant="contained"
-                    style={{ marginRight: margin }}
+                    style={{ width: '100%' }}
                 >
                     <Icon
                         fontSize={xs ? 'small' : 'large'}
@@ -144,7 +144,7 @@ export default ({ margin, xs }) => {
                     className={checkDisabled('italic') ? classes.disabled : classes.active}
                     onClick={() => holder.handleStyling('italic')}
                     variant="contained"
-                    style={{ marginRight: margin }}
+                    style={{ width: '100%' }}
                 >
                     <Icon
                         fontSize={xs ? 'small' : 'large'}
@@ -157,7 +157,7 @@ export default ({ margin, xs }) => {
                     className={checkDisabled('underline') ? classes.disabled : classes.active}
                     onClick={() => holder.handleStyling('underline')}
                     variant="contained"
-                    style={{ marginRight: margin }}
+                    style={{ width: '100%' }}
                 >
                     <Icon
                         fontSize={xs ? 'small' : 'large'}
@@ -172,7 +172,7 @@ export default ({ margin, xs }) => {
                     <ColorPicker />
                         :
                     <Button
-                        style={{ marginRight: margin }}
+                        style={{ width: '100%' }}
                         disabled={true}
                         variant="contained"
                     >
@@ -188,7 +188,7 @@ export default ({ margin, xs }) => {
                     className={checkDisabled('highlight') ? classes.disabled : classes.active}
                     onClick={() => holder.handleStyling('highlight')}
                     variant="contained"
-                    style={{ marginRight: margin }}
+                    style={{ width: '100%' }}
                 >
                     <Icon
                         fontSize={xs ? 'small' : 'large'}
